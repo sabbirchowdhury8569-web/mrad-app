@@ -1,0 +1,2631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mr.AD — আইনি সহায়তা</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --seal: #0B4A32;
+    --seal-deep: #063324;
+    --brass: #B9862F;
+    --brass-soft: #E4C77E;
+    --paper: #F2EEE1;
+    --paper-card: #FBF9F2;
+    --ink: #201C12;
+    --ink-soft: #5B5748;
+    --line: #D9D2BE;
+    --stamp: #A3362B;
+    --bg: var(--paper);
+    --text: var(--ink);
+    --text-soft: var(--ink-soft);
+    --card: var(--paper-card);
+    --border: var(--line);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14170F;
+      --text: #EFEAD9;
+      --text-soft: #B6AF98;
+      --card: #1B2018;
+      --border: #333527;
+      --paper-card: #1B2018;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14170F;
+    --text: #EFEAD9;
+    --text-soft: #B6AF98;
+    --card: #1B2018;
+    --border: #333527;
+    --paper-card: #1B2018;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background .3s ease, color .3s ease;
+  }
+  body[data-lang="bn"] { font-family: 'Noto Sans Bengali', 'Inter', sans-serif; }
+  .serif { font-family: 'Fraunces', serif; }
+  body[data-lang="bn"] .serif { font-family: 'Noto Serif Bengali', 'Fraunces', serif; }
+
+  a { color: inherit; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- Top bar ---------- */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px;
+    max-width: 760px; margin: 0 auto;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+
+  /* Phones: let rows wrap instead of pushing the language/mode toggles off-screen. */
+  .topbar { flex-wrap: wrap; row-gap: 10px; }
+  .panel-title { flex-wrap: wrap; row-gap: 10px; }
+  .panel-actions { flex-wrap: wrap; }
+  @media (max-width: 560px) {
+    .topbar { padding: 12px 14px; }
+    .brand-sub { display: none; }
+    .top-actions { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 8px !important; }
+    .panel-actions { width: 100%; justify-content: space-between; }
+  }
+  .seal-mark {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid var(--brass);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--brass);
+    flex-shrink: 0;
+  }
+  .brand-name { font-size: 17px; font-weight: 600; letter-spacing: 0.01em; }
+  .brand-sub { font-size: 11px; color: var(--text-soft); margin-top: -2px; }
+
+  .lang-toggle {
+    display: flex; border: 1px solid var(--border); border-radius: 999px;
+    padding: 3px; gap: 2px; background: var(--card);
+  }
+  .lang-toggle button {
+    border: none; background: transparent; padding: 6px 14px;
+    border-radius: 999px; font-size: 13px; font-weight: 600;
+    cursor: pointer; color: var(--text-soft);
+    font-family: inherit;
+  }
+  .lang-toggle button.active { background: var(--seal); color: #fff; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 46px 0 30px; }
+  .hero .kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--brass); font-weight: 600; margin-bottom: 14px;
+  }
+  .kicker::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brass);
+  }
+  h1.headline {
+    font-size: 34px; line-height: 1.18; font-weight: 600; margin: 0 0 14px;
+    max-width: 15ch;
+  }
+  .hero p.lede {
+    font-size: 16px; line-height: 1.6; color: var(--text-soft); max-width: 46ch; margin: 0 0 22px;
+  }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--seal); color: #fff; border: none; padding: 13px 22px;
+    border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-primary:hover { background: var(--seal-deep); }
+  .btn-ghost {
+    background: transparent; color: var(--text); border: 1px solid var(--border);
+    padding: 13px 22px; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer;
+    font-family: inherit;
+  }
+
+  .audience-row {
+    display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap;
+  }
+  .chip {
+    font-size: 12.5px; color: var(--text-soft); border: 1px solid var(--border);
+    padding: 6px 12px; border-radius: 999px; background: var(--card);
+  }
+
+  /* ---------- Conversation ---------- */
+  main { padding-bottom: 140px; }
+  .panel-title {
+    font-size: 12px; letter-spacing: .04em; color: var(--text-soft);
+    margin: 34px 0 14px; font-weight: 600; text-transform: none;
+    border-top: 1px solid var(--border); padding-top: 22px;
+  }
+
+  #thread { display: flex; flex-direction: column; gap: 16px; }
+
+  .msg { display: flex; }
+  .msg.user { justify-content: flex-end; }
+  .bubble-user {
+    background: var(--seal); color: #fff; padding: 12px 16px; border-radius: 14px 14px 3px 14px;
+    max-width: 82%; font-size: 14.5px; line-height: 1.55; white-space: pre-wrap;
+  }
+  .bubble-ad {
+    background: var(--card); border: 1px solid var(--border); padding: 16px 18px 14px;
+    border-radius: 3px 14px 14px 14px; max-width: 92%; font-size: 14.5px; line-height: 1.65;
+  }
+  .bubble-ad h3 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    color: var(--brass); margin: 14px 0 6px; font-weight: 700;
+  }
+  .bubble-ad h3:first-child { margin-top: 0; }
+  .bubble-ad ul { margin: 4px 0 10px; padding-left: 18px; }
+  .bubble-ad li { margin-bottom: 5px; }
+  .bubble-ad p { margin: 0 0 10px; }
+  .bubble-ad pre {
+    background: var(--bg); border: 1px dashed var(--border); border-radius: 8px;
+    padding: 12px; font-family: 'Inter', monospace; font-size: 13px; white-space: pre-wrap;
+    line-height: 1.6; margin: 6px 0 10px;
+  }
+  .ad-avatar {
+    display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700;
+    color: var(--seal); margin-bottom: 10px;
+  }
+  .ad-avatar .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--seal); }
+
+  .disclaimer-strip {
+    margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border);
+    font-size: 12px; color: var(--stamp); line-height: 1.5; display: flex; gap: 7px;
+  }
+
+  .draft-actions { margin-top: 8px; }
+  .btn-small {
+    font-size: 12.5px; font-weight: 600; color: var(--seal); background: transparent;
+    border: 1px solid var(--seal); padding: 6px 12px; border-radius: 8px; cursor: pointer;
+    font-family: inherit;
+  }
+
+  .thinking {
+    display: flex; align-items: center; gap: 8px; color: var(--text-soft); font-size: 13.5px;
+    padding: 4px 2px;
+  }
+  .thinking .pulse {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--brass);
+    animation: pulse 1.1s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: .25; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.1); } }
+
+  /* ---------- Composer ---------- */
+  .composer-wrap {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    padding-top: 14px;
+    background: linear-gradient(to top, var(--bg) 60%, transparent);
+  }
+  .composer {
+    max-width: 760px; margin: 0 auto; padding: 0 20px;
+    display: flex; gap: 10px; align-items: flex-end;
+  }
+  .composer textarea {
+    flex: 1; resize: none; border: 1px solid var(--border); border-radius: 14px;
+    padding: 13px 16px; font-size: 15px; font-family: inherit; background: var(--card);
+    color: var(--text); line-height: 1.5; max-height: 120px;
+  }
+  .composer textarea:focus { outline: 2px solid var(--brass); outline-offset: 1px; }
+  .send-btn {
+    background: var(--seal); color: #fff; border: none; width: 46px; height: 46px;
+    border-radius: 12px; cursor: pointer; flex-shrink: 0; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .send-btn:disabled { opacity: .45; cursor: default; }
+
+  .attach-btn {
+    background: var(--card); color: var(--text-soft); border: 1px solid var(--border);
+    width: 46px; height: 46px; border-radius: 12px; cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .attach-btn:hover { color: var(--seal); border-color: var(--seal); }
+
+  .qs-chip {
+    font-size: 13px; font-weight: 600; color: var(--seal); border: 1px solid var(--seal);
+    padding: 8px 14px; border-radius: 999px; background: var(--card); cursor: pointer;
+    font-family: inherit;
+  }
+  .qs-chip:hover { background: var(--seal); color: #fff; }
+
+  .feedback-row { display:flex; align-items:center; gap:10px; margin-top:10px; }
+  .fb-btn {
+    background: none; border: 1px solid var(--border); border-radius: 7px; width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-soft);
+  }
+  .fb-btn:hover { border-color: var(--seal); color: var(--seal); }
+  .fb-btn.selected { background: var(--seal); border-color: var(--seal); color: #fff; }
+  .fb-btn:disabled { cursor: default; }
+  .listen-btn {
+    background: none; border: 1px solid var(--border); border-radius: 7px; width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text-soft); font-size: 14px;
+  }
+  .listen-btn:hover { border-color: var(--seal); }
+  .tts-note { font-size: 11px; color: var(--stamp); }
+  .fb-thanks { font-size: 11.5px; color: var(--text-soft); }
+
+  .mic-btn { color: var(--text-soft); }
+  .mic-btn.listening { color: var(--stamp); animation: pulse 1.1s ease-in-out infinite; }
+
+  .case-row {
+    display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px;
+    border: 1px solid var(--border); cursor: pointer; background: var(--card);
+  }
+  .case-row:hover { border-color: var(--seal); }
+  .case-row.active { border-color: var(--seal); background: color-mix(in srgb, var(--seal) 8%, var(--card)); }
+  .case-icon-btn {
+    background: none; border: none; font-size: 15px; cursor: pointer; padding: 4px; border-radius: 6px;
+    flex-shrink: 0; opacity: .7;
+  }
+  .case-icon-btn:hover { opacity: 1; background: var(--bg); }
+
+  .src-badge { margin-top: 12px; padding: 10px 12px; border-radius: 9px; font-size: 12px; line-height: 1.5; border: 1px solid var(--border); background: var(--bg); color: var(--text-soft); }
+  .src-ok { border-color: var(--seal); }
+  .src-ok b { color: var(--seal); }
+  .src-warn { border-color: var(--brass); }
+  .src-warn b { color: var(--brass); }
+  .src-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .src-chip { font-size: 11px; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--card); color: var(--text); }
+  .src-volatile { color: var(--stamp); font-weight: 700; }
+
+  .attach-menu {
+    position: absolute; bottom: calc(100% + 8px); left: 0; z-index: 40;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 6px; display: none; flex-direction: column; gap: 2px; min-width: 150px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  }
+  .attach-menu.open { display: flex; }
+  .attach-menu-item {
+    display: flex; align-items: center; gap: 9px; padding: 9px 10px; border-radius: 8px;
+    border: none; background: transparent; cursor: pointer; font-family: inherit;
+    font-size: 13.5px; color: var(--text); text-align: left; width: 100%;
+  }
+  .attach-menu-item:hover { background: var(--bg); }
+  .attach-menu-item.disabled { color: var(--text-soft); cursor: default; }
+  .attach-menu-item.disabled:hover { background: transparent; }
+  .soon-tag {
+    margin-left: auto; font-size: 9.5px; font-weight: 700; letter-spacing: .03em;
+    background: var(--border); color: var(--text-soft); padding: 2px 6px; border-radius: 5px;
+  }
+  .thumb-chip {
+    position: relative; width: 56px; height: 56px; border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--border); flex-shrink: 0;
+  }
+  .thumb-chip img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb-remove {
+    position: absolute; top: 2px; right: 2px; width: 16px; height: 16px; border-radius: 50%;
+    background: rgba(0,0,0,.65); color: #fff; border: none; font-size: 11px; line-height: 1;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+
+  footer {
+    text-align: center; padding: 20px 20px 4px; font-size: 12px; color: var(--text-soft);
+    max-width: 760px; margin: 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    h1.headline { font-size: 28px; }
+  }
+
+  /* ---------- Wallet pill ---------- */
+  .credit-pill {
+    font-size: 12px; font-weight: 600; color: var(--seal);
+    border: 1px solid var(--border); background: var(--card);
+    padding: 6px 12px; border-radius: 999px; cursor: pointer;
+    white-space: nowrap;
+  }
+  .credit-pill.low { color: var(--stamp); border-color: var(--stamp); }
+
+  /* ---------- Top-up amount chips ---------- */
+  .topup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+  .topup-chip {
+    border: 1px solid var(--border); background: var(--card); border-radius: 10px;
+    padding: 10px 4px; text-align: center; cursor: pointer; font-family: inherit;
+    font-size: 13px; font-weight: 700; color: var(--text);
+  }
+  .topup-chip.selected { border-color: var(--seal); background: color-mix(in srgb, var(--seal) 12%, var(--card)); color: var(--seal); }
+  .cost-strip {
+    margin-top: 8px; font-size: 11.5px; color: var(--text-soft); display: flex; gap: 6px; align-items: center;
+  }
+
+  /* ---------- Paywall modal ---------- */
+  .paywall-overlay {
+    position: fixed; inset: 0; background: rgba(10,10,8,.55);
+    display: flex; align-items: flex-end; justify-content: center; z-index: 100;
+    padding: 0; opacity: 0; pointer-events: none; transition: opacity .25s ease;
+  }
+  .paywall-overlay.open { opacity: 1; pointer-events: auto; }
+  @media (min-width: 620px) { .paywall-overlay { align-items: center; } }
+  .paywall-card {
+    background: var(--bg); width: 100%; max-width: 480px;
+    border-radius: 20px 20px 0 0; padding: 26px 24px calc(26px + env(safe-area-inset-bottom, 0px));
+    border: 1px solid var(--border); border-bottom: none;
+    transform: translateY(16px); transition: transform .25s ease;
+    max-height: 88vh; overflow-y: auto;
+  }
+  @media (min-width: 620px) { .paywall-card { border-radius: 20px; border-bottom: 1px solid var(--border); margin-bottom: 20px; } }
+  .paywall-overlay.open .paywall-card { transform: translateY(0); }
+  .paywall-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .paywall-close {
+    background: none; border: none; color: var(--text-soft); font-size: 20px; cursor: pointer;
+    line-height: 1; padding: 4px;
+  }
+  .paywall-title { font-size: 20px; font-weight: 600; margin: 0 0 6px; }
+  .paywall-sub { font-size: 13.5px; color: var(--text-soft); line-height: 1.55; margin: 0 0 20px; }
+  .plan-row {
+    display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 18px;
+    background: var(--card);
+  }
+  .plan-price { font-size: 22px; font-weight: 700; color: var(--seal); }
+  .plan-price span { font-size: 12px; font-weight: 500; color: var(--text-soft); }
+  .pay-label { font-size: 12px; font-weight: 600; color: var(--text-soft); margin: 0 0 10px; }
+  .pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-bottom: 10px; }
+  .pay-btn {
+    border: 1px solid var(--border); background: var(--card); border-radius: 10px;
+    padding: 12px 8px; text-align: center; cursor: pointer; font-family: inherit;
+    font-size: 12.5px; font-weight: 600; color: var(--text);
+  }
+  .pay-btn:hover { border-color: var(--brass); }
+  .paywall-note { font-size: 11.5px; color: var(--text-soft); margin-top: 14px; line-height: 1.5; }
+</style>
+</head>
+<body data-lang="en">
+
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="seal-mark">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M12 3v18M5 7l-3 6a3 3 0 0 0 6 0l-3-6zM19 7l-3 6a3 3 0 0 0 6 0l-3-6zM3 7h18M8 3h8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name serif" data-i18n="brandName">Mr.AD</div>
+        <div class="brand-sub" data-i18n="brandSub">legal reasoning, Bangladesh</div>
+      </div>
+    </div>
+    <div class="top-actions" style="display:flex; align-items:center; gap:10px;">
+      <button class="btn-small" id="signupBtn" onclick="openSignup()" data-i18n="signupBtn" style="white-space:nowrap;">Sign up</button>
+      <button class="btn-small" id="referBtn" onclick="openRefer()" data-i18n="referBtn" style="display:none; white-space:nowrap;">🎁 Refer &amp; earn</button>
+      <div class="credit-pill" id="creditPill"></div>
+      <div class="lang-toggle">
+        <button id="btn-bn" onclick="setLang('bn')">বাংলা</button>
+        <button id="btn-en" class="active" onclick="setLang('en')">English</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero">
+      <div class="kicker" data-i18n="kicker">Bangladesh · First AI legal reasoning assistant</div>
+      <h1 class="headline serif" data-i18n="headline">Your legal footing, laid out in plain conversation.</h1>
+      <p class="lede" data-i18n="lede">Describe what happened — a dispute, a notice, a case you're drafting for. Mr.AD walks through the applicable law, your options, and a first draft, the way an advocate would at your first sitting.</p>
+      <div id="welcomeBanner" style="display:none; align-items:center; gap:10px; background:var(--card); border:1px solid var(--brass-soft); border-radius:10px; padding:10px 14px; margin-bottom:18px; font-size:13px; color:var(--text);">
+        <span data-i18n="welcomeCredit" style="flex:1;">You get 10 free questions every month. After that, top up credits to keep going — 10 credits per question.</span>
+        <button onclick="document.getElementById('welcomeBanner').style.display='none'" style="background:none;border:none;font-size:16px;color:var(--text-soft);cursor:pointer;line-height:1;" aria-label="Dismiss">&times;</button>
+      </div>
+      <div class="cta-row">
+        <button class="btn-primary" data-i18n="ctaStart" onclick="focusComposer()">Describe your issue</button>
+        <button class="btn-ghost" data-i18n="ctaSample" onclick="loadSample()">See an example</button>
+      </div>
+      <div class="audience-row">
+        <span class="chip" data-i18n="chip1">Tenants &amp; landlords</span>
+        <span class="chip" data-i18n="chip2">Family &amp; inheritance</span>
+        <span class="chip" data-i18n="chip3">Employment disputes</span>
+        <span class="chip" data-i18n="chip4">Law students &amp; junior lawyers</span>
+        <span class="chip" data-i18n="chip5">Contracts &amp; drafting</span>
+      </div>
+    </section>
+
+    <div class="panel-title" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+      <span data-i18n="panelTitle">Case conversation</span>
+      <div class="panel-actions" style="display:flex; align-items:center; gap:8px;">
+        <button class="btn-small" id="myCasesBtn" onclick="openCasesPanel()" data-i18n="myCases" style="white-space:nowrap;">📁 My cases</button>
+        <button class="btn-small" id="newCaseBtn" onclick="startNewCase()" data-i18n="newCase" style="display:none; white-space:nowrap;">New case</button>
+        <div class="lang-toggle" id="modeToggle" style="flex-shrink:0;">
+          <button id="btn-mode-plain" class="active" onclick="setMode('plain')" data-i18n="modePlain">Plain language</button>
+          <button id="btn-mode-exact" onclick="setMode('exact')" data-i18n="modeExact">Exact wording</button>
+        </div>
+      </div>
+    </div>
+    <div id="modeHint" style="font-size:11.5px; color:var(--text-soft); margin:-10px 0 14px;" data-i18n="modeHintPlain">Answers explained in everyday language — best for understanding your situation.</div>
+    <div id="quickStarts" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;"></div>
+    <div id="thread"></div>
+  </div>
+</main>
+
+<div class="composer-wrap">
+  <div id="imageThumbs" style="display:none; gap:8px; max-width:760px; margin:0 auto 8px; padding:0 20px; flex-wrap:wrap;"></div>
+  <div class="composer">
+    <div style="position:relative;">
+      <button class="attach-btn" id="attachBtn" onclick="toggleAttachMenu()" aria-label="Add files">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="attach-menu" id="attachMenu">
+        <button class="attach-menu-item" onclick="chooseAttachType('image')">
+          <span>🖼️</span><span data-i18n="attachImage">Image</span>
+        </button>
+        <button class="attach-menu-item disabled" onclick="chooseAttachType('docs')">
+          <span>📄</span><span data-i18n="attachDocs">Docs</span><span class="soon-tag" data-i18n="attachSoon">Soon</span>
+        </button>
+        <button class="attach-menu-item disabled" onclick="chooseAttachType('audio')">
+          <span>🎤</span><span data-i18n="attachAudio">Audio</span><span class="soon-tag" data-i18n="attachSoon">Soon</span>
+        </button>
+        <button class="attach-menu-item disabled" onclick="chooseAttachType('video')">
+          <span>🎬</span><span data-i18n="attachVideo">Video</span><span class="soon-tag" data-i18n="attachSoon">Soon</span>
+        </button>
+      </div>
+    </div>
+    <input type="file" id="fileInput" accept="image/*" multiple style="display:none;" onchange="handleFileSelect(this.files)">
+    <button class="attach-btn mic-btn" id="micBtn" onclick="toggleVoiceInput()" aria-label="Voice input" style="display:none;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <textarea id="input" rows="1" data-i18n-ph="placeholder" placeholder="Type what happened — dates, people involved, documents you have…"></textarea>
+    <button class="send-btn" id="sendBtn" onclick="sendMessage()" aria-label="Send">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+  <div style="text-align:center;">
+    <div style="max-width:760px;margin:6px auto 0;padding:0 20px;font-size:10.5px;color:var(--text-soft);" data-i18n="attachHint">
+      You can attach photos of documents (agreements, notices, cheques). PDFs and audio aren't supported yet — a photo or screenshot works instead.
+    </div>
+    <div style="max-width:760px;margin:4px auto 0;padding:0 20px;font-size:11px;color:var(--text-soft);">
+      <span data-i18n="footNote">Mr.AD is not a licensed advocate and cannot represent you in court. Always confirm analysis and drafts with a qualified lawyer before acting.</span>
+      &nbsp;<a href="#" onclick="document.getElementById('termsOverlay').classList.add('open'); return false;" style="color:var(--text-soft); text-decoration:underline;" data-i18n="termsLink">Billing terms</a>
+      &nbsp;<a href="https://claude.ai/artifact/DRQePMpQACLtBVxL2a61Kb" target="_blank" rel="noopener" style="color:var(--text-soft); text-decoration:underline;" data-i18n="tosLink">Terms of Service</a>
+      &nbsp;<a href="https://claude.ai/artifact/82hqq9gF8qPLzNvqSNCMNi" target="_blank" rel="noopener" style="color:var(--text-soft); text-decoration:underline;" data-i18n="privacyLink">Privacy</a>
+      &nbsp;<a href="#" onclick="openFeedbackLog(); return false;" style="color:var(--text-soft); text-decoration:underline; opacity:.6;" data-i18n="feedbackLogLink">Feedback log (internal)</a>
+      &nbsp;<a href="#" onclick="openPrivacy(); return false;" style="color:var(--text-soft); text-decoration:underline;" data-i18n="privacyDataLink">Privacy &amp; data</a>
+      &nbsp;<a href="#" onclick="openRetrievalTest(); return false;" style="color:var(--text-soft); text-decoration:underline; opacity:.6;" data-i18n="retrievalTestLink">Retrieval self-test (internal)</a>
+      &nbsp;<a href="#" onclick="resetDemoData(); return false;" style="color:var(--stamp); text-decoration:underline; opacity:.6;" data-i18n="resetDemoLink">Reset demo data (testing)</a>
+    </div>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="termsOverlay" onclick="if(event.target===this) this.classList.remove('open')">
+  <div class="paywall-card">
+    <div class="paywall-head">
+      <div class="paywall-title" data-i18n="termsTitle">Terms — credits &amp; billing</div>
+      <button class="paywall-close" onclick="document.getElementById('termsOverlay').classList.remove('open')" aria-label="Close">&times;</button>
+    </div>
+    <p class="paywall-sub" data-i18n="termsBody" style="margin-bottom:0;">1 credit = 1 BDT of value, applied to Claude usage plus Mr.AD's service fee. Credits are non-refundable, non-transferable, and redeemable only for Mr.AD usage — they cannot be withdrawn or exchanged for cash.</p>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="lawyerOverlay" onclick="if(event.target===this) closeLawyer()">
+  <div class="paywall-card">
+    <div class="paywall-head">
+      <div class="paywall-title" data-i18n="lawyerTitle">Talk to a real lawyer</div>
+      <button class="paywall-close" onclick="closeLawyer()" aria-label="Close">&times;</button>
+    </div>
+    <p class="paywall-sub" data-i18n="lawyerSub">Mr.AD can explain your situation, but only a licensed advocate can represent you or give advice you can fully rely on. Two real ways forward:</p>
+
+    <div class="pay-label" data-i18n="lawyerOfficialLabel">Verify a lawyer's license</div>
+    <p style="font-size:12.5px; color:var(--text-soft); margin:0 0 12px;" data-i18n="lawyerOfficialBody">The Bangladesh Bar Council is the official body that licenses and regulates advocates — not a lawyer-search directory, but the right place to confirm someone's enrollment is genuine.</p>
+    <a href="https://www.barcouncil.gov.bd" target="_blank" rel="noopener" class="btn-primary" id="regulatorLink" style="display:block; text-align:center; text-decoration:none; margin-bottom:18px;">barcouncil.gov.bd ↗</a>
+
+    <div class="pay-label" data-i18n="lawyerCallbackLabel">Request a callback</div>
+    <input type="text" id="lawyerName" data-i18n-ph="signupNamePh" placeholder="Full name" style="width:100%; font-size:14px; padding:11px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--text); font-family:inherit; margin-bottom:8px;">
+    <input type="tel" id="lawyerMobile" data-i18n-ph="signupMobilePh" placeholder="Mobile number (e.g. 01XXXXXXXXX)" style="width:100%; font-size:14px; padding:11px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--text); font-family:inherit; margin-bottom:8px;">
+    <textarea id="lawyerBrief" rows="2" data-i18n-ph="lawyerBriefPh" placeholder="One or two lines about your issue" style="width:100%; font-size:14px; padding:11px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--text); font-family:inherit; margin-bottom:6px; resize:vertical;"></textarea>
+    <div id="lawyerFormNote" style="display:none; font-size:11.5px; color:var(--stamp); margin-bottom:8px;" data-i18n="signupFormNote">Please fill in both fields.</div>
+    <button class="btn-primary" style="width:100%;" onclick="submitLawyerRequest()" data-i18n="lawyerSubmit">Request callback</button>
+    <div class="paywall-note" data-i18n="lawyerNote">This is a design preview — no request is actually sent anywhere yet. A live version would route this to a real referral network, which is a partnership still to be built, not a live service today.</div>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="casesOverlay" onclick="if(event.target===this) closeCasesPanel()">
+  <div class="paywall-card">
+    <div class="paywall-head">
+      <div class="paywall-title" data-i18n="myCasesTitle">My cases</div>
+      <button class="paywall-close" onclick="closeCasesPanel()" aria-label="Close">&times;</button>
+    </div>
+    <button class="btn-primary" style="width:100%; margin-bottom:14px;" onclick="startNewCase()" data-i18n="newCase">New case</button>
+    <div id="casesList" style="display:flex; flex-direction:column; gap:6px; max-height:50vh; overflow-y:auto;"></div>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="referralOverlay" onclick="if(event.target===this) closeRefer()">
+  <div class="paywall-card">
+    <div class="paywall-head">
+      <div class="paywall-title" data-i18n="referTitle">Refer a friend, earn credits</div>
+      <button class="paywall-close" onclick="closeRefer()" aria-label="Close">&times;</button>
+    </div>
+    <p class="paywall-sub" data-i18n="referSub">Share your code. When a friend signs up with it, they get 50 bonus credits.</p>
+    <div style="text-align:center; font-size:24px; font-weight:700; letter-spacing:.04em; color:var(--seal); background:var(--card); border:1px dashed var(--seal); border-radius:12px; padding:16px; margin-bottom:14px;" id="referralCodeDisplay"></div>
+    <button class="btn-primary" style="width:100%; margin-bottom:12px;" id="copyReferralBtn" onclick="copyReferralCode()" data-i18n="copyCode">Copy code</button>
+    <div class="paywall-note" data-i18n="referNote">This is a design preview. Your friend's bonus works today (locally, in their own browser) — but crediting YOU back for a successful referral needs the real backend, since that means recognizing your code from a different person's device, which this browser-only prototype can't do.</div>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="feedbackLogOverlay" onclick="if(event.target===this) closeFeedbackLog()">
+  <div class="paywall-card">
+    <div class="paywall-head">
+      <div class="paywall-title" data-i18n="feedbackLogTitle">Feedback log (internal)</div>
+      <button class="paywall-close" onclick="closeFeedbackLog()" aria-label="Close">&times;</button>
+    </div>
+    <p class="paywall-sub" data-i18n="feedbackLogSub" style="margin-bottom:14px;">Thumbs up/down ratings logged in this browser only — not synced anywhere. Use this to spot which mode or language is getting more 👎, as a signal for where corpus verification needs attention.</p>
+    <div id="feedbackStats" style="margin-bottom:16px;"></div>
+    <button class="btn-small" onclick="exportFeedbackLog()" data-i18n="exportFeedback" style="margin-bottom:14px;">Export feedback (JSON)</button>
+    <div id="feedbackRawList" style="max-height:30vh; overflow-y:auto; font-size:11.5px; color:var(--text-soft);"></div>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="guidedOverlay" onclick="if(event.target===this) closeGuided()">
+  <div class="paywall-card">
+    <div class="paywall-head">
+      <div class="paywall-title" data-i18n="guidedTitle">Guided intake</div>
+      <button class="paywall-close" onclick="closeGuided()" aria-label="Close">&times;</button>
+    </div>
+    <div id="guidedBody" style="max-height:60vh; overflow-y:auto;"></div>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="privacyOverlay" onclick="if(event.target===this) closePrivacy()">
+  <div class="paywall-card">
+    <div class="paywall-head">
+      <div class="paywall-title" data-i18n="privacyDataTitle">Privacy &amp; data</div>
+      <button class="paywall-close" onclick="closePrivacy()" aria-label="Close">&times;</button>
+    </div>
+    <p class="paywall-sub" data-i18n="privacyDataSub">Your cases, credits and settings are stored only in this browser, on this device — not on a Mr.AD server. The questions you send are processed by an AI service to produce answers (see the Privacy Policy).</p>
+    <div class="pay-label" data-i18n="lockLabel">App lock</div>
+    <p style="font-size:12.5px; color:var(--text-soft); margin:0 0 10px;" data-i18n="lockNote">A PIN keeps casual snoopers out of the app screen. It does not encrypt the stored data, so it is not a substitute for your phone's own screen lock.</p>
+    <div id="lockControls" style="margin-bottom:16px;"></div>
+    <div class="pay-label" data-i18n="deleteLabel">Delete my data</div>
+    <p style="font-size:12.5px; color:var(--text-soft); margin:0 0 10px;" data-i18n="deleteNote">Removes every case, credit balance, setting and saved feedback from this device. This cannot be undone.</p>
+    <button class="btn-primary" style="width:100%; background:var(--stamp);" onclick="deleteMyData()" data-i18n="deleteBtn">Delete all my data on this device</button>
+  </div>
+</div>
+
+<div id="lockOverlay" style="display:none; position:fixed; inset:0; z-index:300; background:var(--bg); align-items:center; justify-content:center; padding:24px;">
+  <div style="max-width:320px; width:100%; text-align:center;">
+    <div style="font-size:38px; margin-bottom:8px;">🔒</div>
+    <div class="paywall-title" style="margin-bottom:6px;" data-i18n="lockTitle">Mr.AD is locked</div>
+    <p class="paywall-sub" data-i18n="lockPrompt">Enter your PIN to continue.</p>
+    <input type="password" inputmode="numeric" id="lockPinInput" maxlength="8" style="width:100%; font-size:20px; letter-spacing:.3em; text-align:center; padding:12px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--text); font-family:inherit; margin-bottom:8px;" onkeydown="if(event.key==='Enter') tryUnlock()">
+    <div id="lockError" style="display:none; font-size:12px; color:var(--stamp); margin-bottom:8px;"></div>
+    <button class="btn-primary" id="lockUnlockBtn" style="width:100%; margin-bottom:12px;" onclick="tryUnlock()" data-i18n="lockUnlock">Unlock</button>
+    <a href="#" onclick="deleteMyData(); return false;" style="font-size:12px; color:var(--text-soft); text-decoration:underline;" data-i18n="lockForgot">Forgot PIN? Delete all data and start over</a>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="retrievalTestOverlay" onclick="if(event.target===this) closeRetrievalTest()">
+  <div class="paywall-card" style="max-width:560px;">
+    <div class="paywall-head">
+      <div class="paywall-title" data-i18n="retrievalTestTitle">Retrieval self-test (internal)</div>
+      <button class="paywall-close" onclick="closeRetrievalTest()" aria-label="Close">&times;</button>
+    </div>
+    <p class="paywall-sub" data-i18n="retrievalTestSub" style="margin-bottom:12px;">Checks whether the right verified entry comes back for realistic questions. It tests retrieval only — NOT whether a final answer is legally correct, which still needs a real advocate's review.</p>
+    <div id="retrievalTestSummary" style="margin-bottom:12px;"></div>
+    <button class="btn-small" onclick="exportRetrievalTests()" data-i18n="exportTestSet" style="margin-bottom:12px;">Export test set for advocate review (JSON)</button>
+    <div id="retrievalTestList" style="max-height:40vh; overflow-y:auto; font-size:12px;"></div>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="walkthroughOverlay">
+  <div class="paywall-card">
+    <div style="text-align:right; margin-bottom:-8px;">
+      <button class="paywall-close" onclick="skipWalkthrough()" aria-label="Close">&times;</button>
+    </div>
+    <div id="wtStepContent"></div>
+    <div style="display:flex; justify-content:center; gap:6px; margin:14px 0;" id="wtDots"></div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn-ghost" style="flex:1;" onclick="skipWalkthrough()" data-i18n="wtSkip">Skip</button>
+      <button class="btn-primary" style="flex:1;" onclick="nextWalkthroughStep()" id="wtNextBtn" data-i18n="wtNext">Next</button>
+    </div>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="signupOverlay" onclick="if(event.target===this) closeSignup()">
+  <div class="paywall-card">
+    <div class="paywall-head">
+      <div class="paywall-title" data-i18n="signupTitle">Sign up to keep going</div>
+      <button class="paywall-close" onclick="closeSignup()" aria-label="Close">&times;</button>
+    </div>
+    <p class="paywall-sub" data-i18n="signupSub">You've used your free questions for this month. Sign up (it's free) to top up credits and keep going.</p>
+
+    <input type="text" id="referralCodeInput" data-i18n-ph="referralCodePh" placeholder="Referral code (optional)" style="width:100%; font-size:14px; padding:11px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--text); font-family:inherit; margin-bottom:14px;">
+
+    <div class="pay-label" data-i18n="signupTraditional">Sign up with mobile number</div>
+    <input type="text" id="signupName" data-i18n-ph="signupNamePh" placeholder="Full name" style="width:100%; font-size:14px; padding:11px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--text); font-family:inherit; margin-bottom:8px;">
+    <input type="tel" id="signupMobile" data-i18n-ph="signupMobilePh" placeholder="Mobile number (e.g. 01XXXXXXXXX)" style="width:100%; font-size:14px; padding:11px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--text); font-family:inherit; margin-bottom:6px;">
+    <input type="password" id="signupPassword" data-i18n-ph="signupPasswordPh" placeholder="Password (at least 8 characters)" autocomplete="new-password" style="width:100%; font-size:14px; padding:11px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--text); font-family:inherit; margin-bottom:8px; margin-bottom:6px;">
+    <div id="signupError" style="display:none; font-size:12px; color:var(--stamp); margin-bottom:8px;"></div>
+    <button class="btn-primary" id="signupSubmitBtn" style="width:100%; margin-bottom:10px;" onclick="submitTraditionalSignup()" data-i18n="signupSubmit">Sign up</button>
+    <button class="btn-primary" id="loginSubmitBtn" style="width:100%; margin-bottom:10px; display:none;" onclick="submitLogin()" data-i18n="loginSubmit">Log in</button>
+    <div style="text-align:center; margin-bottom:12px;">
+      <a href="#" id="toLoginLink" onclick="setSignupMode('login'); return false;" data-i18n="signupToLogin" style="font-size:12.5px;">Already have an account? Log in</a>
+      <a href="#" id="toSignupLink" onclick="setSignupMode('signup'); return false;" data-i18n="loginToSignup" style="font-size:12.5px; display:none;">New here? Create an account</a>
+    </div>
+
+    <div class="pay-label" data-i18n="signupOr">Or continue with</div>
+    <div class="pay-grid" style="grid-template-columns: 1fr 1fr;">
+      <button class="pay-btn" onclick="showSignupError('errSoon')">Google</button>
+      <button class="pay-btn" onclick="showSignupError('errSoon')">Facebook</button>
+    </div>
+    <div class="paywall-note" data-i18n="signupNote">This is a design preview — no real account is created here. In the published app this hands off to real mobile OTP verification and Google/Facebook sign-in.</div>
+  </div>
+</div>
+
+<div class="paywall-overlay" id="paywallOverlay" onclick="if(event.target===this) closePaywall()">
+  <div class="paywall-card">
+    <div class="paywall-head">
+      <div>
+        <div class="paywall-title" data-i18n="paywallTitle">You've used this week's free credits</div>
+      </div>
+      <button class="paywall-close" onclick="closePaywall()" aria-label="Close">&times;</button>
+    </div>
+    <p class="paywall-sub" data-i18n="paywallSub">Your 100 free trial credits are used up. Top up to keep going — pay with bKash, Nagad, Rocket, Bangla QR, card, or bank transfer.</p>
+    <div class="pay-label" data-i18n="topupLabel">Top up amount</div>
+    <div class="topup-grid" id="topupGrid">
+      <button class="topup-chip selected" onclick="selectTopup(300, this)">300</button>
+      <button class="topup-chip" onclick="selectTopup(500, this)">500</button>
+      <button class="topup-chip" onclick="selectTopup(1000, this)">1000</button>
+    </div>
+    <div style="font-size:11px; color:var(--text-soft); margin:-8px 0 14px;" data-i18n="expiryPolicyNote">Credits expire 30 days after purchase if unused. Topping up again restores any expired credits.</div>
+    <div class="pay-label" data-i18n="payLabel">Pay with</div>
+    <div class="pay-grid">
+      <button class="pay-btn" onclick="mockPay('bKash')">bKash</button>
+      <button class="pay-btn" onclick="mockPay('Nagad')">Nagad</button>
+      <button class="pay-btn" onclick="mockPay('Rocket')">Rocket</button>
+      <button class="pay-btn" onclick="mockPay('QR')" data-i18n="payQR">Bangla QR</button>
+      <button class="pay-btn" onclick="mockPay('Card')" data-i18n="payCard">Debit / Credit Card</button>
+      <button class="pay-btn" onclick="mockPay('Bank')" data-i18n="payBank">Bank transfer</button>
+    </div>
+    <div class="paywall-note" data-i18n="paywallNote">This is a design preview — no real payment is processed here. In the published app, this screen hands off to a licensed Bangladeshi payment gateway.</div>
+  </div>
+</div>
+
+<script>
+/* ---------------- i18n ---------------- */
+const STR = {
+  en: {
+    brandName: "Mr.AD", brandSub: "legal reasoning, Bangladesh",
+    kicker: "Bangladesh · AI legal reasoning assistant",
+    headline: "Your legal footing, laid out in plain conversation.",
+    lede: "Describe what happened — a dispute, a notice, a case you're drafting for. Mr.AD walks through the applicable law, your options, and a first draft, the way an advocate would at your first sitting.",
+    ctaStart: "Describe your issue", ctaSample: "See an example",
+    chip1: "Tenants & landlords", chip2: "Family & inheritance", chip3: "Employment disputes",
+    chip4: "Law students & junior lawyers", chip5: "Contracts & drafting",
+    panelTitle: "Case conversation",
+    modePlain: "Plain language", modeExact: "Exact wording",
+    modeHintPlain: "Answers explained in everyday language — best for understanding your situation.",
+    modeHintExact: "Answers quote the actual statutory text verbatim, with precise section numbers — best for research, filings, and drafting. Uses more credits per reply.",
+    placeholder: "Type what happened — dates, people involved, documents you have…",
+    footNote: "Mr.AD is not a licensed advocate and cannot represent you in court. Always confirm analysis and drafts with a qualified lawyer before acting.",
+    thinking: "Mr.AD is reviewing your case…",
+    disclaimer: "I can make mistakes — please show my analysis and drafts to a real lawyer for further clarification.",
+    downloadDraft: "Download this draft",
+    savedFile: "Saved.",
+    sample: "My landlord in Dhanmondi is refusing to return my BDT 50,000 security deposit two months after I vacated the flat. I have the rental agreement and bank transfer receipts. What can I do?",
+    connectFail: "Mr.AD couldn't reach the reasoning engine just now. Please try again in a moment.",
+    walletPill: (bal) => `${bal} credits`,
+    freeQuestionsPill: (n) => `${n} free question${n===1?'':'s'} this month`,
+    signupBtn: "Sign up",
+    newCase: "New case",
+    feedbackThanks: "Thanks for the feedback",
+    quickStarts: ["Landlord won't return my deposit", "I received a legal notice", "Workplace dispute", "A cheque bounced", "Family or divorce matter"],
+    talkToLawyer: "Talk to a real lawyer",
+    lawyerTitle: "Talk to a real lawyer",
+    lawyerSub: "Mr.AD can explain your situation, but only a licensed advocate can represent you or give advice you can fully rely on. Two real ways forward:",
+    lawyerOfficialLabel: "Verify a lawyer's license",
+    lawyerOfficialBody: "The Bangladesh Bar Council is the official body that licenses and regulates advocates — not a lawyer-search directory, but the right place to confirm someone's enrollment is genuine.",
+    lawyerCallbackLabel: "Request a callback",
+    lawyerBriefPh: "One or two lines about your issue",
+    lawyerSubmit: "Request callback",
+    lawyerNote: "This is a design preview — no request is actually sent anywhere yet. A live version would route this to a real referral network, which is a partnership still to be built, not a live service today.",
+    lawyerRequestReceived: "Request saved locally for this preview. A live app would notify a real referral network now.",
+    signupTitle: "Sign up to keep going",
+    signupSub: "You've used your free questions for this month. Sign up (it's free) to top up credits and keep going.",
+    signupTraditional: "Sign up with mobile number",
+    signupNamePh: "Full name", signupMobilePh: "Mobile number (e.g. 01XXXXXXXXX)",
+    signupFormNote: "Please fill in both fields.",
+    signupPasswordPh: "Password (at least 8 characters)", loginSubmit: "Log in",
+    signupToLogin: "Already have an account? Log in", loginToSignup: "New here? Create an account",
+    errFields: "Please fill in all the required fields.", errShortPw: "Password must be at least 8 characters.",
+    errExists: "An account with this mobile number already exists. Please log in instead.",
+    errCreds: "Wrong mobile number or password.",
+    errNetwork: "Could not reach the server. It may be waking up - please wait about a minute and try again.",
+    errGeneric: "Something went wrong. Please try again.", busy: "Please wait...",
+    signupNeed: "Sign up (it's free) to start asking questions. You get 10 free questions every month.",
+    sessionExpired: "Your session has ended. Please log in again.",
+    payComingSoon: "Online payment (bKash, Nagad, card) is being set up and will be available very soon. Your free questions keep working until then.",
+    errSoon: "Google and Facebook sign-in are coming very soon. Please sign up with your mobile number for now.",
+    signupSubmit: "Sign up", signupOr: "Or continue with",
+    signupNote: "Your account is created on our server. Mobile OTP verification and Google/Facebook sign-in are coming soon.",
+    attachHint: "You can attach photos of documents (agreements, notices, cheques). PDFs and audio aren't supported yet — a photo or screenshot works instead.",
+    attachImage: "Image", attachDocs: "Docs", attachAudio: "Audio", attachVideo: "Video", attachSoon: "Soon",
+    attachNotYet: "Document and audio uploads are coming soon — for now, please attach a photo or screenshot of the file instead.",
+    imagesAttached: (n) => `${n} photo${n===1?'':'s'} attached`,
+    imageRejected: "That image couldn't be processed — try a clearer photo or a different file.",
+    imagesUnavailable: "Photo attachments aren't supported in how you're currently viewing this app — try opening it in a different view, or just describe the document in text for now.",
+    imageTooLarge: "That photo is too large — try a smaller image.",
+    paywallTitle: "You're out of credits",
+    paywallSub: "Your 100 free trial credits are used up. Top up to keep going — pay with bKash, Nagad, Rocket, Bangla QR, card, or bank transfer.",
+    topupLabel: "Top up",
+    payLabel: "Pay with", payQR: "Bangla QR", payCard: "Debit / Credit Card", payBank: "Bank transfer",
+    paywallNote: "This is a design preview — no real payment is processed here. In the published app, this screen hands off to a licensed Bangladeshi payment gateway, and your balance updates the moment payment is confirmed.",
+    mockPaySuccess: (m) => `${m} selected — ${window.__topupAmt || 300} credits would be added to your balance in the live app.`,
+    reactivatedNote: (n) => `Also restored ${n} previously expired credit${n===1?'':'s'} — they're usable again now.`,
+    topupError: "Something went wrong crediting your account. Please close this and try again — if it keeps happening, use \"Reset demo data\" in the footer.",
+    expiryTooltip: (d) => `Some credits expire on ${d} if unused`,
+    expiryPolicyNote: "Credits expire 30 days after purchase if unused. Topping up again restores any expired credits.",
+    welcomeCredit: "You get 10 free questions every month. After that, top up credits to keep going — 10 credits per question.",
+    termsLink: "Billing terms", termsTitle: "Terms — credits & billing",
+    tosLink: "Terms of Service",
+    myCases: "📁 My cases", myCasesTitle: "My cases", noCasesYet: "No cases yet — start one!",
+    untitledCase: "Untitled case", exportGeneratedOn: "Generated on", exportYou: "You",
+    referBtn: "🎁 Refer & earn", referTitle: "Refer a friend, earn credits",
+    referSub: "Share your code. When a friend signs up with it, they get 50 bonus credits.",
+    copyCode: "Copy code", copied: "Copied!",
+    referNote: "This is a design preview. Your friend's bonus works today (locally, in their own browser) — but crediting YOU back for a successful referral needs the real backend, since that means recognizing your code from a different person's device, which this browser-only prototype can't do.",
+    referralCodePh: "Referral code (optional)",
+    feedbackLogLink: "Feedback log (internal)", feedbackLogTitle: "Feedback log (internal)",
+    resetDemoLink: "Reset demo data (testing)",
+    guidedBtn: "Guided intake", guidedTitle: "Guided intake",
+    guidedPick: "Pick the closest match and answer a few short questions — Mr.AD will use your answers to give a more precise reply.",
+    guidedOptional: "All fields are optional — skip anything you don't know.", guidedBack: "Back", guidedSend: "Ask Mr.AD",
+    privacyDataLink: "Privacy & data", privacyDataTitle: "Privacy & data",
+    privacyDataSub: "Your cases, credits and settings are stored only in this browser, on this device — not on a Mr.AD server. The questions you send are processed by an AI service to produce answers (see the Privacy Policy).",
+    lockLabel: "App lock", lockNote: "A PIN keeps casual snoopers out of the app screen. It does not encrypt the stored data, so it is not a substitute for your phone's own screen lock.",
+    lockOn: "App lock is on", lockRemove: "Remove PIN", lockSet: "Set PIN", lockNewPh: "New PIN (4–8 digits)", lockConfirmPh: "Confirm PIN",
+    lockBadFormat: "PIN must be 4 to 8 digits.", lockMismatch: "The two PINs don't match.", lockSaveFail: "Couldn't save the PIN on this device.",
+    lockUnsupported: "App lock isn't available in this browser.",
+    lockTitle: "Mr.AD is locked", lockPrompt: "Enter your PIN to continue.", lockUnlock: "Unlock",
+    lockWrong: "Wrong PIN. Try again.", lockWait: "Too many attempts. Please wait 30 seconds.",
+    lockForgot: "Forgot PIN? Delete all data and start over",
+    deleteLabel: "Delete my data", deleteNote: "Removes every case, credit balance, setting and saved feedback from this device. This cannot be undone.",
+    deleteBtn: "Delete all my data on this device",
+    deleteConfirm: "This permanently deletes all your cases, credits and settings on this device. Continue?",
+    listen: "Listen to this answer",
+    ttsNoBnVoice: "No Bangla voice found on this device — audio may not play correctly. You can add one in your phone's text-to-speech settings.",
+    retrievalTestLink: "Retrieval self-test (internal)", retrievalTestTitle: "Retrieval self-test (internal)",
+    retrievalTestSub: "Checks whether the right verified entry comes back for realistic questions. It tests retrieval only — NOT whether a final answer is legally correct, which still needs a real advocate's review.",
+    exportTestSet: "Export test set for advocate review (JSON)",
+    rtTuned: "Tuned set", rtKeyword: "keyword queries", rtSentence: "full-sentence queries", rtHeld: "Held-out set", rtHeldNote: "never tuned against — the honest number",
+    rtExpected: "Expected", rtGot: "Got", rtNothing: "(nothing)", rtExpectNothing: "nothing (corpus can't answer this)",
+    srcOkTitle: "Verified sources consulted.", srcOkNote: "The answer may also include general knowledge beyond these.",
+    srcNoneTitle: "No verified source matched.", srcNoneNote: "This answer uses general legal knowledge, not our verified library — please double-check it with a lawyer.",
+    srcUnavailableTitle: "Source check unavailable.", srcUnavailableNote: "In this view the app couldn't check its verified library, so treat this as general information.",
+    srcVerified: "verified", srcChanging: "changing now",
+    resetDemoConfirm: "This clears all local test data — cases, credits, signup, feedback — and reloads. Use this to test as a brand-new user. Continue?",
+    feedbackLogSub: "Thumbs up/down ratings logged in this browser only — not synced anywhere. Use this to spot which mode or language is getting more 👎, as a signal for where corpus verification needs attention.",
+    exportFeedback: "Export feedback (JSON)", noFeedbackYet: "No feedback recorded yet.",
+    totalRatings: "total ratings",
+    wt1Title: "Bangla or English — your choice", wt1Body: "Switch languages anytime from the top bar. Mr.AD answers fully in whichever you pick.",
+    wt2Title: "Plain language, or exact wording", wt2Body: "Plain explains things simply. Exact wording quotes the real statute text — built for research and drafting.",
+    wt3Title: "Free questions, then credits", wt3Body: "You get free questions every month. After that, top up credits to keep going — pay with bKash, Nagad, Rocket, or card.",
+    wt4Title: "Mr.AD isn't a lawyer", wt4Body: "Every answer comes with a reminder to check with a real advocate — and a one-tap way to reach one.",
+    wtNext: "Next", wtSkip: "Skip", wtGetStarted: "Get started",
+    privacyLink: "Privacy",
+    termsBody: "1 credit = 1 BDT of value, applied to Claude usage plus Mr.AD's service fee. Credits are non-refundable, non-transferable, and redeemable only for Mr.AD usage — they cannot be withdrawn or exchanged for cash.",
+  },
+  bn: {
+    brandName: "মিস্টার এডি", brandSub: "আইনি বিশ্লেষণ, বাংলাদেশ",
+    kicker: "বাংলাদেশ · এআই আইনি বিশ্লেষণ সহায়ক",
+    headline: "কথোপকথনেই আপনার আইনি অবস্থান স্পষ্ট হোক।",
+    lede: "কী ঘটেছে বলুন — বিরোধ, নোটিশ, বা যে মামলার জন্য খসড়া দরকার। মিস্টার এডি প্রযোজ্য আইন, আপনার বিকল্পগুলো এবং একটি প্রাথমিক খসড়া তুলে ধরবে, ঠিক যেমন একজন উকিল প্রথম সাক্ষাতে করেন।",
+    ctaStart: "আপনার সমস্যা বলুন", ctaSample: "একটি উদাহরণ দেখুন",
+    chip1: "ভাড়াটিয়া ও বাড়িওয়ালা", chip2: "পারিবারিক ও উত্তরাধিকার", chip3: "চাকরি সংক্রান্ত বিরোধ",
+    chip4: "আইনের শিক্ষার্থী ও জুনিয়র আইনজীবী", chip5: "চুক্তি ও খসড়া",
+    panelTitle: "মামলার কথোপকথন",
+    modePlain: "সহজ ভাষা", modeExact: "প্রকৃত ভাষা",
+    modeHintPlain: "সহজ, দৈনন্দিন ভাষায় ব্যাখ্যা — আপনার পরিস্থিতি বোঝার জন্য উপযুক্ত।",
+    modeHintExact: "আইনের প্রকৃত ভাষা ও নির্দিষ্ট ধারা নম্বর সহ উত্তর — গবেষণা, দরখাস্ত ও খসড়ার জন্য উপযুক্ত। প্রতি উত্তরে বেশি ক্রেডিট খরচ হয়।",
+    placeholder: "কী ঘটেছে লিখুন — তারিখ, সংশ্লিষ্ট ব্যক্তি, আপনার কাছে থাকা কাগজপত্র…",
+    footNote: "মিস্টার এডি একজন লাইসেন্সপ্রাপ্ত আইনজীবী নয় এবং আদালতে আপনার প্রতিনিধিত্ব করতে পারে না। কোনো পদক্ষেপ নেওয়ার আগে সবসময় একজন যোগ্য আইনজীবীর সাথে বিশ্লেষণ ও খসড়া যাচাই করে নিন।",
+    thinking: "মিস্টার এডি আপনার বিষয়টি পর্যালোচনা করছে…",
+    disclaimer: "আমার ভুল হতে পারে — অনুগ্রহ করে আরও স্পষ্টতার জন্য আমার বিশ্লেষণ ও খসড়া একজন প্রকৃত আইনজীবীকে দেখান।",
+    downloadDraft: "এই খসড়া ডাউনলোড করুন",
+    savedFile: "সংরক্ষিত হয়েছে।",
+    sample: "আমার ধানমন্ডির বাড়িওয়ালা ফ্ল্যাট ছেড়ে দেওয়ার দুই মাস পরও ৫০,০০০ টাকার জামানত ফেরত দিচ্ছেন না। আমার কাছে ভাড়ার চুক্তি ও ব্যাংক ট্রান্সফারের রসিদ আছে। আমি কী করতে পারি?",
+    connectFail: "মিস্টার এডি এই মুহূর্তে বিশ্লেষণ ইঞ্জিনে পৌঁছাতে পারেনি। একটু পর আবার চেষ্টা করুন।",
+    walletPill: (bal) => `${bal} ক্রেডিট`,
+    freeQuestionsPill: (n) => `এই মাসে ${n}টি ফ্রি প্রশ্ন বাকি`,
+    signupBtn: "সাইন আপ",
+    newCase: "নতুন মামলা",
+    feedbackThanks: "মতামতের জন্য ধন্যবাদ",
+    quickStarts: ["বাড়িওয়ালা জামানত ফেরত দিচ্ছেন না", "আমি একটি আইনি নোটিশ পেয়েছি", "কর্মক্ষেত্রে বিরোধ", "চেক বাউন্স হয়েছে", "পারিবারিক বা তালাকের বিষয়"],
+    talkToLawyer: "একজন প্রকৃত আইনজীবীর সাথে কথা বলুন",
+    lawyerTitle: "একজন প্রকৃত আইনজীবীর সাথে কথা বলুন",
+    lawyerSub: "মিস্টার এডি আপনার পরিস্থিতি ব্যাখ্যা করতে পারে, কিন্তু শুধুমাত্র একজন লাইসেন্সপ্রাপ্ত আইনজীবীই আপনাকে প্রতিনিধিত্ব করতে বা সম্পূর্ণ নির্ভরযোগ্য পরামর্শ দিতে পারেন। এগিয়ে যাওয়ার দুটি প্রকৃত উপায়:",
+    lawyerOfficialLabel: "একজন আইনজীবীর লাইসেন্স যাচাই করুন",
+    lawyerOfficialBody: "বাংলাদেশ বার কাউন্সিল হলো আইনজীবীদের লাইসেন্স প্রদান ও নিয়ন্ত্রণকারী সরকারি সংস্থা — এটি আইনজীবী খোঁজার ডিরেক্টরি নয়, তবে কারো নিবন্ধন সত্যিকারের কিনা তা যাচাই করার সঠিক জায়গা।",
+    lawyerCallbackLabel: "কলব্যাক অনুরোধ করুন",
+    lawyerBriefPh: "আপনার সমস্যা সম্পর্কে এক বা দুই লাইন",
+    lawyerSubmit: "কলব্যাক অনুরোধ করুন",
+    lawyerNote: "এটি একটি ডিজাইন প্রিভিউ — এখানে কোনো অনুরোধ প্রকৃতপক্ষে পাঠানো হয় না। লাইভ সংস্করণে এটি একটি প্রকৃত রেফারেল নেটওয়ার্কে যাবে, যা এখনো তৈরি করা বাকি একটি পার্টনারশিপ, বর্তমানে কোনো লাইভ সেবা নয়।",
+    lawyerRequestReceived: "এই প্রিভিউর জন্য অনুরোধটি স্থানীয়ভাবে সংরক্ষিত হয়েছে। লাইভ অ্যাপে এখন একটি প্রকৃত রেফারেল নেটওয়ার্ককে জানানো হতো।",
+    signupTitle: "চালিয়ে যেতে সাইন আপ করুন",
+    signupSub: "আপনার এই মাসের ফ্রি প্রশ্নগুলো শেষ হয়ে গেছে। চালিয়ে যেতে সাইন আপ করুন (সম্পূর্ণ ফ্রি) এবং ক্রেডিট টপ-আপ করুন।",
+    signupTraditional: "মোবাইল নম্বর দিয়ে সাইন আপ করুন",
+    signupNamePh: "পুরো নাম", signupMobilePh: "মোবাইল নম্বর (যেমন ০১XXXXXXXXX)",
+    signupFormNote: "অনুগ্রহ করে দুটি ঘরই পূরণ করুন।",
+    signupPasswordPh: "পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)", loginSubmit: "লগইন করুন",
+    signupToLogin: "আগে থেকেই অ্যাকাউন্ট আছে? লগইন করুন", loginToSignup: "নতুন? অ্যাকাউন্ট খুলুন",
+    errFields: "অনুগ্রহ করে প্রয়োজনীয় সব ঘর পূরণ করুন।", errShortPw: "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।",
+    errExists: "এই মোবাইল নম্বর দিয়ে আগেই অ্যাকাউন্ট খোলা হয়েছে। অনুগ্রহ করে লগইন করুন।",
+    errCreds: "মোবাইল নম্বর বা পাসওয়ার্ড ভুল।",
+    errNetwork: "সার্ভারের সাথে যোগাযোগ করা যায়নি। সার্ভার হয়তো জেগে উঠছে - প্রায় এক মিনিট অপেক্ষা করে আবার চেষ্টা করুন।",
+    errGeneric: "কিছু একটা সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।", busy: "অপেক্ষা করুন...",
+    signupNeed: "প্রশ্ন করতে সাইন আপ করুন (সম্পূর্ণ ফ্রি)। প্রতি মাসে ১০টি প্রশ্ন বিনামূল্যে পাবেন।",
+    sessionExpired: "আপনার সেশন শেষ হয়েছে। অনুগ্রহ করে আবার লগইন করুন।",
+    payComingSoon: "অনলাইন পেমেন্ট (বিকাশ, নগদ, কার্ড) চালুর কাজ চলছে, খুব শীঘ্রই পাওয়া যাবে। ততদিন আপনার ফ্রি প্রশ্নগুলো চালু থাকবে।",
+    errSoon: "Google ও Facebook দিয়ে সাইন-ইন খুব শীঘ্রই আসছে। এখন মোবাইল নম্বর দিয়ে সাইন আপ করুন।",
+    signupSubmit: "সাইন আপ", signupOr: "অথবা চালিয়ে যান",
+    signupNote: "আপনার অ্যাকাউন্ট আমাদের সার্ভারে তৈরি হয়। মোবাইল OTP যাচাই এবং Google/Facebook সাইন-ইন শীঘ্রই আসছে।",
+    attachHint: "আপনি কাগজপত্রের ছবি সংযুক্ত করতে পারেন (চুক্তি, নোটিশ, চেক)। PDF ও অডিও এখনো সমর্থিত নয় — এর বদলে ছবি বা স্ক্রিনশট ব্যবহার করুন।",
+    attachImage: "ছবি", attachDocs: "ডকুমেন্ট", attachAudio: "অডিও", attachVideo: "ভিডিও", attachSoon: "শীঘ্রই",
+    attachNotYet: "ডকুমেন্ট ও অডিও আপলোড শীঘ্রই আসছে — আপাতত অনুগ্রহ করে ফাইলের বদলে একটি ছবি বা স্ক্রিনশট সংযুক্ত করুন।",
+    imagesAttached: (n) => `${n}টি ছবি সংযুক্ত`,
+    imageRejected: "ছবিটি প্রসেস করা যায়নি — একটি স্পষ্ট ছবি বা ভিন্ন ফাইল দিয়ে চেষ্টা করুন।",
+    imagesUnavailable: "আপনি বর্তমানে যেভাবে এই অ্যাপটি দেখছেন, সেখানে ছবি সংযুক্তি সমর্থিত নয় — ভিন্ন কোনো ভিউতে খুলে চেষ্টা করুন, অথবা আপাতত লিখে বিস্তারিত জানান।",
+    imageTooLarge: "ছবিটি অনেক বড় — একটি ছোট ছবি দিয়ে চেষ্টা করুন।",
+    paywallTitle: "আপনার ক্রেডিট শেষ হয়ে গেছে",
+    paywallSub: "আপনার ১০০টি ফ্রি ট্রায়াল ক্রেডিট শেষ হয়ে গেছে। চালিয়ে যেতে টপ-আপ করুন — bKash, Nagad, Rocket, বাংলা QR, কার্ড অথবা ব্যাংক ট্রান্সফারে পেমেন্ট করা যায়।",
+    topupLabel: "টপ-আপ",
+    payLabel: "পেমেন্ট মাধ্যম বেছে নিন", payQR: "বাংলা QR", payCard: "ডেবিট / ক্রেডিট কার্ড", payBank: "ব্যাংক ট্রান্সফার",
+    paywallNote: "এটি একটি ডিজাইন প্রিভিউ — এখানে কোনো প্রকৃত পেমেন্ট প্রসেস হয় না। প্রকাশিত অ্যাপে এই স্ক্রিন থেকে একটি লাইসেন্সপ্রাপ্ত বাংলাদেশি পেমেন্ট গেটওয়েতে যাওয়া যাবে, এবং পেমেন্ট নিশ্চিত হওয়ার সাথে সাথে ব্যালেন্স আপডেট হয়ে যাবে।",
+    mockPaySuccess: (m) => `${m} নির্বাচিত হয়েছে — লাইভ অ্যাপে এতে ${window.__topupAmt || 300} ক্রেডিট আপনার ব্যালেন্সে যোগ হতো।`,
+    reactivatedNote: (n) => `আগের মেয়াদোত্তীর্ণ ${n}টি ক্রেডিটও পুনরুদ্ধার হয়েছে — এখন আবার ব্যবহারযোগ্য।`,
+    topupError: "আপনার অ্যাকাউন্টে ক্রেডিট যোগ করতে সমস্যা হয়েছে। এটি বন্ধ করে আবার চেষ্টা করুন — সমস্যা থেকে গেলে ফুটারে \"Reset demo data\" ব্যবহার করুন।",
+    expiryTooltip: (d) => `কিছু ক্রেডিটের মেয়াদ শেষ হবে ${d} তারিখে, যদি ব্যবহার না হয়`,
+    expiryPolicyNote: "ক্রেডিট কেনার ৩০ দিন পর ব্যবহার না হলে মেয়াদোত্তীর্ণ হয়ে যায়। আবার টপ-আপ করলে মেয়াদোত্তীর্ণ ক্রেডিট পুনরুদ্ধার হয়ে যায়।",
+    welcomeCredit: "আপনি প্রতি মাসে ১০টি প্রশ্ন ফ্রি পাবেন। এরপর চালিয়ে যেতে ক্রেডিট টপ-আপ করুন — প্রতি প্রশ্নে ১০ ক্রেডিট।",
+    termsLink: "বিলিং শর্তাবলী", termsTitle: "শর্তাবলী — ক্রেডিট ও বিলিং",
+    tosLink: "সেবার শর্তাবলী",
+    myCases: "📁 আমার মামলাসমূহ", myCasesTitle: "আমার মামলাসমূহ", noCasesYet: "এখনো কোনো মামলা নেই — একটি শুরু করুন!",
+    untitledCase: "শিরোনামহীন মামলা", exportGeneratedOn: "তৈরি হয়েছে", exportYou: "আপনি",
+    referBtn: "🎁 রেফার করে ক্রেডিট পান", referTitle: "বন্ধুকে রেফার করুন, ক্রেডিট অর্জন করুন",
+    referSub: "আপনার কোড শেয়ার করুন। কোনো বন্ধু এটি দিয়ে সাইন আপ করলে তিনি ৫০টি বোনাস ক্রেডিট পাবেন।",
+    copyCode: "কোড কপি করুন", copied: "কপি হয়েছে!",
+    referNote: "এটি একটি ডিজাইন প্রিভিউ। আপনার বন্ধুর বোনাস এখনই কাজ করে (স্থানীয়ভাবে, তার নিজের ব্রাউজারে) — কিন্তু সফল রেফারেলের জন্য আপনাকে ক্রেডিট দেওয়ার জন্য প্রকৃত ব্যাকএন্ড দরকার, কারণ এই ব্রাউজার-ভিত্তিক প্রোটোটাইপ ভিন্ন ব্যক্তির ডিভাইস থেকে আপনার কোড শনাক্ত করতে পারে না।",
+    referralCodePh: "রেফারেল কোড (ঐচ্ছিক)",
+    feedbackLogLink: "মতামত লগ (অভ্যন্তরীণ)", feedbackLogTitle: "মতামত লগ (অভ্যন্তরীণ)",
+    resetDemoLink: "ডেমো ডেটা রিসেট করুন (টেস্টিং)",
+    guidedBtn: "ধাপে ধাপে তথ্য দিন", guidedTitle: "ধাপে ধাপে তথ্য দিন",
+    guidedPick: "সবচেয়ে কাছের বিষয়টি বেছে নিন এবং কয়েকটি ছোট প্রশ্নের উত্তর দিন — আপনার উত্তর কাজে লাগিয়ে মিস্টার এডি আরও নির্দিষ্ট জবাব দেবে।",
+    guidedOptional: "সব ঘর ঐচ্ছিক — যা জানেন না তা বাদ দিন।", guidedBack: "পেছনে", guidedSend: "মিস্টার এডিকে জিজ্ঞাসা করুন",
+    privacyDataLink: "গোপনীয়তা ও ডেটা", privacyDataTitle: "গোপনীয়তা ও ডেটা",
+    privacyDataSub: "আপনার মামলা, ক্রেডিট ও সেটিংস শুধু এই ডিভাইসের এই ব্রাউজারে সংরক্ষিত — কোনো মিস্টার এডি সার্ভারে নয়। আপনার পাঠানো প্রশ্ন উত্তর তৈরির জন্য একটি এআই সেবায় প্রসেস হয় (গোপনীয়তা নীতি দেখুন)।",
+    lockLabel: "অ্যাপ লক", lockNote: "পিন সাধারণ কৌতূহলী চোখ থেকে অ্যাপের স্ক্রিন আড়াল রাখে। এটি সংরক্ষিত ডেটা এনক্রিপ্ট করে না, তাই আপনার ফোনের নিজস্ব স্ক্রিন লকের বিকল্প নয়।",
+    lockOn: "অ্যাপ লক চালু আছে", lockRemove: "পিন সরান", lockSet: "পিন সেট করুন", lockNewPh: "নতুন পিন (৪–৮ সংখ্যা)", lockConfirmPh: "পিন নিশ্চিত করুন",
+    lockBadFormat: "পিন ৪ থেকে ৮ সংখ্যার হতে হবে।", lockMismatch: "দুটি পিন মিলছে না।", lockSaveFail: "এই ডিভাইসে পিন সংরক্ষণ করা যায়নি।",
+    lockUnsupported: "এই ব্রাউজারে অ্যাপ লক পাওয়া যায় না।",
+    lockTitle: "মিস্টার এডি লক করা আছে", lockPrompt: "চালিয়ে যেতে আপনার পিন দিন।", lockUnlock: "আনলক",
+    lockWrong: "ভুল পিন। আবার চেষ্টা করুন।", lockWait: "অনেকবার চেষ্টা হয়েছে। অনুগ্রহ করে ৩০ সেকেন্ড অপেক্ষা করুন।",
+    lockForgot: "পিন ভুলে গেছেন? সব ডেটা মুছে নতুন করে শুরু করুন",
+    deleteLabel: "আমার ডেটা মুছুন", deleteNote: "এই ডিভাইস থেকে সব মামলা, ক্রেডিট ব্যালেন্স, সেটিংস ও সংরক্ষিত মতামত মুছে ফেলে। এটি ফেরানো যায় না।",
+    deleteBtn: "এই ডিভাইসে আমার সব ডেটা মুছে দিন",
+    deleteConfirm: "এটি এই ডিভাইসে আপনার সব মামলা, ক্রেডিট ও সেটিংস স্থায়ীভাবে মুছে দেবে। চালিয়ে যাবেন?",
+    listen: "এই উত্তরটি শুনুন",
+    ttsNoBnVoice: "এই ডিভাইসে কোনো বাংলা ভয়েস পাওয়া যায়নি — অডিও ঠিকমতো নাও চলতে পারে। আপনার ফোনের টেক্সট-টু-স্পিচ সেটিংসে একটি যোগ করতে পারেন।",
+    retrievalTestLink: "রিট্রিভাল সেলফ-টেস্ট (অভ্যন্তরীণ)", retrievalTestTitle: "রিট্রিভাল সেলফ-টেস্ট (অভ্যন্তরীণ)",
+    retrievalTestSub: "বাস্তবসম্মত প্রশ্নে সঠিক যাচাইকৃত এন্ট্রি ফিরে আসছে কিনা তা যাচাই করে। এটি শুধু রিট্রিভাল পরীক্ষা করে — চূড়ান্ত উত্তর আইনিভাবে সঠিক কিনা তা নয়, সেজন্য এখনো একজন প্রকৃত আইনজীবীর পর্যালোচনা দরকার।",
+    exportTestSet: "আইনজীবীর পর্যালোচনার জন্য টেস্ট সেট এক্সপোর্ট করুন (JSON)",
+    rtTuned: "টিউন করা সেট", rtKeyword: "কীওয়ার্ড কোয়েরি", rtSentence: "পূর্ণ-বাক্য কোয়েরি", rtHeld: "হেল্ড-আউট সেট", rtHeldNote: "কখনো এর বিরুদ্ধে টিউন করা হয়নি — এটিই সৎ সংখ্যা",
+    rtExpected: "প্রত্যাশিত", rtGot: "পাওয়া গেছে", rtNothing: "(কিছু নয়)", rtExpectNothing: "কিছু নয় (কর্পাস এর উত্তর দিতে পারে না)",
+    srcOkTitle: "যাচাইকৃত উৎস দেখা হয়েছে।", srcOkNote: "উত্তরে এর বাইরেও সাধারণ আইনি জ্ঞান থাকতে পারে।",
+    srcNoneTitle: "কোনো যাচাইকৃত উৎস মেলেনি।", srcNoneNote: "এই উত্তর আমাদের যাচাইকৃত লাইব্রেরি নয়, সাধারণ আইনি জ্ঞানের ওপর ভিত্তি করে — অনুগ্রহ করে একজন আইনজীবীর সাথে যাচাই করুন।",
+    srcUnavailableTitle: "উৎস যাচাই করা যায়নি।", srcUnavailableNote: "এই ভিউতে অ্যাপ তার যাচাইকৃত লাইব্রেরি দেখতে পারেনি, তাই এটিকে সাধারণ তথ্য হিসেবে নিন।",
+    srcVerified: "যাচাই", srcChanging: "পরিবর্তনশীল",
+    resetDemoConfirm: "এটি সব স্থানীয় টেস্ট ডেটা — মামলা, ক্রেডিট, সাইন আপ, মতামত — মুছে ফেলবে এবং রিলোড করবে। একদম নতুন ব্যবহারকারী হিসেবে টেস্ট করতে এটি ব্যবহার করুন। চালিয়ে যাবেন?",
+    feedbackLogSub: "থাম্বস আপ/ডাউন রেটিং শুধুমাত্র এই ব্রাউজারে সংরক্ষিত — কোথাও সিঙ্ক হয় না। কোন মোড বা ভাষায় বেশি 👎 আসছে তা দেখে করপাস যাচাইয়ে কোথায় মনোযোগ দরকার তা বুঝতে ব্যবহার করুন।",
+    exportFeedback: "মতামত এক্সপোর্ট করুন (JSON)", noFeedbackYet: "এখনো কোনো মতামত রেকর্ড হয়নি।",
+    totalRatings: "মোট রেটিং",
+    wt1Title: "বাংলা বা ইংরেজি — আপনার পছন্দ", wt1Body: "উপরের বার থেকে যেকোনো সময় ভাষা পরিবর্তন করুন। মিস্টার এডি আপনার পছন্দের ভাষায় সম্পূর্ণ উত্তর দেবে।",
+    wt2Title: "সহজ ভাষা, অথবা প্রকৃত ভাষা", wt2Body: "সহজ ভাষা জিনিসগুলো সরলভাবে ব্যাখ্যা করে। প্রকৃত ভাষা প্রকৃত আইনের টেক্সট উদ্ধৃত করে — গবেষণা ও খসড়ার জন্য তৈরি।",
+    wt3Title: "ফ্রি প্রশ্ন, তারপর ক্রেডিট", wt3Body: "প্রতি মাসে কিছু প্রশ্ন ফ্রি পাবেন। এরপর চালিয়ে যেতে ক্রেডিট টপ-আপ করুন — bKash, Nagad, Rocket বা কার্ডে পেমেন্ট করুন।",
+    wt4Title: "মিস্টার এডি কোনো আইনজীবী নয়", wt4Body: "প্রতিটি উত্তরের সাথে একজন প্রকৃত আইনজীবীর সাথে যাচাই করার অনুস্মারক থাকে — এবং তার সাথে যোগাযোগের একটি সহজ উপায়।",
+    wtNext: "পরবর্তী", wtSkip: "এড়িয়ে যান", wtGetStarted: "শুরু করুন",
+    privacyLink: "গোপনীয়তা নীতি",
+    termsBody: "১ ক্রেডিট = ১ টাকা মূল্য, যা Claude ব্যবহারের খরচ এবং মিস্টার এডি-র সার্ভিস ফি-তে প্রয়োগ হয়। ক্রেডিট ফেরতযোগ্য নয়, স্থানান্তরযোগ্য নয়, এবং শুধুমাত্র মিস্টার এডি ব্যবহারের জন্য প্রযোজ্য — এটি উত্তোলন বা নগদে বিনিময় করা যায় না।",
+  }
+};
+
+let lang = (localStorage.getItem('mrad_lang')) || 'en';
+let history = []; // {role, content} — sent to the model, for the ACTIVE case
+let visibleThread = []; // {type:'user'|'ad'|'error', text, imageCount} — rendered thread, for the ACTIVE case
+let cases = []; // [{id, title, createdAt, history, visibleThread}]
+let activeCaseId = null;
+let sampleFn = null;
+let downloadsFn = null;
+
+/* ---------------- multi-case persistence (this browser only) ----------------
+   Several named cases can exist side by side (a tenancy dispute and a family
+   matter shouldn't have to share one slot). `history`/`visibleThread` are the
+   working state of whichever case is active; switching cases syncs the
+   outgoing one back into `cases` before loading the incoming one. */
+function syncActiveCaseFromWorkingState() {
+  const c = cases.find(x => x.id === activeCaseId);
+  if (c) { c.history = history; c.visibleThread = visibleThread; }
+}
+function getActiveCase() { return cases.find(x => x.id === activeCaseId); }
+function saveCases() {
+  syncActiveCaseFromWorkingState();
+  try { localStorage.setItem('mrad_cases', JSON.stringify({ cases, activeCaseId })); } catch(e) {}
+}
+function loadCases() {
+  try {
+    const raw = JSON.parse(localStorage.getItem('mrad_cases'));
+    if (raw && Array.isArray(raw.cases) && raw.cases.length > 0) {
+      cases = raw.cases;
+      activeCaseId = raw.activeCaseId && cases.some(c => c.id === raw.activeCaseId) ? raw.activeCaseId : cases[0].id;
+      const c = getActiveCase();
+      history = c.history || [];
+      visibleThread = c.visibleThread || [];
+      return true;
+    }
+  } catch(e) {}
+  return false;
+}
+function createNewCase(switchToIt) {
+  const id = 'case-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
+  const newCase = { id, title: t('untitledCase'), createdAt: Date.now(), history: [], visibleThread: [], mode: responseMode, lang: lang };
+  if (switchToIt !== false) syncActiveCaseFromWorkingState();
+  cases.unshift(newCase);
+  if (switchToIt !== false) {
+    activeCaseId = id;
+    history = [];
+    visibleThread = [];
+    document.getElementById('thread').innerHTML = '';
+    renderQuickStarts();
+    updateNewCaseButtonVisibility();
+  }
+  saveCases();
+  return id;
+}
+function startNewCase() {
+  createNewCase(true);
+  closeCasesPanel();
+}
+function switchToCase(id) {
+  if (id === activeCaseId) { closeCasesPanel(); return; }
+  syncActiveCaseFromWorkingState();
+  activeCaseId = id;
+  const c = getActiveCase();
+  history = c.history || [];
+  visibleThread = c.visibleThread || [];
+  // Restore THIS case's own language/mode — not just its messages — so the
+  // toggles shown always match what the model is actually doing for it.
+  if (c.lang && c.lang !== lang) { lang = c.lang; try { localStorage.setItem('mrad_lang', lang); } catch(e) {} applyI18n(); }
+  if (c.mode && c.mode !== responseMode) { responseMode = c.mode; try { localStorage.setItem('mrad_mode', responseMode); } catch(e) {} syncModeUI(responseMode); }
+  document.getElementById('thread').innerHTML = '';
+  rebuildThreadFromSaved();
+  updateNewCaseButtonVisibility();
+  saveCases();
+  closeCasesPanel();
+}
+function deleteCase(id, evt) {
+  if (evt) evt.stopPropagation();
+  cases = cases.filter(c => c.id !== id);
+  if (activeCaseId === id) {
+    if (cases.length > 0) {
+      activeCaseId = cases[0].id;
+      history = cases[0].history || [];
+      visibleThread = cases[0].visibleThread || [];
+      if (cases[0].lang && cases[0].lang !== lang) { lang = cases[0].lang; try { localStorage.setItem('mrad_lang', lang); } catch(e) {} applyI18n(); }
+      if (cases[0].mode && cases[0].mode !== responseMode) { responseMode = cases[0].mode; try { localStorage.setItem('mrad_mode', responseMode); } catch(e) {} syncModeUI(responseMode); }
+      document.getElementById('thread').innerHTML = '';
+      rebuildThreadFromSaved();
+      updateNewCaseButtonVisibility();
+    } else {
+      createNewCase(true);
+    }
+  }
+  saveCases();
+  renderCasesList();
+}
+function updateNewCaseButtonVisibility() {
+  document.getElementById('newCaseBtn').style.display = visibleThread.length > 0 ? 'inline-block' : 'none';
+  renderQuickStarts(); // handles both show (empty case) and hide (has messages) — was hide-only before, a real bug
+}
+function rebuildThreadFromSaved() {
+  visibleThread.forEach(item => {
+    if (item.type === 'user') appendUserBubble(item.text, item.imageCount || 0, true);
+    else appendAdBubble(item.text, item.type === 'error', undefined, true, item.sources);
+  });
+  updateNewCaseButtonVisibility();
+}
+function autoTitleActiveCase(firstMessage) {
+  const c = getActiveCase();
+  if (c && c.title === t('untitledCase')) {
+    c.title = firstMessage.length > 44 ? firstMessage.slice(0, 44) + '…' : firstMessage;
+    saveCases();
+  }
+}
+
+/* ---------------- Cases panel UI ---------------- */
+function openCasesPanel() {
+  syncActiveCaseFromWorkingState();
+  renderCasesList();
+  document.getElementById('casesOverlay').classList.add('open');
+}
+function closeCasesPanel() { document.getElementById('casesOverlay').classList.remove('open'); }
+function renderCasesList() {
+  const wrap = document.getElementById('casesList');
+  if (cases.length === 0) { wrap.innerHTML = `<p style="font-size:13px; color:var(--text-soft);">${t('noCasesYet')}</p>`; return; }
+  wrap.innerHTML = cases.map(c => {
+    const preview = (c.visibleThread && c.visibleThread[0]) ? c.visibleThread[0].text.slice(0, 60) : '';
+    const dateStr = new Date(c.createdAt).toLocaleDateString();
+    return `<div class="case-row ${c.id === activeCaseId ? 'active' : ''}" onclick="switchToCase('${c.id}')">
+      <div style="flex:1; min-width:0;">
+        <div style="font-weight:600; font-size:13.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(c.title)}</div>
+        <div style="font-size:11.5px; color:var(--text-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${dateStr}${preview ? ' · ' + escapeHtml(preview) : ''}</div>
+      </div>
+      <button class="case-icon-btn" onclick="exportCase('${c.id}', event)" aria-label="Download" title="Download this case">⬇️</button>
+      <button class="case-icon-btn" onclick="deleteCase('${c.id}', event)" aria-label="Delete" title="Delete this case">🗑️</button>
+    </div>`;
+  }).join('');
+}
+
+function t(key) { return STR[lang][key]; }
+
+function applyI18n() {
+  document.body.dataset.lang = lang;
+  document.getElementById('btn-bn').classList.toggle('active', lang === 'bn');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = STR[lang][el.getAttribute('data-i18n')];
+    if (typeof v === 'string') el.innerHTML = v;
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    el.placeholder = STR[lang][el.getAttribute('data-i18n-ph')];
+  });
+  updateCreditPill();
+}
+
+function setLang(l) {
+  lang = l;
+  try { localStorage.setItem('mrad_lang', l); } catch(e) {}
+  applyI18n();
+  history = [];
+  const c = getActiveCase();
+  if (c) { c.lang = l; c.history = history; }
+}
+
+let responseMode = (localStorage.getItem('mrad_mode')) || 'plain';
+function syncModeUI(m) {
+  document.getElementById('btn-mode-plain').classList.toggle('active', m === 'plain');
+  document.getElementById('btn-mode-exact').classList.toggle('active', m === 'exact');
+  const hint = document.getElementById('modeHint');
+  hint.setAttribute('data-i18n', m === 'plain' ? 'modeHintPlain' : 'modeHintExact');
+  hint.textContent = t(m === 'plain' ? 'modeHintPlain' : 'modeHintExact');
+}
+function setMode(m) {
+  responseMode = m;
+  try { localStorage.setItem('mrad_mode', m); } catch(e) {}
+  syncModeUI(m);
+  // A mode change re-primes the model with the correct system prompt on the
+  // next message. The visible chat bubbles stay as they are; only the
+  // model's own context resets, so mixed-mode instructions can't leak.
+  history = [];
+  const c = getActiveCase();
+  if (c) { c.mode = m; c.history = history; }
+}
+
+function focusComposer() {
+  document.getElementById('input').focus();
+  document.getElementById('input').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function loadSample() {
+  document.getElementById('input').value = t('sample');
+  sendMessage();
+}
+
+/* ---------------- quick-start prompts ---------------- */
+function renderQuickStarts() {
+  const wrap = document.getElementById('quickStarts');
+  if (visibleThread.length > 0) { wrap.style.display = 'none'; wrap.innerHTML = ''; return; }
+  const starts = t('quickStarts');
+  wrap.style.display = 'flex';
+  wrap.innerHTML = starts.map(s => `<button class="qs-chip" onclick="useQuickStart('${s.replace(/'/g,"\\'")}')">${s}</button>`).join('')
+    + `<button class="qs-chip" style="background:var(--seal); color:#fff;" onclick="openGuided()">📝 ${t('guidedBtn')}</button>`;
+}
+function useQuickStart(text) {
+  document.getElementById('input').value = text;
+  sendMessage();
+}
+
+/* ---------------- voice input (Web Speech API — per-browser, no server involved) ---------------- */
+let recognition = null;
+let isListening = false;
+(function initVoiceInput() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) return; // feature not supported in this browser — mic button stays hidden
+  recognition = new SR();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.onresult = (e) => {
+    const transcript = e.results[0][0].transcript;
+    const input = document.getElementById('input');
+    input.value = (input.value ? input.value + ' ' : '') + transcript;
+    autosize();
+  };
+  recognition.onend = () => { isListening = false; document.getElementById('micBtn').classList.remove('listening'); };
+  recognition.onerror = () => { isListening = false; document.getElementById('micBtn').classList.remove('listening'); };
+  document.getElementById('micBtn').style.display = 'flex';
+})();
+function toggleVoiceInput() {
+  if (!recognition) return;
+  if (isListening) { recognition.stop(); return; }
+  recognition.lang = lang === 'bn' ? 'bn-BD' : 'en-US';
+  try {
+    recognition.start();
+    isListening = true;
+    document.getElementById('micBtn').classList.add('listening');
+  } catch(e) { /* already started, or mic permission denied — fail silently */ }
+}
+
+/* ---------------- flat-rate credit billing ----------------
+   Local preview only: in production this whole block runs server-side,
+   keyed to a real user account — never trust a client-side balance for
+   real money. Pricing is intentionally flat-rate, not token-metered: a
+   simple, predictable per-question price that sits well above real
+   Claude cost (see chat for the margin math — this is the deliberately
+   highest-margin structure of everything built so far). */
+const MONTHLY_FREE_QUESTIONS = 10;      // resets every calendar month
+const CREDITS_PER_QUESTION = 10;        // plain-language mode, flat, 1 credit = 1 BDT
+const CREDITS_PER_QUESTION_EXACT = 15;  // exact-wording mode costs more — assumption, tune freely
+const IMAGE_CREDIT_SURCHARGE = 5;       // per attached image, on top of the base question cost
+const TOPUP_OPTIONS = [300, 500, 1000]; // the three options, as specified
+const REF_CLAUDE_COST_PER_QUESTION_BDT = 1.5; // ~typical raw Claude cost, for reference/comments only — not used in billing
+let selectedTopup = 300;
+
+function creditsForQuestion(mode, imageCount) {
+  const base = mode === 'exact' ? CREDITS_PER_QUESTION_EXACT : CREDITS_PER_QUESTION;
+  return base + (imageCount || 0) * IMAGE_CREDIT_SURCHARGE;
+}
+
+function currentYearMonth() {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth()}`;
+}
+function freeQuotaState() {
+  let raw;
+  try { raw = JSON.parse(localStorage.getItem('mrad_free_quota')); } catch(e) { raw = null; }
+  const ym = currentYearMonth();
+  if (!raw || raw.yearMonth !== ym) {
+    raw = { yearMonth: ym, used: 0 }; // new calendar month — quota resets automatically
+    try { localStorage.setItem('mrad_free_quota', JSON.stringify(raw)); } catch(e) {}
+  }
+  return raw;
+}
+function useFreeQuestion() {
+  const s = freeQuotaState();
+  s.used += 1;
+  try { localStorage.setItem('mrad_free_quota', JSON.stringify(s)); } catch(e) {}
+}
+function freeQuestionsLeft() {
+  if (hasServerSession() && serverWallet) return serverWallet.freeLeft;
+  return Math.max(0, MONTHLY_FREE_QUESTIONS - freeQuotaState().used);
+}
+
+function isSignedUp() {
+  try { return localStorage.getItem('mrad_signed_up') === '1'; } catch(e) { return false; }
+}
+
+/* Credits expire 30 days after the purchase that added them (tracked per
+   top-up "batch", oldest spent first). Expired credits aren't deleted —
+   they move into a separate expiredCredits pool that gets folded back into
+   a fresh batch automatically the next time the person tops up, so a paid
+   top-up never permanently loses money already paid for unused credits,
+   it just needs a new purchase to reactivate. See chat for the tradeoffs. */
+const CREDIT_EXPIRY_DAYS = 30;
+
+function walletState() {
+  let raw;
+  try { raw = JSON.parse(localStorage.getItem('mrad_wallet')); } catch(e) { raw = null; }
+  if (!raw || !Array.isArray(raw.batches)) {
+    // Handles a first-ever visit AND stale/incompatible data left over from
+    // an earlier version of this wallet (e.g. the old {balance:N} shape,
+    // before credits had per-batch expiry) — either way, always guarantee
+    // the shape addTopup/walletBalance actually expect, rather than trusting
+    // whatever happens to be in storage and crashing on a mismatch.
+    raw = { batches: [], expiredCredits: (raw && typeof raw.expiredCredits === 'number') ? raw.expiredCredits : 0 };
+    try { localStorage.setItem('mrad_wallet', JSON.stringify(raw)); } catch(e) {}
+  }
+  return sweepExpiredBatches(raw);
+}
+
+function sweepExpiredBatches(s) {
+  const now = Date.now();
+  const cutoffMs = CREDIT_EXPIRY_DAYS * 24 * 60 * 60 * 1000;
+  const stillActive = [];
+  let newlyExpired = 0;
+  for (const batch of (s.batches || [])) {
+    if (now - batch.purchasedAt > cutoffMs) newlyExpired += batch.credits;
+    else stillActive.push(batch);
+  }
+  if (newlyExpired > 0) {
+    s.batches = stillActive;
+    s.expiredCredits = Math.round(((s.expiredCredits || 0) + newlyExpired) * 100) / 100;
+    saveWallet(s);
+  }
+  return s;
+}
+
+function saveWallet(s) { try { localStorage.setItem('mrad_wallet', JSON.stringify(s)); } catch(e) {} }
+
+function walletBalance() {
+  if (hasServerSession() && serverWallet) return serverWallet.credits;
+  const s = walletState();
+  return (s.batches || []).reduce((sum, b) => sum + b.credits, 0);
+}
+function walletExpiredCredits() { return walletState().expiredCredits || 0; }
+function walletEarliestExpiry() {
+  const s = walletState();
+  if (!s.batches || s.batches.length === 0) return null;
+  const earliest = Math.min(...s.batches.map(b => b.purchasedAt));
+  return new Date(earliest + CREDIT_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+}
+
+function addTopup(amountCredits) {
+  const s = walletState(); // sweeps first, so expiredCredits is current
+  const reactivated = s.expiredCredits || 0;
+  s.batches.push({ credits: Math.round((amountCredits + reactivated) * 100) / 100, purchasedAt: Date.now() });
+  s.expiredCredits = 0;
+  saveWallet(s);
+  updateCreditPill();
+  return { added: amountCredits, reactivated };
+}
+
+const REFERRAL_BONUS_CREDITS = 50;
+function myReferralCode() {
+  let code = localStorage.getItem('mrad_referral_code');
+  if (!code) {
+    code = 'MRAD-' + Math.random().toString(36).slice(2, 7).toUpperCase();
+    try { localStorage.setItem('mrad_referral_code', code); } catch(e) {}
+  }
+  return code;
+}
+function grantBonusCredits(amount) {
+  const s = walletState();
+  s.batches.push({ credits: amount, purchasedAt: Date.now() });
+  saveWallet(s);
+  updateCreditPill();
+}
+let wtStep = 0;
+function walkthroughSteps() {
+  return [
+    { icon: '🌐', title: t('wt1Title'), body: t('wt1Body') },
+    { icon: '⚖️', title: t('wt2Title'), body: t('wt2Body') },
+    { icon: '💳', title: t('wt3Title'), body: t('wt3Body') },
+    { icon: '👩‍⚖️', title: t('wt4Title'), body: t('wt4Body') },
+  ];
+}
+function renderWalkthroughStep() {
+  const steps = walkthroughSteps();
+  const s = steps[wtStep];
+  document.getElementById('wtStepContent').innerHTML = `
+    <div style="font-size:40px; text-align:center; margin-bottom:10px;">${s.icon}</div>
+    <div class="paywall-title" style="text-align:center; margin-bottom:8px;">${s.title}</div>
+    <p class="paywall-sub" style="text-align:center;">${s.body}</p>`;
+  document.getElementById('wtDots').innerHTML = steps.map((_, i) =>
+    `<span style="width:7px; height:7px; border-radius:50%; background:${i === wtStep ? 'var(--seal)' : 'var(--border)'};"></span>`
+  ).join('');
+  document.getElementById('wtNextBtn').textContent = wtStep === steps.length - 1 ? t('wtGetStarted') : t('wtNext');
+}
+function nextWalkthroughStep() {
+  if (wtStep < walkthroughSteps().length - 1) { wtStep++; renderWalkthroughStep(); }
+  else skipWalkthrough();
+}
+function skipWalkthrough() {
+  document.getElementById('walkthroughOverlay').classList.remove('open');
+  try { localStorage.setItem('mrad_walkthrough_shown', '1'); } catch(e) {}
+}
+function maybeShowWalkthrough() {
+  let shown = false;
+  try { shown = localStorage.getItem('mrad_walkthrough_shown') === '1'; } catch(e) {}
+  if (!shown) {
+    wtStep = 0;
+    renderWalkthroughStep();
+    document.getElementById('walkthroughOverlay').classList.add('open');
+  }
+}
+
+function openRetrievalTest() {
+  const results = runRetrievalTests();
+  const tuned = results.filter(r => !r.tc.held), held = results.filter(r => r.tc.held);
+  const count = (arr, k) => arr.filter(r => r[k].pass).length;
+  document.getElementById('retrievalTestSummary').innerHTML =
+    `<div style="font-size:13px;"><b>${t('rtTuned')}:</b> ${t('rtKeyword')} ${count(tuned,'keyword')}/${tuned.length} · ${t('rtSentence')} ${count(tuned,'sentence')}/${tuned.length}</div>` +
+    `<div style="font-size:13px; margin-top:4px;"><b>${t('rtHeld')}:</b> ${count(held,'sentence')}/${held.length} <span style="color:var(--text-soft);">— ${t('rtHeldNote')}</span></div>`;
+  document.getElementById('retrievalTestList').innerHTML = results.map(r => {
+    const rowPass = r.tc.held ? r.sentence.pass : (r.keyword.pass && r.sentence.pass);
+    const exp = r.tc.expect.length ? r.tc.expect.map(x => x.act + ' ' + x.section).join(' or ') : t('rtExpectNothing');
+    return `<div style="padding:8px 0; border-bottom:1px dashed var(--border);">
+      <div>${rowPass ? '✅' : '❌'} ${escapeHtml(r.tc.q)}${r.tc.held ? ' <span style="color:var(--brass);">[held-out]</span>' : ''}</div>
+      <div style="color:var(--text-soft);">${t('rtExpected')}: ${escapeHtml(exp)}</div>
+      <div style="color:var(--text-soft);">${t('rtGot')}: ${escapeHtml(r.sentence.got.join(' | ') || t('rtNothing'))}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('retrievalTestOverlay').classList.add('open');
+}
+function closeRetrievalTest() { document.getElementById('retrievalTestOverlay').classList.remove('open'); }
+async function exportRetrievalTests() {
+  if (!downloadsFn) return;
+  const data = RETRIEVAL_TESTS.map(tc => ({
+    question: tc.q, keyword_query_a_model_might_send: tc.query,
+    expected_entries: tc.expect.map(x => x.act + ' ' + x.section),
+    held_out: !!tc.held,
+    advocate_verdict: '', advocate_notes: ''   // for a practising advocate to fill in
+  }));
+  try { await downloadsFn.save({ filename: 'mrad-test-set-for-advocate-review.json', data: JSON.stringify(data, null, 2) }); } catch(e) {}
+}
+
+const ALL_LOCAL_KEYS = ['mrad_lang','mrad_mode','mrad_cases','mrad_wallet','mrad_free_quota','mrad_signed_up',
+  'mrad_welcome_shown','mrad_walkthrough_shown','mrad_feedback','mrad_lawyer_requests',
+  'mrad_referral_code','mrad_referral_applied','mrad_pin','mrad_pin_salt'];
+function wipeAllLocalData() {
+  ALL_LOCAL_KEYS.forEach(k => { try { localStorage.removeItem(k); } catch(e) {} });
+  location.reload();
+}
+function resetDemoData() {
+  if (!confirm(t('resetDemoConfirm'))) return;
+  wipeAllLocalData();
+}
+function deleteMyData() {
+  if (!confirm(t('deleteConfirm'))) return;
+  wipeAllLocalData();
+}
+
+/* ---------------- guided intake ---------------- */
+function L(o) { return o[lang] || o.en; }
+const GUIDED_FLOWS = [
+  { id: 'deposit', icon: '🏠', title: { en: 'Landlord keeping my deposit', bn: 'বাড়িওয়ালা জামানত ফেরত দিচ্ছেন না' },
+    intro: { en: 'My landlord is refusing to return my security deposit.', bn: 'আমার বাড়িওয়ালা আমার জামানতের টাকা ফেরত দিচ্ছেন না।' },
+    outro: { en: 'What are my options?', bn: 'আমার কী কী করণীয় আছে?' },
+    fields: [
+      { k: 'amount', type: 'number', label: { en: 'Deposit amount (BDT)', bn: 'জামানতের পরিমাণ (টাকা)' } },
+      { k: 'left', type: 'date', label: { en: 'Date I moved out', bn: 'যে তারিখে ফ্ল্যাট ছেড়েছি' } },
+      { k: 'agreement', type: 'select', label: { en: 'Written rental agreement?', bn: 'লিখিত ভাড়ার চুক্তি আছে?' }, opts: [ { en: 'Yes', bn: 'হ্যাঁ' }, { en: 'No', bn: 'না' } ] },
+      { k: 'paid', type: 'select', label: { en: 'How I paid the deposit', bn: 'জামানত কীভাবে দিয়েছি' }, opts: [ { en: 'Bank / bKash (I have a record)', bn: 'ব্যাংক / বিকাশ (রেকর্ড আছে)' }, { en: 'Cash (no record)', bn: 'নগদ (রেকর্ড নেই)' } ] },
+      { k: 'reason', type: 'text', label: { en: 'Reason the landlord gives', bn: 'বাড়িওয়ালা যে কারণ দেখাচ্ছেন' } } ] },
+  { id: 'fraud', icon: '💸', title: { en: 'Someone cheated me of money', bn: 'কেউ আমাকে ঠকিয়ে টাকা নিয়েছে' },
+    intro: { en: 'Someone deceived me and took my money or property.', bn: 'কেউ আমাকে প্রতারণা করে আমার টাকা বা সম্পত্তি নিয়ে নিয়েছে।' },
+    outro: { en: 'What can I do, legally?', bn: 'আইনগতভাবে আমি কী করতে পারি?' },
+    fields: [
+      { k: 'amount', type: 'number', label: { en: 'Amount lost (BDT)', bn: 'যত টাকা হারিয়েছি' } },
+      { k: 'date', type: 'date', label: { en: 'Date it happened', bn: 'ঘটনার তারিখ' } },
+      { k: 'how', type: 'text', label: { en: 'What they promised / how I was deceived', bn: 'তারা কী প্রতিশ্রুতি দিয়েছিল / কীভাবে প্রতারণা করেছে' } },
+      { k: 'proof', type: 'text', label: { en: 'Proof I have (messages, receipts, witnesses)', bn: 'আমার কাছে যে প্রমাণ আছে (মেসেজ, রসিদ, সাক্ষী)' } },
+      { k: 'fir', type: 'select', label: { en: 'Police complaint filed?', bn: 'থানায় অভিযোগ করেছি?' }, opts: [ { en: 'Not yet', bn: 'এখনো না' }, { en: 'Yes', bn: 'হ্যাঁ' } ] } ] },
+  { id: 'police', icon: '🚔', title: { en: 'Arrest or bail question', bn: 'গ্রেপ্তার বা জামিনের বিষয়' },
+    intro: { en: 'I need help with an arrest / bail situation.', bn: 'আমি একটি গ্রেপ্তার / জামিনের বিষয়ে সাহায্য চাই।' },
+    outro: { en: 'What should we do now?', bn: 'এখন আমাদের কী করা উচিত?' },
+    fields: [
+      { k: 'who', type: 'text', label: { en: 'Who was arrested (relation to me)', bn: 'কে গ্রেপ্তার হয়েছেন (আমার সাথে সম্পর্ক)' } },
+      { k: 'date', type: 'date', label: { en: 'Date of arrest', bn: 'গ্রেপ্তারের তারিখ' } },
+      { k: 'charge', type: 'text', label: { en: 'Charge, if known', bn: 'অভিযোগ, যদি জানা থাকে' } },
+      { k: 'warrant', type: 'select', label: { en: 'Was a warrant shown?', bn: 'ওয়ারেন্ট দেখানো হয়েছিল?' }, opts: [ { en: 'No / not sure', bn: 'না / নিশ্চিত নই' }, { en: 'Yes', bn: 'হ্যাঁ' } ] },
+      { k: 'stage', type: 'select', label: { en: 'Current stage', bn: 'বর্তমান অবস্থা' }, opts: [ { en: 'Just arrested', bn: 'সদ্য গ্রেপ্তার' }, { en: 'In custody', bn: 'হাজতে আছেন' }, { en: 'Case filed in court', bn: 'আদালতে মামলা চলছে' } ] } ] },
+  { id: 'contract', icon: '📄', title: { en: 'Agreement broken by the other side', bn: 'অপর পক্ষ চুক্তি ভঙ্গ করেছে' },
+    intro: { en: 'The other party has broken an agreement we made.', bn: 'অপর পক্ষ আমাদের মধ্যে হওয়া একটি চুক্তি ভঙ্গ করেছে।' },
+    outro: { en: 'Can I claim compensation, and how?', bn: 'আমি কি ক্ষতিপূরণ দাবি করতে পারি, এবং কীভাবে?' },
+    fields: [
+      { k: 'what', type: 'text', label: { en: 'What the agreement was about', bn: 'চুক্তিটি কী বিষয়ে ছিল' } },
+      { k: 'breach', type: 'text', label: { en: 'What they failed to do', bn: 'তারা কী করেনি' } },
+      { k: 'loss', type: 'number', label: { en: 'Loss I suffered (BDT)', bn: 'আমার ক্ষতি (টাকা)' } },
+      { k: 'written', type: 'select', label: { en: 'Was it in writing?', bn: 'চুক্তিটি লিখিত ছিল?' }, opts: [ { en: 'Yes', bn: 'হ্যাঁ' }, { en: 'No, verbal', bn: 'না, মৌখিক' } ] },
+      { k: 'notice', type: 'select', label: { en: 'Have I sent a legal notice?', bn: 'আমি কি আইনি নোটিশ পাঠিয়েছি?' }, opts: [ { en: 'No', bn: 'না' }, { en: 'Yes', bn: 'হ্যাঁ' } ] } ] }
+];
+let currentGuided = null;
+function openGuided() {
+  currentGuided = null;
+  renderGuidedChoices();
+  document.getElementById('guidedOverlay').classList.add('open');
+}
+function closeGuided() { document.getElementById('guidedOverlay').classList.remove('open'); }
+function renderGuidedChoices() {
+  document.getElementById('guidedBody').innerHTML =
+    `<p class="paywall-sub">${t('guidedPick')}</p>` +
+    GUIDED_FLOWS.map(f => `<button class="case-row" style="width:100%; text-align:left; margin-bottom:8px; font-family:inherit; font-size:14px; color:var(--text);" onclick="pickGuided('${f.id}')"><span style="font-size:20px;">${f.icon}</span> <span>${escapeHtml(L(f.title))}</span></button>`).join('');
+}
+function pickGuided(id) {
+  currentGuided = GUIDED_FLOWS.find(f => f.id === id);
+  const f = currentGuided;
+  const inputStyle = 'width:100%; font-size:14px; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--text); font-family:inherit; margin-bottom:10px;';
+  const fieldsHtml = f.fields.map(fd => {
+    const label = `<div style="font-size:12px; color:var(--text-soft); margin-bottom:4px;">${escapeHtml(L(fd.label))}</div>`;
+    let input;
+    if (fd.type === 'select') {
+      input = `<select id="gf_${fd.k}" style="${inputStyle}"><option value="">—</option>${fd.opts.map(o => `<option value="${escapeHtml(L(o))}">${escapeHtml(L(o))}</option>`).join('')}</select>`;
+    } else {
+      input = `<input id="gf_${fd.k}" type="${fd.type}" style="${inputStyle}">`;
+    }
+    return label + input;
+  }).join('');
+  document.getElementById('guidedBody').innerHTML =
+    `<div class="paywall-title" style="font-size:16px; margin-bottom:4px;">${f.icon} ${escapeHtml(L(f.title))}</div>
+     <p class="paywall-sub" style="margin-bottom:12px;">${t('guidedOptional')}</p>${fieldsHtml}
+     <div style="display:flex; gap:8px;"><button class="btn-ghost" style="flex:1;" onclick="renderGuidedChoices()">${t('guidedBack')}</button>
+     <button class="btn-primary" style="flex:2;" onclick="submitGuided()">${t('guidedSend')}</button></div>`;
+}
+function submitGuided() {
+  const f = currentGuided;
+  if (!f) return;
+  const lines = [];
+  f.fields.forEach(fd => {
+    const el = document.getElementById('gf_' + fd.k);
+    const v = el ? el.value.trim() : '';
+    if (v) lines.push(`- ${L(fd.label)}: ${v}`);
+  });
+  const msg = L(f.intro) + (lines.length ? '\n' + lines.join('\n') : '') + '\n' + L(f.outro);
+  closeGuided();
+  document.getElementById('input').value = msg;
+  sendMessage();
+}
+
+/* ---------------- privacy & app lock (this device only) ----------------
+   The PIN is stored as a salted SHA-256 hash, never in plain text. It keeps casual snoopers out
+   of the app screen; it does NOT encrypt the saved cases underneath, and the modal says so. */
+const cryptoOK = !!(window.crypto && window.crypto.subtle);
+function hasPin() { try { return !!localStorage.getItem('mrad_pin'); } catch(e) { return false; } }
+async function hashPin(pin, salt) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(salt + ':' + pin));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function openPrivacy() { renderLockControls(); document.getElementById('privacyOverlay').classList.add('open'); }
+function closePrivacy() { document.getElementById('privacyOverlay').classList.remove('open'); }
+function renderLockControls() {
+  const box = document.getElementById('lockControls');
+  if (!cryptoOK) { box.innerHTML = `<p style="font-size:12px; color:var(--stamp);">${t('lockUnsupported')}</p>`; return; }
+  const inputStyle = 'width:100%; font-size:16px; padding:10px 12px; border:1px solid var(--border); border-radius:10px; background:var(--card); color:var(--text); font-family:inherit; margin-bottom:8px;';
+  if (hasPin()) {
+    box.innerHTML = `<div style="font-size:13px; margin-bottom:8px;">✅ ${t('lockOn')}</div><button class="btn-small" onclick="removePin()">${t('lockRemove')}</button>`;
+  } else {
+    box.innerHTML = `<input type="password" inputmode="numeric" id="newPin" maxlength="8" placeholder="${t('lockNewPh')}" style="${inputStyle}">
+      <input type="password" inputmode="numeric" id="newPin2" maxlength="8" placeholder="${t('lockConfirmPh')}" style="${inputStyle}">
+      <div id="pinMsg" style="display:none; font-size:12px; color:var(--stamp); margin-bottom:8px;"></div>
+      <button class="btn-small" onclick="setPin()">${t('lockSet')}</button>`;
+  }
+}
+async function setPin() {
+  const a = document.getElementById('newPin').value, b = document.getElementById('newPin2').value;
+  const msg = document.getElementById('pinMsg');
+  if (!/^\d{4,8}$/.test(a)) { msg.textContent = t('lockBadFormat'); msg.style.display = 'block'; return; }
+  if (a !== b) { msg.textContent = t('lockMismatch'); msg.style.display = 'block'; return; }
+  const salt = Math.random().toString(36).slice(2) + Date.now().toString(36);
+  try {
+    localStorage.setItem('mrad_pin_salt', salt);
+    localStorage.setItem('mrad_pin', await hashPin(a, salt));
+  } catch(e) { msg.textContent = t('lockSaveFail'); msg.style.display = 'block'; return; }
+  renderLockControls();
+}
+function removePin() {
+  try { localStorage.removeItem('mrad_pin'); localStorage.removeItem('mrad_pin_salt'); } catch(e) {}
+  renderLockControls();
+}
+let pinFailures = 0;
+function showLock() {
+  if (!hasPin() || !cryptoOK) return;
+  document.getElementById('lockPinInput').value = '';
+  document.getElementById('lockError').style.display = 'none';
+  document.getElementById('lockOverlay').style.display = 'flex';
+}
+async function tryUnlock() {
+  const input = document.getElementById('lockPinInput');
+  const err = document.getElementById('lockError');
+  const btn = document.getElementById('lockUnlockBtn');
+  let ok = false;
+  try {
+    const salt = localStorage.getItem('mrad_pin_salt') || '';
+    ok = (await hashPin(input.value, salt)) === localStorage.getItem('mrad_pin');
+  } catch(e) {}
+  if (ok) { pinFailures = 0; document.getElementById('lockOverlay').style.display = 'none'; input.value = ''; return; }
+  pinFailures++;
+  input.value = '';
+  err.textContent = t('lockWrong'); err.style.display = 'block';
+  if (pinFailures >= 5) {
+    btn.disabled = true; err.textContent = t('lockWait');
+    setTimeout(() => { btn.disabled = false; pinFailures = 0; err.style.display = 'none'; }, 30000);
+  }
+}
+document.addEventListener('visibilitychange', () => { if (document.hidden) showLock(); });
+
+function openFeedbackLog() {
+  const log = (() => { try { return JSON.parse(localStorage.getItem('mrad_feedback') || '[]'); } catch(e) { return []; } })();
+  const statsEl = document.getElementById('feedbackStats');
+  if (log.length === 0) {
+    statsEl.innerHTML = `<p style="font-size:13px; color:var(--text-soft);">${t('noFeedbackYet')}</p>`;
+  } else {
+    const up = log.filter(l => l.rating === 'up').length;
+    const down = log.length - up;
+    const byMode = {};
+    log.forEach(l => { const k = l.mode || 'plain'; byMode[k] = byMode[k] || {up:0,down:0}; byMode[k][l.rating]++; });
+    let rows = `<div style="font-size:13px; margin-bottom:8px;"><b>${log.length}</b> ${t('totalRatings')} — 👍 ${up} (${Math.round(100*up/log.length)}%) · 👎 ${down}</div>`;
+    Object.keys(byMode).forEach(mode => {
+      const m = byMode[mode];
+      const total = m.up + (m.down||0);
+      rows += `<div style="font-size:12px; color:var(--text-soft);">${mode}: 👍 ${m.up||0} · 👎 ${m.down||0} (${total} total)</div>`;
+    });
+    statsEl.innerHTML = rows;
+  }
+  document.getElementById('feedbackRawList').innerHTML = log.slice(-20).reverse().map(l =>
+    `<div style="padding:4px 0; border-bottom:1px dashed var(--border);">${l.rating === 'up' ? '👍' : '👎'} · ${l.mode} · ${l.lang} · ${new Date(l.at).toLocaleString()}</div>`
+  ).join('') || '';
+  document.getElementById('feedbackLogOverlay').classList.add('open');
+}
+function closeFeedbackLog() { document.getElementById('feedbackLogOverlay').classList.remove('open'); }
+async function exportFeedbackLog() {
+  if (!downloadsFn) return;
+  const log = localStorage.getItem('mrad_feedback') || '[]';
+  try { await downloadsFn.save({ filename: 'mrad-feedback-log.json', data: log }); } catch(e) {}
+}
+
+function completeSignup(method) {
+  try { localStorage.setItem('mrad_signed_up', '1'); } catch(e) {}
+  myReferralCode(); // ensure this account has its own code to share
+  const enteredCode = (document.getElementById('referralCodeInput').value || '').trim();
+  if (!hasServerSession() && /^MRAD-[A-Z0-9]{4,8}$/i.test(enteredCode) && !localStorage.getItem('mrad_referral_applied')) {
+    grantBonusCredits(REFERRAL_BONUS_CREDITS);
+    try { localStorage.setItem('mrad_referral_applied', '1'); } catch(e) {}
+  }
+  closeSignup();
+  updateCreditPill();
+}
+
+function openRefer() {
+  document.getElementById('referralCodeDisplay').textContent = myReferralCode();
+  document.getElementById('referralOverlay').classList.add('open');
+}
+function closeRefer() { document.getElementById('referralOverlay').classList.remove('open'); }
+function copyReferralCode() {
+  const code = myReferralCode();
+  navigator.clipboard?.writeText(code).catch(() => {});
+  const btn = document.getElementById('copyReferralBtn');
+  btn.textContent = t('copied');
+  setTimeout(() => btn.textContent = t('copyCode'), 1800);
+}
+
+function openSignup(reason) {
+  setSignupMode(reason === 'expired' ? 'login' : 'signup');
+  const sub = document.querySelector('#signupOverlay .paywall-sub');
+  if (sub) sub.textContent = reason === 'need' ? t('signupNeed') : reason === 'expired' ? t('sessionExpired') : t('signupSub');
+  document.getElementById('signupOverlay').classList.add('open');
+}
+function closeSignup() { document.getElementById('signupOverlay').classList.remove('open'); }
+
+function openLawyer() { document.getElementById('lawyerOverlay').classList.add('open'); }
+function closeLawyer() { document.getElementById('lawyerOverlay').classList.remove('open'); }
+function submitLawyerRequest() {
+  const name = document.getElementById('lawyerName').value.trim();
+  const mobile = document.getElementById('lawyerMobile').value.trim();
+  const brief = document.getElementById('lawyerBrief').value.trim();
+  if (!name || !mobile) {
+    document.getElementById('lawyerFormNote').style.display = 'block';
+    return;
+  }
+  try {
+    const log = JSON.parse(localStorage.getItem('mrad_lawyer_requests') || '[]');
+    log.push({ name, mobile, brief, at: new Date().toISOString() });
+    localStorage.setItem('mrad_lawyer_requests', JSON.stringify(log));
+  } catch(e) {}
+  document.querySelector('#lawyerOverlay .paywall-note').textContent = t('lawyerRequestReceived');
+  document.getElementById('lawyerName').value = '';
+  document.getElementById('lawyerMobile').value = '';
+  document.getElementById('lawyerBrief').value = '';
+  document.getElementById('lawyerFormNote').style.display = 'none';
+}
+
+/* ---------- Live backend connection ---------- */
+const API_BASE = 'https://mrad-backend.onrender.com';
+let signupMode = 'signup';
+let serverWallet = null; // {credits, freeLeft} from the server, when logged in
+
+function authToken() { try { return localStorage.getItem('mrad_token'); } catch(e) { return null; } }
+function hasServerSession() { return !!authToken(); }
+function clearSession() {
+  try { ['mrad_token','mrad_user_id','mrad_signed_up'].forEach(k => localStorage.removeItem(k)); } catch(e) {}
+  serverWallet = null;
+}
+async function apiFetch(path, opts) {
+  const o = Object.assign({ method: 'GET' }, opts || {});
+  o.headers = Object.assign({ 'Content-Type': 'application/json' }, o.headers || {});
+  const tok = authToken();
+  if (tok) o.headers['Authorization'] = 'Bearer ' + tok;
+  let res;
+  try { res = await fetch(API_BASE + path, o); } catch (e) { return { status: 0, data: null }; }
+  let data = null;
+  try { data = await res.json(); } catch (e) {}
+  if (res.status === 401 && tok) { clearSession(); updateCreditPill(); }
+  return { status: res.status, data };
+}
+async function refreshServerWallet() {
+  if (!hasServerSession()) return;
+  const r = await apiFetch('/wallet/balance');
+  if (r.status === 200 && r.data) {
+    serverWallet = { credits: r.data.credit_balance, freeLeft: r.data.free_questions_left };
+    updateCreditPill();
+  }
+}
+async function ensureServerCase() {
+  const c = getActiveCase();
+  if (!c) return null;
+  if (c.serverId && c.serverMode === responseMode && c.serverLang === lang) return c.serverId;
+  const r = await apiFetch('/cases', { method: 'POST', body: JSON.stringify({ mode: responseMode, lang: lang }) });
+  if (r.status === 200 && r.data && r.data.case_id) {
+    c.serverId = r.data.case_id; c.serverMode = responseMode; c.serverLang = lang;
+    saveCases();
+    return c.serverId;
+  }
+  return null;
+}
+
+function setSignupMode(mode) {
+  signupMode = mode;
+  const login = mode === 'login';
+  const show = (id, on) => { const el = document.getElementById(id); if (el) el.style.display = on ? '' : 'none'; };
+  show('signupName', !login);
+  show('referralCodeInput', !login);
+  show('signupSubmitBtn', !login);
+  show('loginSubmitBtn', login);
+  show('toLoginLink', !login);
+  show('toSignupLink', login);
+  showSignupError('');
+}
+function showSignupError(key) {
+  const el = document.getElementById('signupError');
+  if (!el) return;
+  if (!key) { el.style.display = 'none'; el.textContent = ''; return; }
+  el.textContent = t(key);
+  el.style.display = 'block';
+}
+async function callAuth(path, body) {
+  let res;
+  try {
+    res = await fetch(API_BASE + path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+  } catch (e) {
+    return { ok: false, errKey: 'errNetwork' };
+  }
+  let data = null;
+  try { data = await res.json(); } catch (e) {}
+  if (res.ok && data && data.token) return { ok: true, data };
+  if (res.status === 409) return { ok: false, errKey: 'errExists' };
+  if (res.status === 401) return { ok: false, errKey: 'errCreds' };
+  return { ok: false, errKey: 'errGeneric' };
+}
+function saveSession(data) {
+  try {
+    localStorage.setItem('mrad_token', data.token);
+    if (data.user_id) localStorage.setItem('mrad_user_id', data.user_id);
+    if (data.referral_code) localStorage.setItem('mrad_referral_code', data.referral_code);
+  } catch (e) {}
+}
+function setAuthBusy(on) {
+  ['signupSubmitBtn', 'loginSubmitBtn'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) b.disabled = on;
+  });
+}
+async function submitTraditionalSignup() {
+  const name = document.getElementById('signupName').value.trim();
+  const mobile = document.getElementById('signupMobile').value.trim();
+  const password = document.getElementById('signupPassword').value;
+  const referral = (document.getElementById('referralCodeInput').value || '').trim();
+  if (!name || !mobile || !password) { showSignupError('errFields'); return; }
+  if (password.length < 8) { showSignupError('errShortPw'); return; }
+  showSignupError('');
+  setAuthBusy(true);
+  const r = await callAuth('/auth/signup', { mobile, name, password, referral_code: referral || null });
+  setAuthBusy(false);
+  if (!r.ok) { showSignupError(r.errKey); return; }
+  saveSession(r.data);
+  document.getElementById('signupPassword').value = '';
+  completeSignup('mobile');
+  refreshServerWallet();
+}
+async function submitLogin() {
+  const mobile = document.getElementById('signupMobile').value.trim();
+  const password = document.getElementById('signupPassword').value;
+  if (!mobile || !password) { showSignupError('errFields'); return; }
+  showSignupError('');
+  setAuthBusy(true);
+  const r = await callAuth('/auth/login', { mobile, password });
+  setAuthBusy(false);
+  if (!r.ok) { showSignupError(r.errKey); return; }
+  saveSession(r.data);
+  document.getElementById('signupPassword').value = '';
+  completeSignup('mobile');
+  refreshServerWallet();
+}
+
+function deductWallet(amountBdt) {
+  const s = walletState();
+  let remaining = amountBdt;
+  const batches = s.batches || [];
+  batches.sort((a, b) => a.purchasedAt - b.purchasedAt); // spend oldest credits first
+  for (const batch of batches) {
+    if (remaining <= 0) break;
+    const take = Math.min(batch.credits, remaining);
+    batch.credits = Math.round((batch.credits - take) * 100) / 100;
+    remaining = Math.round((remaining - take) * 100) / 100;
+  }
+  s.batches = batches.filter(b => b.credits > 0);
+  saveWallet(s);
+  updateCreditPill();
+  return walletBalance();
+}
+
+function updateCreditPill() {
+  const pill = document.getElementById('creditPill');
+  const signupBtn = document.getElementById('signupBtn');
+  signupBtn.style.display = isSignedUp() ? 'none' : 'inline-block';
+  document.getElementById('referBtn').style.display = isSignedUp() ? 'inline-block' : 'none';
+  const freeLeft = freeQuestionsLeft();
+  if (freeLeft > 0) {
+    pill.textContent = t('freeQuestionsPill')(freeLeft);
+    pill.classList.toggle('low', freeLeft <= 2);
+    pill.onclick = isSignedUp() ? openPaywall : openSignup;
+  } else {
+    const bal = walletBalance();
+    pill.textContent = t('walletPill')(Math.round(bal));
+    pill.classList.toggle('low', bal <= 20);
+    pill.onclick = isSignedUp() ? openPaywall : openSignup;
+    const expiry = walletEarliestExpiry();
+    pill.title = (bal > 0 && expiry) ? t('expiryTooltip')(expiry.toLocaleDateString()) : '';
+  }
+}
+
+function selectTopup(amount, btn) {
+  selectedTopup = amount;
+  window.__topupAmt = amount;
+  document.querySelectorAll('.topup-chip').forEach(c => c.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function openPaywall() { document.getElementById('paywallOverlay').classList.add('open'); }
+function closePaywall() { document.getElementById('paywallOverlay').classList.remove('open'); }
+
+function mockPay(method) {
+  if (hasServerSession()) {
+    const n = document.querySelector('#paywallOverlay .paywall-note');
+    if (n) n.textContent = t('payComingSoon');
+    return;
+  }
+  const overlay = document.getElementById('paywallOverlay');
+  const btns = overlay.querySelectorAll('.pay-btn');
+  btns.forEach(b => b.disabled = true);
+  const note = overlay.querySelector('.paywall-note');
+  note.textContent = t('mockPaySuccess')(method);
+  setTimeout(() => {
+    btns.forEach(b => b.disabled = false);
+    try {
+      const result = addTopup(selectedTopup);
+      if (result.reactivated > 0) {
+        note.textContent = t('reactivatedNote')(result.reactivated);
+      }
+      setTimeout(closePaywall, result.reactivated > 0 ? 1800 : 0);
+    } catch(e) {
+      // Never let a crediting error leave the modal silently stuck with no
+      // explanation — this is exactly the failure mode that made a real
+      // bug look like "nothing happens" from the outside.
+      note.textContent = t('topupError');
+    }
+  }, 1600);
+}
+
+/* ---------------- capability init ---------------- */
+let imageLimits = null;
+let toolsAvailable = false;
+(async () => {
+  try { sampleFn = await window.claude.use('sample'); } catch(e) { sampleFn = null; }
+  try { downloadsFn = await window.claude.use('downloads'); } catch(e) { downloadsFn = null; }
+  if (sampleFn) {
+    try {
+      const limits = await sampleFn.limits();
+      imageLimits = limits.images || null;
+      toolsAvailable = !!limits.tools;
+    } catch(e) { imageLimits = null; toolsAvailable = false; }
+  }
+  // Don't hide the attach button based on this check — some viewing contexts
+  // report images unavailable inconsistently, and a hidden button with no
+  // explanation is worse than a visible one that fails clearly if it turns
+  // out unsupported (see chooseAttachType and sendMessage's error handling).
+  if (imageLimits && imageLimits.mediaTypes && imageLimits.mediaTypes.length) {
+    document.getElementById('fileInput').setAttribute('accept', imageLimits.mediaTypes.join(','));
+  }
+})();
+
+/* ---------------- image attachments ---------------- */
+let pendingImages = []; // [{blob, url}]
+
+function toggleAttachMenu() {
+  document.getElementById('attachMenu').classList.toggle('open');
+}
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('attachMenu');
+  const btn = document.getElementById('attachBtn');
+  if (menu && menu.classList.contains('open') && !menu.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
+
+function chooseAttachType(kind) {
+  document.getElementById('attachMenu').classList.remove('open');
+  if (kind === 'image') {
+    document.getElementById('fileInput').click();
+  } else {
+    // Docs and audio aren't supported by this environment's AI capability yet —
+    // surfaced honestly as a coming-soon note rather than accepting a file that
+    // silently does nothing.
+    appendAdBubble(t('attachNotYet'), true);
+  }
+}
+
+function handleFileSelect(fileList) {
+  const files = Array.from(fileList || []);
+  const maxCount = (imageLimits && imageLimits.maxCount) || 5;
+  const maxBytes = (imageLimits && imageLimits.maxInputBytes) || 10 * 1024 * 1024;
+  for (const f of files) {
+    if (pendingImages.length >= maxCount) break;
+    if (f.size > maxBytes) { appendAdBubble(t('imageTooLarge'), true); continue; }
+    pendingImages.push({ blob: f, url: URL.createObjectURL(f) });
+  }
+  document.getElementById('fileInput').value = '';
+  renderThumbs();
+}
+
+function removePendingImage(idx) {
+  URL.revokeObjectURL(pendingImages[idx].url);
+  pendingImages.splice(idx, 1);
+  renderThumbs();
+}
+
+function clearPendingImages() {
+  pendingImages.forEach(p => URL.revokeObjectURL(p.url));
+  pendingImages = [];
+  renderThumbs();
+}
+
+function renderThumbs() {
+  const wrap = document.getElementById('imageThumbs');
+  if (pendingImages.length === 0) { wrap.style.display = 'none'; wrap.innerHTML = ''; return; }
+  wrap.style.display = 'flex';
+  wrap.innerHTML = pendingImages.map((p, i) => `
+    <div class="thumb-chip">
+      <img src="${p.url}" alt="attached">
+      <button class="thumb-remove" onclick="removePendingImage(${i})" aria-label="Remove">&times;</button>
+    </div>`).join('');
+}
+
+/* ---------------- lightweight markdown-ish renderer ---------------- */
+function renderBody(text) {
+  const lines = text.split('\n');
+  let html = '', inList = false;
+  for (let raw of lines) {
+    const line = raw.trim();
+    if (!line) { if (inList) { html += '</ul>'; inList = false; } continue; }
+    if (line.startsWith('## ')) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<h3>${escapeHtml(line.slice(3))}</h3>`;
+    } else if (line.startsWith('- ') || line.startsWith('* ')) {
+      if (!inList) { html += '<ul>'; inList = true; }
+      html += `<li>${inlineFmt(escapeHtml(line.slice(2)))}</li>`;
+    } else {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<p>${inlineFmt(escapeHtml(line))}</p>`;
+    }
+  }
+  if (inList) html += '</ul>';
+  return html;
+}
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function inlineFmt(s) {
+  return s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+}
+
+/* ---------------- verified statute corpus (small, real, growing) ----------------
+   Every entry here is genuine verbatim Bangladeshi statute text, fetched
+   directly from bdlaws.minlaw.gov.bd (the government's own portal) or
+   confirmed identical to Bangladesh's Act via its own published footnote
+   on jurisdiction-term substitution. This is a small starting set, not the
+   full corpus from the tracker — see chat for how this scales up via the
+   real embedding/vector-DB pipeline. Claude retrieves from THIS, not from
+   its own memory, whenever a question touches contract law. */
+const LAW_CORPUS_RAW = [
+  { act: "The Contract Act, 1872 (Act No. IX of 1872)", section: "1–2",
+    title: "Short title; Interpretation-clause",
+    text: `1. This Act may be called the Contract Act, 1872. It extends to the whole of Bangladesh; and it shall come into force on the first day of September, 1872.\n2. In this Act the following words and expressions are used in the following senses, unless a contrary intention appears from the context:- (a) When one person signifies to another his willingness to do or to abstain from doing anything, with a view to obtaining the assent of that other to such act or abstinence, he is said to make a proposal. (b) When the person to whom the proposal is made signifies his assent thereto, the proposal is said to be accepted. A proposal, when accepted, becomes a promise. (c) The person making the proposal is called the "promisor" and the person accepting it the "promisee".`,
+    source: "https://bdlaws.minlaw.gov.bd/act-print-26.html", verified: "2026-09-22" },
+  { act: "The Contract Act, 1872 (Act No. IX of 1872)", section: "10",
+    title: "What agreements are contracts",
+    text: `All agreements are contracts if they are made by the free consent of parties competent to contract, for a lawful consideration and with a lawful object, and are not hereby expressly declared to be void. Nothing herein contained shall affect any law in force in Bangladesh, and not hereby expressly repealed, by which any contract is required to be made in writing or in the presence of witnesses, or any law relating to the registration of documents.`,
+    source: "https://bdlaws.minlaw.gov.bd/act-print-26.html", verified: "2026-09-22" },
+  { act: "The Contract Act, 1872 (Act No. IX of 1872)", section: "11–12",
+    title: "Who is competent to contract; what is a sound mind for this purpose",
+    text: `11. Every person is competent to contract who is of the age of majority according to the law to which he is subject, and who is of sound mind, and is not disqualified from contracting by any law to which he is subject.\n12. A person is said to be of sound mind for the purpose of making a contract if, at the time when he makes it, he is capable of understanding it and of forming a rational judgment as to its effect upon his interests.`,
+    source: "https://bdlaws.minlaw.gov.bd/act-print-26.html", verified: "2026-09-22" },
+  { act: "The Contract Act, 1872 (Act No. IX of 1872)", section: "73",
+    title: "Compensation for loss or damage caused by breach of contract",
+    text: `When a contract has been broken, the party who suffers by such breach is entitled to receive, from the party who has broken the contract, compensation for any loss or damage caused to him thereby, which naturally arose in the usual course of things from such breach, or which the parties knew, when they made the contract, to be likely to result from the breach of it. Such compensation is not to be given for any remote and indirect loss or damage sustained by reason of the breach. In estimating the loss or damage arising from a breach of contract, the means which existed of remedying the inconvenience caused by the non-performance of the contract must be taken into account.`,
+    source: "Confirmed identical to Bangladesh's Act — this section carries no jurisdiction-specific terms, and bdlaws.minlaw.gov.bd's own footnote confirms only 'Pakistan'/'Rupees'/'Pakistan Penal Code' were substituted elsewhere in the Act; text verified against the official mirror.", verified: "2026-09-22" },
+  { act: "The Premises Rent Control Act, 1991 (Act No. 3 of 1991)", section: "10",
+    title: "Restriction on claiming security deposit or advance rent",
+    text: `No person shall, in consideration of the grant, renewal or continuance of a tenancy of any premises — (a) claim, receive or ask for payment of any premium, salami, security or any other like sum in addition to the rent; or (b) except with the previous permission of the Controller, claim or receive the payment of any sum exceeding one month's rent of such premises as rent in advance.`,
+    source: "Verbatim text cross-confirmed across multiple independent Bangladeshi legal sources (The Daily Star's legal advice column, Daffodil International University law forum) quoting this section identically; not fetched directly from the official government mirror this round.", verified: "2026-09-22" },
+  { act: "The Constitution of the People's Republic of Bangladesh, 1972", section: "Preamble",
+    title: "Bismillah invocation and Preamble",
+    text: `BISMILLAH-AR-RAHMAN-AR-RAHIM (In the name of Allah, the Beneficent, the Merciful) — this invocation precedes the Preamble; it was inserted in 1977 and remains at the head of the Constitution today.\n\nPREAMBLE\nWe, the people of Bangladesh, having proclaimed our Independence on the 26th day of March, 1971 and through a historic war for national independence, established the independent, sovereign People's Republic of Bangladesh;\nPledging that the high ideals of absolute trust and faith in the Almighty Allah, nationalism, democracy and socialism meaning economic and social justice, which inspired our heroic people to dedicate themselves to, and our brave martyrs to sacrifice their lives in the war for national independence, shall be fundamental principles of the Constitution;\nFurther pledging that it shall be a fundamental aim of the State to realise through the democratic process to socialist society, free from exploitation — a society in which the rule of law, fundamental human rights and freedom, equality and justice, political, economic and social, will be secured for all citizens;\nAffirming that it is our sacred duty to safeguard, protect and defend this Constitution and to maintain its supremacy as the embodiment of the will of the people of Bangladesh so that we may prosper in freedom and may make our full contribution towards international peace and co-operation in keeping with the progressive aspirations of mankind;\nIn our Constituent Assembly, this eighteenth day of Kartick, 1379 B.S. corresponding to the fourth day of November, 1972 A.D., do hereby adopt, enact and give to ourselves this Constitution.`,
+    source: "Verified two ways: cross-confirmed across multiple independent official mirrors (wipolex-res.wipo.int, chanrobles.com) for the Bismillah wording and its 1977 insertion date, AND directly visually confirmed against the user-provided Bangla-language Constitution PDF (rasterized and read page-by-page) — Bangla and English texts matched in full.",
+    verified: "2026-09-23", volatile: true },
+  { act: "The Constitution of the People's Republic of Bangladesh, 1972", section: "Article 27",
+    title: "Equality before law",
+    text: `All citizens are equal before law and are entitled to equal protection of law.`,
+    source: "Cross-confirmed verbatim across cyrilla.org's constitutional text mirror and multiple independent Bangladeshi legal-affairs publications quoting this article identically.",
+    verified: "2026-09-22", volatile: true },
+  { act: "The Constitution of the People's Republic of Bangladesh, 1972", section: "Article 31",
+    title: "Right to protection of law",
+    text: `To enjoy the protection of the law, and to be treated in accordance with law, and only in accordance with law, is the inalienable right of every citizen, wherever he may be, and of every other person for the time being within Bangladesh, and in particular no action detrimental to the life, liberty, body, reputation or property of any person shall be taken except in accordance with law.`,
+    source: "Cross-confirmed verbatim across cyrilla.org's constitutional text mirror.",
+    verified: "2026-09-22", volatile: true },
+  { act: "The Constitution of the People's Republic of Bangladesh, 1972", section: "Article 32",
+    title: "Protection of right to life and personal liberty",
+    text: `No person shall be deprived of life or personal liberty save in accordance with law.`,
+    source: "Cross-confirmed verbatim across cyrilla.org's constitutional text mirror.",
+    verified: "2026-09-22", volatile: true },
+  { act: "The Code of Criminal Procedure, 1898 (Act No. V of 1898)", section: "4(b),(f),(n)",
+    title: "Definitions: bailable/non-bailable, cognizable/non-cognizable offences",
+    text: `(b) "bailable offence" means an offence shown as bailable in the second schedule, or which is made bailable by any other law for the time being in force; and "non-bailable offence" means any other offence.\n(f) "cognizable offence" means an offence for, and "cognizable case" means a case in, which a police-officer may, in accordance with the second schedule or under any law for the time being in force, arrest without warrant.\n(n) "non-cognizable offence" means an offence for, and "non-cognizable case" means a case in, which a police-officer may not arrest without warrant.`,
+    source: "Extracted directly from a user-provided PDF of the Code of Criminal Procedure, 1898 (Bangladesh) — clean, properly-encoded text layer, not OCR'd or reconstructed.",
+    verified: "2026-09-23" },
+  { act: "The Code of Criminal Procedure, 1898 (Act No. V of 1898)", section: "154, 155",
+    title: "Information in cognizable and non-cognizable cases (First Information Report)",
+    text: `154. Every information relating to the commission of a cognizable offence if given orally to an officer in charge of a police-station, shall be reduced to writing by him or under his direction, and be read over to the informant; and every such information, whether given in writing or reduced to writing as aforesaid, shall be signed by the person giving it, and the substance thereof shall be entered in a book to be kept by such officer in such form as the Government may prescribe in this behalf.\n155.(1) When information is given to an officer in charge of a police-station of the commission within the limits of such station of a non-cognizable offence, he shall enter in a book to be kept as aforesaid the substance of such information and refer the informant to the Magistrate.\n(2) No police-officer shall investigate a non-cognizable case without the order of a Magistrate of the first or second class having power to try such case or send the same for trial.\n(3) Any police-officer receiving such order may exercise the same powers in respect of the investigation (except the power to arrest without warrant) as an officer in charge of a police-station may exercise in a cognizable case.`,
+    source: "Extracted directly from a user-provided PDF of the Code of Criminal Procedure, 1898 (Bangladesh) — clean, properly-encoded text layer.",
+    verified: "2026-09-23" },
+  { act: "The Code of Criminal Procedure, 1898 (Act No. V of 1898)", section: "496, 497",
+    title: "Bail — bailable offences, and non-bailable offences",
+    text: `496. When any person other than a person accused of a non-bailable offence is arrested or detained without warrant by an officer in charge of a police-station, or appears or is brought before a Court, and is prepared at any time while in the custody of such officer or at any stage of the proceedings before such Court to give bail, such person shall be released on bail: Provided that such officer or Court, if he or it thinks fit, may, instead of taking bail from such person, discharge him on his executing a bond without sureties for his appearance as hereinafter provided.\n497.(1) When any person accused of any non-bailable offence is arrested or detained without warrant by an officer in charge of a police-station, or appears or is brought before a Court, he may be released on bail, but he shall not be so released if there appear reasonable grounds for believing that he has been guilty of an offence punishable with death or transportation for life: Provided that the Court may direct that any person under the age of sixteen years or any woman or any sick or infirm person accused of such an offence be released on bail.\n(2) If it appears to such officer or Court at any stage of the investigation, inquiry or trial that there are not reasonable grounds for believing that the accused has committed a non-bailable offence, but that there are sufficient grounds for further inquiry into his guilt, the accused shall, pending such inquiry, be released on bail, or, at the discretion of such officer or Court, on the execution by him of a bond without sureties for his appearance.\n(3) An officer or a Court releasing any person on bail under sub-section (1) or sub-section (2) shall record in writing his or its reasons for so doing.`,
+    source: "Extracted directly from a user-provided PDF of the Code of Criminal Procedure, 1898 (Bangladesh) — clean, properly-encoded text layer.",
+    verified: "2026-09-23" },
+  { act: "The Code of Civil Procedure, 1908 (Act No. V of 1908)", section: "9",
+    title: "Jurisdiction of the Courts — courts to try all civil suits unless barred",
+    text: `The Courts shall (subject to the provisions herein contained) have jurisdiction to try all suits of a civil nature excepting suits of which their cognizance is either expressly or impliedly barred.\nExplanation — A suit in which the right to property or to an office is contested is a suit of a civil nature, notwithstanding that such right may depend entirely on the decision of questions as to religious rites or ceremonies.`,
+    source: "Extracted directly from a user-provided PDF of the Code of Civil Procedure, 1908 (Bangladesh) — clean, properly-encoded text layer.",
+    verified: "2026-09-23" },
+  { act: "The Code of Civil Procedure, 1908 (Act No. V of 1908)", section: "80",
+    title: "Notice required before suing the Government or a public officer",
+    text: `80.(1) A suit may be instituted against the Government or against a public officer, in respect of any act purporting to be done by such public officer in his official capacity, after the expiration of two months next after notice in writing has been delivered to or left at the office of — (i) in the case of a suit against the Government other than a suit relating to the affairs of the Railway, a Secretary to the Government or the Collector of the District; and (ii) in the case of a suit against the Government relating to the affairs of the Railway, the General Manager of the Railway — and in the case of a public officer, delivered to him or left at his office, stating the cause of action, the name and description of the place of residence of the plaintiff, and the relief which he claims; and the plaint shall contain a statement that such notice has been so delivered or left.\n(2) Where any such suit is instituted without delivering or leaving such notice as aforesaid, or before the expiration of the said period of two months, or where the plaint does not contain a statement that such notice has been so delivered or left, the plaintiff shall not be entitled to any costs if settlement as regards the subject-matter of the suit is reached or the Government or the public officer concedes the plaintiff's claim.`,
+    source: "Extracted directly from a user-provided PDF of the Code of Civil Procedure, 1908 (Bangladesh) — clean, properly-encoded text layer. Footnoted amendment markers in the source were stripped for readability; substance unchanged.",
+    verified: "2026-09-23" },
+  { act: "The Penal Code, 1860 (Act No. XLV of 1860)", section: "405, 406",
+    title: "Criminal breach of trust — definition and punishment",
+    text: `405. Whoever, being in any manner entrusted with property, or with any dominion over property, dishonestly misappropriates or converts to his own use that property, or dishonestly uses or disposes of that property in violation of any direction of law prescribing the mode in which such trust is to be discharged, or of any legal contract, express or implied, which he has made touching the discharge of such trust, or wilfully suffers any other person so to do, commits "criminal breach of trust".\n406. Whoever commits criminal breach of trust shall be punished with imprisonment of either description for a term which may extend to three years, or with fine, or with both.`,
+    source: "Extracted directly from a user-provided PDF of the Penal Code, 1860 (Bangladesh) — via pdfplumber, after pdftotext's default extraction produced corrupted/split characters on this particular PDF (a font-encoding quirk, not a broken-font case like the Bangla Constitution — pdfplumber's different extraction method resolved it cleanly).",
+    verified: "2026-09-23" },
+  { act: "The Penal Code, 1860 (Act No. XLV of 1860)", section: "415, 420",
+    title: "Cheating — definition, and punishment for cheating and dishonestly inducing delivery of property",
+    text: `415. Whoever, by deceiving any person, fraudulently or dishonestly induces the person so deceived to deliver any property to any person, or to consent that any person shall retain any property, or intentionally induces the person so deceived to do or omit to do anything which he would not do or omit if he were not so deceived, and which act or omission causes or is likely to cause damage or harm to that person in body, mind, reputation or property, is said to "cheat". Explanation — A dishonest concealment of facts is a deception within the meaning of this section.\n420. Whoever cheats and thereby dishonestly induces the person deceived to deliver any property to any person, or to make, alter or destroy the whole or any part of a valuable security, or anything which is signed or sealed, and which is capable of being converted into a valuable security, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine.`,
+    source: "Extracted directly from a user-provided PDF of the Penal Code, 1860 (Bangladesh) — via pdfplumber, same font-encoding note as ss.405-406 above.",
+    verified: "2026-09-23" },
+  { act: "The Penal Code, 1860 (Act No. XLV of 1860)", section: "378, 379",
+    title: "Theft — definition and punishment",
+    text: `378. Whoever, intending to take dishonestly any moveable property out of the possession of any person without that person's consent, moves that property in order to such taking, is said to commit theft.\nExplanation 1 — A thing so long as it is attached to the earth, not being moveable property, is not the subject of theft; but it becomes capable of being the subject of theft as soon as it is severed from the earth.\nExplanation 5 — The consent mentioned in the definition may be express or implied, and may be given either by the person in possession, or by any person having for that purpose authority either express or implied.\n379. Whoever commits theft shall be punished with imprisonment of either description for a term which may extend to three years, or with fine, or with both.`,
+    source: "Extracted directly from a user-provided PDF of the Penal Code, 1860 (Bangladesh) — via pdfplumber (same file re-uploaded and re-processed for this addition).",
+    verified: "2026-09-23" },
+  { act: "The Evidence Act, 1872 (Act No. I of 1872)", section: "3",
+    title: "Definitions — \"fact\", \"proved\", \"disproved\", \"not proved\"",
+    text: `"Fact" means and includes — (1) anything, state of things, or relation of things capable of being perceived by the senses; (2) any mental condition of which any person is conscious. One fact is said to be relevant to another when the one is connected with the other in any of the ways referred to in the provisions of this Act relating to the relevancy of facts.\nA fact is said to be proved when, after considering the matters before it, the Court either believes it to exist, or considers its existence so probable that a prudent man ought, under the circumstances of the particular case, to act upon the supposition that it exists.\nA fact is said to be disproved when, after considering the matters before it, the Court either believes that it does not exist, or considers its non-existence so probable that a prudent man ought, under the circumstances of the particular case, to act upon the supposition that it does not exist.\nA fact is said not to be proved when it is neither proved nor disproved.`,
+    source: "Extracted directly from a user-uploaded PDF (a browser print-capture of the live bdlaws.minlaw.gov.bd page, dated today in the page footer) — clean text layer.",
+    verified: "2026-09-23" },
+  { act: "The Evidence Act, 1872 (Act No. I of 1872)", section: "101, 102",
+    title: "Burden of proof",
+    text: `101. Whoever desires any Court to give judgment as to any legal right or liability dependent on the existence of facts which he asserts, must prove that those facts exist. When a person is bound to prove the existence of any fact, it is said that the burden of proof lies on that person.\n102. The burden of proof in a suit or proceeding lies on that person who would fail if no evidence at all were given on either side.`,
+    source: "Extracted directly from a user-uploaded PDF (a browser print-capture of the live bdlaws.minlaw.gov.bd page, dated today in the page footer) — clean text layer.",
+    verified: "2026-09-23" },
+  { act: "The Limitation Act, 1908 (Act No. IX of 1908)", section: "3",
+    title: "Dismissal of suits, appeals and applications filed after the limitation period",
+    text: `Subject to the provisions contained in sections 4 to 25 (inclusive), every suit instituted, appeal preferred, and application made, after the period of limitation prescribed therefor by the first schedule shall be dismissed, although limitation has not been set up as a defence.\nExplanation — A suit is instituted, in ordinary cases, when the plaint is presented to the proper officer; in the case of a pauper, when his application for leave to sue as a pauper is made; and, in the case of a claim against a company which is being wound up by the Court, when the claimant first sends in his claim to the official liquidator.`,
+    source: "Extracted directly from a user-provided PDF of the Limitation Act, 1908 (Bangladesh) — clean, properly-encoded text layer.",
+    verified: "2026-09-23" },
+  { act: "The Limitation Act, 1908 (Act No. IX of 1908)", section: "Article 120 (First Schedule)",
+    title: "Residuary limitation period — six years, when no other period is specified",
+    text: `Suit for which no period of limitation is provided elsewhere in this schedule — Period of limitation: Six years — Time from which period begins to run: When the right to sue accrues.\n\nImportant distinction from India: Bangladesh never replaced this 1908 Act (India did, with its own Limitation Act 1963). Bangladesh's residuary period is six years under Article 120 of this 1908 Act's First Schedule — NOT three years under "Article 113", which is a provision of India's separate 1963 Act and does not apply in Bangladesh. Do not cite "Article 113" or a three-year residuary period for a Bangladeshi matter.`,
+    source: "Extracted directly from a user-provided PDF of the Limitation Act, 1908 (Bangladesh) — clean, properly-encoded text layer. This resolves a genuine ambiguity flagged earlier in this corpus-building process, where web search results kept conflating Bangladesh's actual Act with India's differently-numbered replacement.",
+    verified: "2026-09-23" },
+  { act: "The Specific Relief Act, 1877 (Act No. I of 1877)", section: "8, 9",
+    title: "Recovery of possession of immoveable property",
+    text: `8. A person entitled to the possession of specific immoveable property may recover it in the manner prescribed by the Code of Civil Procedure.\n9. If any person is dispossessed without his consent of immoveable property otherwise than in due course of law, he or any person claiming through him may, by suit recover possession thereof, notwithstanding any other title that may be set up in such suit.\nNothing in this section shall bar any person from suing to establish his title to such property and to recover possession thereof.\nNo suit under this section shall be brought against the Government.`,
+    source: "Extracted directly from a user-provided PDF of the Specific Relief Act, 1877 (Bangladesh) — clean, properly-encoded text layer.",
+    verified: "2026-09-23" },
+  { act: "The Specific Relief Act, 1877 (Act No. I of 1877)", section: "42",
+    title: "Discretion of Court as to declaration of status or right (declaratory decree)",
+    text: `Any person entitled to any legal character, or to any right as to any property, may institute a suit against any person denying, or interested to deny, his title to such character or right, and the Court may in its discretion make therein a declaration that he is so entitled, and the plaintiff need not in such suit ask for any further relief.\nProvided that no Court shall make any such declaration where the plaintiff, being able to seek further relief than a mere declaration of title, omits to do so.\nExplanation — A trustee of property is a "person interested to deny" a title adverse to the title of someone who is not in existence, and for whom, if in existence, he would be a trustee.`,
+    source: "Extracted directly from a user-provided PDF of the Specific Relief Act, 1877 (Bangladesh) — clean, properly-encoded text layer.",
+    verified: "2026-09-23" },
+];
+
+/* ---------------- market configuration ----------------
+   Mr.AD is planned to go global eventually, one real market at a time —
+   each new country needs its own verified corpus, its own bar-equivalent
+   regulator, its own payment rails, and its own jurisdiction-aware system
+   prompt; none of that is skippable just because the UI could show more
+   languages. What CAN be done cheaply now is making the parts of this
+   codebase that are Bangladesh-specific by accident into named,
+   swappable config, so a second market later means adding a config +
+   corpus + prompt, not rewriting the app around a hardcoded assumption.
+   This object, and LAW_CORPUS's jurisdiction tag below, are that seam. */
+const MARKET_CONFIG = {
+  jurisdiction: 'Bangladesh',
+  jurisdictionAdjective: 'Bangladeshi',
+  regulatorName: 'Bangladesh Bar Council',
+  regulatorUrl: 'https://www.barcouncil.gov.bd',
+};
+(function applyMarketConfig() {
+  const link = document.getElementById('regulatorLink');
+  if (link) {
+    link.href = MARKET_CONFIG.regulatorUrl;
+    link.textContent = MARKET_CONFIG.regulatorUrl.replace(/^https?:\/\//, '') + ' ↗';
+  }
+})();
+
+// Every entry defaults to the current single market unless a future entry
+// explicitly overrides it — the practical seam for a second country's
+// corpus to sit alongside this one without restructuring the array.
+const LAW_CORPUS = LAW_CORPUS_RAW.map(entry => ({ jurisdiction: MARKET_CONFIG.jurisdiction, ...entry }));
+
+const SEARCH_STOPWORDS = new Set(['the','and','for','any','that','this','with','from','are','was','were','has','have','had','not','but','can','may','shall','will','would','should','could','who','whom','what','when','where','which','how','why','does','did','his','her','their','them','they','you','your','our','out','into','than','then','also','such','other','some','under','upon','been','being','him','she','its','all','about','after','before','between','because','over','only','just','get','got','want','need','please','tell','know','my','me']);
+
+function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+// Everyday words people actually use -> the words the statutes use. Keyword search can't
+// bridge these on its own ("stole" never appears in a theft section, "theft" does).
+const SEARCH_SYNONYMS = {
+  stole: ['theft'], stolen: ['theft'], steal: ['theft'], thief: ['theft'], robbed: ['theft'], robbery: ['theft'], snatched: ['theft'],
+  lying: ['deceive cheating'], lied: ['deceive cheating'], lie: ['deceive cheating'], fraud: ['cheating fraudulently'], scam: ['cheating deceive'],
+  scammed: ['cheating deceive'], cheated: ['cheating'], cheat: ['cheating'], swindled: ['cheating'], tricked: ['cheating deceive'], fake: ['cheating deceive'],
+  land: ['immoveable property'], plot: ['immoveable property'], house: ['immoveable property'], flat: ['premises'], apartment: ['premises'],
+  evict: ['possession'], eviction: ['possession'], evicted: ['possession'], occupied: ['possession'], grabbed: ['possession dispossessed'],
+  landlord: ['tenancy'], tenant: ['tenancy'], rent: ['tenancy'], deposit: ['security'],
+  jail: ['imprisonment'], arrested: ['arrest'], detained: ['arrest'], custody: ['arrest'],
+  sue: ['suit'], lawsuit: ['suit'], case: ['suit'],
+  proof: ['prove'], prove: ['proved'], late: ['limitation'], deadline: ['limitation'], expired: ['limitation'],
+  child: ['age majority'], minor: ['age majority'], underage: ['age majority'],
+  promise: ['contract'], agreement: ['contract'], breach: ['broken'], broke: ['broken breach'], compensation: ['damages'], refund: ['repay'],
+  misused: ['breach trust misappropriates'], embezzled: ['breach trust misappropriates'], embezzle: ['breach trust misappropriates'], misappropriated: ['breach trust misappropriates'],
+  entrusted: ['trust'], bail: ['bail'], freedom: ['liberty'], detention: ['liberty arrest']
+};
+
+let LAW_INDEX = null;
+function buildLawIndex() {
+  LAW_INDEX = LAW_CORPUS.map(entry => ({
+    entry,
+    hay: (entry.act + ' ' + entry.title + ' ' + entry.text).toLowerCase(),
+    title: (entry.act + ' ' + entry.title).toLowerCase()
+  }));
+}
+
+function searchLawCorpus(query) {
+  if (!LAW_INDEX) buildLawIndex();
+  const baseTerms = Array.from(new Set(
+    (query || '').toLowerCase().split(/[^a-z0-9\u0980-\u09ff]+/).filter(w => w.length > 2 && !SEARCH_STOPWORDS.has(w))
+  ));
+  const terms = Array.from(new Set(
+    baseTerms.flatMap(w => [w].concat(...(SEARCH_SYNONYMS[w] || []).map(s => s.split(' '))))
+  )).filter(w => w.length > 2 && !SEARCH_STOPWORDS.has(w));
+  const N = LAW_INDEX.length;
+  // For each term: which entries contain it as the START of a word (so "cheat" finds
+  // "cheating" but "act" no longer matches "contract"), and how rare it is.
+  const termInfo = terms.map(term => {
+    const re = new RegExp('\\b' + escapeRegex(term));
+    const matches = LAW_INDEX.map(e => re.test(e.hay));
+    const df = matches.filter(Boolean).length;
+    return { term, re, matches, df, weight: df > 0 ? Math.log(1 + N / df) : 0 };
+  }).filter(ti => ti.df > 0);
+
+  // Need at least one reasonably discriminating word, or this isn't really a match
+  // (a query made only of words that appear in most entries proves nothing).
+  const hasDiscriminating = termInfo.some(ti => ti.df <= N * 0.5);
+  if (termInfo.length === 0 || !hasDiscriminating) {
+    return { found: false, note: "No match in this small demo corpus. Say plainly that this topic isn't in the grounded corpus yet, rather than answering from general knowledge as if it were verified." };
+  }
+
+  const scored = LAW_INDEX.map((e, i) => {
+    let score = 0, distinct = 0, titleHit = false;
+    termInfo.forEach(ti => {
+      if (ti.matches[i]) {
+        score += ti.weight;
+        distinct++;
+        if (ti.re.test(e.title)) { score += ti.weight * 1.5; titleHit = true; } // a hit in the act/title is a strong topical signal
+      }
+    });
+    // A result only counts if the match is STRONG: the word appears in the entry's act/title,
+    // or at least two distinct query words match. One stray word in the body ("pay" in a rent
+    // statute) is not enough — better to say "nothing verified found" than to show a trust
+    // badge on an answer the library can't actually support.
+    return { entry: e.entry, score, strong: titleHit || distinct >= 2 };
+  }).filter(r => r.score > 0 && r.strong).sort((a, b) => b.score - a.score);
+
+  if (scored.length === 0) {
+    return { found: false, note: "No match in this small demo corpus. Say plainly that this topic isn't in the grounded corpus yet, rather than answering from general knowledge as if it were verified." };
+  }
+
+  const results = scored.slice(0, 3).map(r => r.entry);
+  const anyVolatile = results.some(e => e.volatile);
+  return {
+    found: true,
+    results,
+    volatile_warning: anyVolatile ? "One or more of these results is from the Constitution, which is under active reform — the caution instruction in your system prompt applies, do not present it as settled." : undefined
+  };
+}
+
+
+/* ---------------- retrieval self-test ----------------
+   Checks ONLY retrieval (does the right verified entry come back for a realistic
+   question?) — not whether the model's final answer is legally correct, which still
+   needs a real advocate's review. `query` is the kind of short keyword string a
+   model would plausibly send to the search tool. `expect: []` marks a question the
+   corpus can NOT answer, where the correct result is "nothing found". */
+const RETRIEVAL_TESTS = [
+  { q: "My landlord won't return my security deposit after I moved out.", query: "landlord security deposit refund tenancy", expect: [{act:'Premises Rent Control', section:'10'}] },
+  { q: "Can my landlord demand six months' rent in advance?", query: "landlord advance rent tenancy", expect: [{act:'Premises Rent Control', section:'10'}] },
+  { q: "The other party broke our agreement. Can I claim compensation?", query: "breach of contract compensation damages", expect: [{act:'Contract Act', section:'73'}] },
+  { q: "Is a contract signed by a 16-year-old valid?", query: "contract minor age competent to contract", expect: [{act:'Contract Act', section:'11–12'}] },
+  { q: "What makes an agreement a valid contract?", query: "valid contract free consent lawful consideration", expect: [{act:'Contract Act', section:'10'}] },
+  { q: "Someone took my money by lying to me.", query: "cheating deceive dishonestly induce deliver property", expect: [{act:'Penal Code', section:'415, 420'}] },
+  { q: "My business partner misused money I had entrusted to him.", query: "criminal breach of trust entrusted property misappropriates", expect: [{act:'Penal Code', section:'405, 406'}] },
+  { q: "Someone stole my motorcycle.", query: "theft moveable property dishonestly taking", expect: [{act:'Penal Code', section:'378, 379'}] },
+  { q: "How do I file an FIR at the police station?", query: "first information report police station cognizable offence", expect: [{act:'Criminal Procedure', section:'154, 155'}] },
+  { q: "What does non-bailable offence mean?", query: "bailable non-bailable offence definition", expect: [{act:'Criminal Procedure', section:'4(b),(f),(n)'}, {act:'Criminal Procedure', section:'496, 497'}] },
+  { q: "Can I get bail if I'm accused of a serious crime?", query: "bail accused non-bailable released", expect: [{act:'Criminal Procedure', section:'496, 497'}] },
+  { q: "The police arrested my brother without a warrant. Is that allowed?", query: "arrest without warrant police cognizable", expect: [{act:'Criminal Procedure', section:'4(b),(f),(n)'}] },
+  { q: "I want to sue a government department. Is there a special step first?", query: "suit against government notice public officer", expect: [{act:'Civil Procedure', section:'80'}] },
+  { q: "Which court can hear my civil dispute?", query: "civil courts jurisdiction suits civil nature", expect: [{act:'Civil Procedure', section:'9'}] },
+  { q: "Am I too late to file my case?", query: "limitation period suit dismissed time barred", expect: [{act:'Limitation Act', section:'3'}, {act:'Limitation Act', section:'Article 120 (First Schedule)'}] },
+  { q: "What is the time limit when the law names no specific period?", query: "limitation six years no period provided elsewhere", expect: [{act:'Limitation Act', section:'Article 120 (First Schedule)'}] },
+  { q: "In court, who has to prove the claim, me or the other side?", query: "burden of proof who must prove", expect: [{act:'Evidence Act', section:'101, 102'}] },
+  { q: "What does 'proved' mean in a court case?", query: "fact proved disproved definition court believes", expect: [{act:'Evidence Act', section:'3'}] },
+  { q: "Someone forced me off my land. How do I get it back?", query: "dispossessed immoveable property recover possession", expect: [{act:'Specific Relief', section:'8, 9'}] },
+  { q: "I want a court declaration that this property is mine.", query: "declaration title right property declaratory", expect: [{act:'Specific Relief', section:'42'}] },
+  { q: "Are men and women equal before the law in Bangladesh?", query: "equality before law citizens equal protection", expect: [{act:'Constitution', section:'Article 27'}] },
+  { q: "Can the state take away my liberty without legal process?", query: "deprived of life personal liberty accordance with law", expect: [{act:'Constitution', section:'Article 32'}] },
+  { q: "What does the preamble of the Constitution say?", query: "constitution preamble", expect: [{act:'Constitution', section:'Preamble'}] },
+  // Questions the corpus cannot answer — the right result is "nothing found":
+  { q: "How are divorce and dower handled for a Muslim wife?", query: "divorce talaq dower muslim family", expect: [] },
+  { q: "My employer didn't pay overtime and fired me.", query: "employer wages overtime termination worker", expect: [] },
+  { q: "A cheque I received bounced. What can I do?", query: "cheque bounced dishonour", expect: [] },
+  // HELD-OUT: written AFTER the search was tuned and never tuned against. This is the number
+  // that says how well retrieval generalizes; the set above was used to improve the search.
+  { held: true, q: "My tenant is not paying rent and won't leave my flat.", query: "My tenant is not paying rent and won't leave my flat.", expect: [{act:'Specific Relief', section:'8, 9'}] },
+  { held: true, q: "The shopkeeper sold me a fake phone and refuses to refund my money.", query: "The shopkeeper sold me a fake phone and refuses to refund my money.", expect: [{act:'Penal Code', section:'415, 420'}, {act:'Contract Act', section:'73'}] },
+  { held: true, q: "How long do I have to file a suit to recover money owed to me?", query: "How long do I have to file a suit to recover money owed to me?", expect: [{act:'Limitation Act', section:'3'}, {act:'Limitation Act', section:'Article 120 (First Schedule)'}] },
+  { held: true, q: "Is a promise without any payment or benefit in return enforceable?", query: "Is a promise without any payment or benefit in return enforceable?", expect: [{act:'Contract Act', section:'10'}] },
+  { held: true, q: "Can a court declare me the rightful owner of an inherited house?", query: "Can a court declare me the rightful owner of an inherited house?", expect: [{act:'Specific Relief', section:'42'}] },
+  { held: true, q: "Somebody is living in my house without my permission.", query: "Somebody is living in my house without my permission.", expect: [{act:'Specific Relief', section:'8, 9'}] },
+  { held: true, q: "My friend gave me a fake cheque as part of a business deal.", query: "My friend gave me a fake cheque as part of a business deal.", expect: [{act:'Penal Code', section:'415, 420'}] },
+  { held: true, q: "Can the accused be released before the trial ends?", query: "Can the accused be released before the trial ends?", expect: [{act:'Criminal Procedure', section:'496, 497'}] },
+  { held: true, q: "Do I have to prove my own claim if I file a case?", query: "Do I have to prove my own claim if I file a case?", expect: [{act:'Evidence Act', section:'101, 102'}] },
+  { held: true, q: "What is the punishment for taking someone's property dishonestly?", query: "What is the punishment for taking someone's property dishonestly?", expect: [{act:'Penal Code', section:'378, 379'}] },
+];
+
+function testPass(tc, r) {
+  if (tc.expect.length === 0) return !r.found;
+  return r.found && r.results.some(e => tc.expect.some(x => e.act.includes(x.act) && e.section === x.section));
+}
+function runRetrievalTests() {
+  const fmt = r => r.found ? r.results.map(e => shortActName(e.act) + ' · ' + e.section) : [];
+  return RETRIEVAL_TESTS.map(tc => {
+    const rk = searchLawCorpus(tc.query), rs = searchLawCorpus(tc.q);
+    return { tc, keyword: { pass: testPass(tc, rk), got: fmt(rk) }, sentence: { pass: testPass(tc, rs), got: fmt(rs) } };
+  });
+}
+
+const SYS_CORE_EN = `You are Mr.AD, an AI legal reasoning assistant for people and law students/junior lawyers in Bangladesh. You are careful, precise, and encouraging — never condescending. For every message from a client describing a situation, structure your answer with these markdown sections, using "## " headers exactly as named:
+## Situation
+A short, accurate restatement of the facts as you understand them, in 2-4 sentences. If key facts are missing (dates, whether notices were sent, documentary evidence), ask for them here instead of guessing.
+## Applicable law
+Cite the specific Bangladeshi statutes, sections, and where relevant case law that govern this situation (e.g. Transfer of Property Act 1882, Premises Rent Control Act, Penal Code 1860 sections, Muslim Family Laws Ordinance 1961, Companies Act 1994, Labour Act 2006, Code of Civil Procedure 1908, Negotiable Instruments Act 1881 for cheque dishonour, etc. — whatever actually applies). Use "- " bullet points, one law/section per bullet with a one-line explanation of relevance.
+## What To Do Now
+List realistic remedies and procedural directions in order of practicality (e.g. legal notice, mediation/salish, filing at which specific court or tribunal, limitation period to be aware of, documents to gather). Use "- " bullets.
+## Suggested draft
+Only include this section if a draft (legal notice, application, plaint outline, agreement clause, affidavit) is genuinely useful at this stage. Write the actual draft text.
+If the user is a law student or lawyer asking about an ongoing case rather than describing their own dispute, adapt: skip "Situation" restating their facts back needlessly, and focus on legal analysis, relevant case law/precedent from Bangladesh (and persuasive precedent from India/Pakistan/UK where BD law is silent, clearly labeled as such), and drafting help for pleadings, submissions, or arguments as requested.
+Never claim to be a licensed advocate. Never claim certainty on unsettled points of law — flag genuine ambiguity. Keep tone warm, direct, competent — like a senior advocate genuinely on the client's side, not a form letter. Do not include any disclaimer text yourself — that is appended separately by the application.`;
+
+const SYS_MODE_PLAIN_EN = `RESPONSE MODE: Plain language. Explain the law in accessible, everyday terms — the way you'd talk a worried client through it in person. You may paraphrase what a provision means, but always still name the exact Act and section it comes from so the person (or their eventual lawyer) can look it up. Do not present a paraphrase in quotation marks as if it were the statute's own wording.`;
+
+const SYS_MODE_EXACT_EN = `RESPONSE MODE: Exact wording. This user is a law student, advocate, or someone explicitly doing research or drafting. Where you quote a provision, reproduce the actual statutory language as precisely as you can, not a paraphrase, and cite the exact section/sub-section number. If you are not fully certain of the precise wording of a provision, say so plainly ("the exact text of this section should be verified against the Act" ) rather than presenting a reconstructed or approximate quotation as if it were verbatim — a wrong "verbatim" quote is worse than an honest paraphrase for this audience.`;
+
+const SYS_VOLATILE_EN = `IMPORTANT — LAWS CURRENTLY IN ACTIVE FLUX: Two areas are especially unstable right now and need an explicit caution whenever you touch them, regardless of response mode: (1) The Constitution of Bangladesh is under active reform by a Constitutional Reform Commission following the 2024 political transition, with a July National Charter (Constitutional Reform) Implementation Order issued in November 2025 and elections tied to further change — do not present any constitutional provision as settled without flagging that reform is ongoing and recommending the user confirm the current text. (2) Bangladesh's digital/cyber law has been replaced twice in two years (Digital Security Act 2018 → Cyber Security Act 2023 → Cyber Security Ordinance 2025) — always flag this instability explicitly when the topic comes up, and avoid citing a specific section number in this area with high confidence.`;
+
+const SYS_GROUNDING_EN = `GROUNDING: You have a tool, search_bangladesh_law, that searches a small library of verified, verbatim Bangladeshi statute text (currently: several Contract Act 1872 sections on contract formation, capacity, and compensation for breach; Premises Rent Control Act 1991 s.10 on security deposits/advance rent; the Constitution's Preamble — including the Bismillah invocation — plus three articles on equality, protection of law, and right to life; Code of Criminal Procedure 1898 provisions on bailable/non-bailable and cognizable/non-cognizable definitions, filing an FIR, and bail; Code of Civil Procedure 1908 provisions on civil court jurisdiction and the mandatory notice before suing the Government; and Penal Code 1860 provisions on criminal breach of trust, cheating, and theft; and Evidence Act 1872 provisions on core definitions of "fact", "proved" and "disproved", and burden of proof; and Limitation Act 1908 provisions on dismissal of time-barred suits and the six-year residuary limitation period — note this six-year figure under Article 120, not India's differently-numbered three-year rule, applies in Bangladesh; and Specific Relief Act 1877 provisions on recovery of possession of immoveable property and declaratory decrees). Call it whenever a question might touch a topic it covers, BEFORE answering, and quote from its results rather than your own memory when it returns a match — this is real retrieval, not decoration. If it returns found:false, say plainly that this specific topic isn't in the small grounded corpus yet, and that what follows is drawn from general legal knowledge rather than a verified source, so the caution register is honest either way. Never claim something is "verified" or "grounded" when the tool found nothing. If a result carries volatile_warning, treat it exactly as SYS_VOLATILE instructs — never present it as settled.`;
+
+function buildSystemPrompt(langCode, mode) {
+  const modeBlock = mode === 'exact' ? SYS_MODE_EXACT_EN : SYS_MODE_PLAIN_EN;
+  let prompt = `${SYS_CORE_EN}\n\n${modeBlock}\n\n${SYS_VOLATILE_EN}`;
+  if (toolsAvailable) prompt += `\n\n${SYS_GROUNDING_EN}`;
+  prompt += `\n\nINPUT LANGUAGE: People often type Bangla in English letters ("romanized" Bangla, e.g. "bariwala jamanot ferot dicche na") or mix Bangla and English in one message. Understand all of these naturally, including spelling variations, and never ask the person to rewrite their message. Reply in the language specified below regardless of the script they typed in. When you call the law-search tool, always write the query in English keywords, because the library is in English.`;
+  if (langCode === 'bn') {
+    prompt += `\n\nRespond entirely in natural, formal-register Bangla (বাংলা), including the section headers translated naturally (## পরিস্থিতি, ## প্রযোজ্য আইন, ## আপনার বর্তমান করণীয়, ## প্রস্তাবিত খসড়া). Keep specific Act names and section numbers in their standard form (English/number), as is conventional in Bangladeshi legal practice, even while writing in Bangla. The caution about the Constitution and cyber law above applies in Bangla exactly as in English — do not drop it.`;
+  } else {
+    prompt += `\n\nRespond in English.`;
+  }
+  return prompt;
+}
+
+function appendUserBubble(text, imageCount, restoring) {
+  const thread = document.getElementById('thread');
+  const div = document.createElement('div');
+  div.className = 'msg user';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble-user';
+  if (imageCount > 0) {
+    const tag = document.createElement('div');
+    tag.style.cssText = 'font-size:11.5px; opacity:.85; margin-bottom:4px;';
+    tag.textContent = '📎 ' + t('imagesAttached')(imageCount);
+    bubble.appendChild(tag);
+  }
+  const textNode = document.createElement('div');
+  textNode.textContent = text;
+  bubble.appendChild(textNode);
+  div.appendChild(bubble);
+  thread.appendChild(div);
+  thread.scrollIntoView({behavior:'smooth', block:'end'});
+  window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+  if (!restoring) {
+    visibleThread.push({ type: 'user', text, imageCount: imageCount || 0 });
+    if (visibleThread.length === 1) autoTitleActiveCase(text);
+    saveCases();
+    document.getElementById('newCaseBtn').style.display = 'inline-block';
+    document.getElementById('quickStarts').style.display = 'none';
+  }
+}
+
+function appendThinking() {
+  const thread = document.getElementById('thread');
+  const div = document.createElement('div');
+  div.className = 'msg ad';
+  div.id = 'thinking-row';
+  div.innerHTML = `<div class="bubble-ad"><div class="thinking"><span class="pulse"></span>${t('thinking')}</div></div>`;
+  thread.appendChild(div);
+  window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+}
+
+function removeThinking() {
+  const el = document.getElementById('thinking-row');
+  if (el) el.remove();
+}
+
+function shortActName(act) {
+  if (/Constitution/i.test(act)) return 'Constitution';
+  return act.replace(/^The\s+/, '').replace(/\s*\(.*\)\s*$/, '');
+}
+
+function renderSourceBadge(sources) {
+  if (!sources) return ''; // older saved messages, from before this feature existed
+  if (!sources.toolAvailable) {
+    return `<div class="src-badge src-neutral"><b>${t('srcUnavailableTitle')}</b> ${t('srcUnavailableNote')}</div>`;
+  }
+  if (sources.hits && sources.hits.length > 0) {
+    const chips = sources.hits.map(h =>
+      `<span class="src-chip">${escapeHtml(shortActName(h.act))} · ${escapeHtml(h.section)} · ${t('srcVerified')} ${escapeHtml(h.verified || '')}${h.volatile ? ` <span class="src-volatile">⚠ ${t('srcChanging')}</span>` : ''}</span>`
+    ).join('');
+    return `<div class="src-badge src-ok"><b>✔ ${t('srcOkTitle')}</b> ${t('srcOkNote')}<div class="src-chips">${chips}</div></div>`;
+  }
+  return `<div class="src-badge src-warn"><b>${t('srcNoneTitle')}</b> ${t('srcNoneNote')}</div>`;
+}
+
+function appendAdBubble(text, isError, costBdt, restoring, sources) {
+  const thread = document.getElementById('thread');
+  const div = document.createElement('div');
+  div.className = 'msg ad';
+  const bodyHtml = isError
+    ? `<p>${escapeHtml(text)}</p>`
+    : renderBody(text);
+  const hasDraft = /## (Suggested draft|প্রস্তাবিত খসড়া)/i.test(text);
+  const msgId = 'msg-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
+  div.innerHTML = `
+    <div class="bubble-ad">
+      <div class="ad-avatar"><span class="dot"></span>Mr.AD</div>
+      ${bodyHtml}
+      ${!isError ? renderSourceBadge(sources) : ''}
+      ${!isError ? `<div class="disclaimer-strip"><span>⚠️</span><span>${t('disclaimer')} <a href="#" onclick="openLawyer(); return false;" style="color:var(--seal); font-weight:600; text-decoration:underline;">${t('talkToLawyer')}</a></span></div>` : ''}
+      ${hasDraft && downloadsFn ? `<div class="draft-actions"><button class="btn-small" onclick="downloadDraft(this)">${t('downloadDraft')}</button></div>` : ''}
+      ${!isError ? `<div class="feedback-row" id="${msgId}">
+        ${ttsSupported ? `<button class="listen-btn" onclick="listenToAnswer(this)" aria-label="${t('listen')}" title="${t('listen')}">🔊</button>` : ''}
+        <button class="fb-btn" onclick="giveFeedback('${msgId}', 'up', this)" aria-label="Helpful">👍</button>
+        <button class="fb-btn" onclick="giveFeedback('${msgId}', 'down', this)" aria-label="Not helpful">👎</button>
+        <span class="fb-thanks" style="display:none;">${t('feedbackThanks')}</span>
+        <span class="tts-note" style="display:none;"></span>
+      </div>` : ''}
+    </div>`;
+  if (hasDraft) div.dataset.fulltext = text;
+  if (!isError) div.dataset.speech = text;
+  thread.appendChild(div);
+  window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+  if (!restoring) {
+    visibleThread.push({ type: isError ? 'error' : 'ad', text, sources: sources || null });
+    saveCases();
+  }
+}
+
+/* ---------------- read aloud (browser text-to-speech; per-device voices) ---------------- */
+const ttsSupported = ('speechSynthesis' in window) && ('SpeechSynthesisUtterance' in window);
+let ttsActiveBtn = null;
+
+function speechTextFrom(raw) {
+  return (raw || '')
+    .replace(/^##\s*/gm, '')          // section headers
+    .replace(/\*\*/g, '')             // bold markers
+    .replace(/^\s*[-*]\s+/gm, '')     // bullet markers
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+// Long utterances get cut off partway in some browsers, so speak in sentence-sized pieces.
+function chunkForSpeech(text) {
+  const parts = text.match(/[^.!?।]+[.!?।]?/g) || [text];
+  const chunks = []; let cur = '';
+  parts.forEach(p => {
+    if ((cur + p).length > 220 && cur) { chunks.push(cur.trim()); cur = p; } else { cur += p; }
+  });
+  if (cur.trim()) chunks.push(cur.trim());
+  return chunks;
+}
+function setListenState(btn, on) { if (btn) { btn.textContent = on ? '⏹️' : '🔊'; } }
+
+function listenToAnswer(btn) {
+  if (!ttsSupported) return;
+  const synth = window.speechSynthesis;
+  const note = btn.parentElement.querySelector('.tts-note');
+  if (ttsActiveBtn === btn && (synth.speaking || synth.pending)) {
+    synth.cancel(); setListenState(btn, false); ttsActiveBtn = null; return;
+  }
+  synth.cancel();
+  if (ttsActiveBtn && ttsActiveBtn !== btn) setListenState(ttsActiveBtn, false);
+  const text = speechTextFrom(btn.closest('.msg').dataset.speech);
+  if (!text) return;
+  const wantBn = /[\u0980-\u09ff]/.test(text) || lang === 'bn';
+  const voices = synth.getVoices();
+  const voice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith(wantBn ? 'bn' : 'en'));
+  // Only claim a voice is missing when the device has told us its voice list — the list can
+  // be empty for a moment right after page load, and we shouldn't guess in that case.
+  if (note) {
+    if (wantBn && voices.length > 0 && !voice) { note.textContent = t('ttsNoBnVoice'); note.style.display = 'inline'; }
+    else note.style.display = 'none';
+  }
+  const chunks = chunkForSpeech(text);
+  chunks.forEach((c, i) => {
+    const u = new SpeechSynthesisUtterance(c);
+    u.lang = wantBn ? 'bn-BD' : 'en-US';
+    if (voice) u.voice = voice;
+    if (i === chunks.length - 1) { u.onend = () => { setListenState(btn, false); if (ttsActiveBtn === btn) ttsActiveBtn = null; }; }
+    u.onerror = () => { setListenState(btn, false); if (ttsActiveBtn === btn) ttsActiveBtn = null; };
+    synth.speak(u);
+  });
+  ttsActiveBtn = btn; setListenState(btn, true);
+}
+
+function giveFeedback(msgId, rating, btn) {
+  const row = document.getElementById(msgId);
+  if (!row) return;
+  row.querySelectorAll('.fb-btn').forEach(b => { b.disabled = true; b.classList.toggle('selected', b === btn); });
+  row.querySelector('.fb-thanks').style.display = 'inline';
+  try {
+    const log = JSON.parse(localStorage.getItem('mrad_feedback') || '[]');
+    log.push({ rating, lang, mode: responseMode, at: new Date().toISOString() });
+    localStorage.setItem('mrad_feedback', JSON.stringify(log));
+  } catch(e) {}
+}
+
+async function downloadDraft(btn) {
+  if (!downloadsFn) return;
+  const full = btn.closest('.msg').dataset.fulltext || '';
+  const match = full.match(/## (Suggested draft|প্রস্তাবিত খসড়া)([\s\S]*)/i);
+  const draftText = match ? match[2].trim() : full;
+  try {
+    await downloadsFn.save({ filename: 'mrad-draft.txt', data: draftText });
+    btn.textContent = t('savedFile');
+    setTimeout(() => btn.textContent = t('downloadDraft'), 2000);
+  } catch(e) { /* declined or unavailable — silently ignore */ }
+}
+
+async function exportCase(caseId, evt) {
+  if (evt) evt.stopPropagation();
+  if (!downloadsFn) return;
+  syncActiveCaseFromWorkingState();
+  const c = cases.find(x => x.id === caseId);
+  if (!c) return;
+  const dateStr = new Date(c.createdAt).toLocaleDateString();
+  let doc = `${c.title}\n${t('exportGeneratedOn')} ${dateStr}\n${'='.repeat(40)}\n\n`;
+  (c.visibleThread || []).forEach(item => {
+    const label = item.type === 'user' ? t('exportYou') : 'Mr.AD';
+    doc += `${label}:\n${item.text}\n\n${'-'.repeat(20)}\n\n`;
+  });
+  doc += `\n${t('disclaimer')}`;
+  const safeTitle = c.title.replace(/[^a-z0-9]+/gi, '-').toLowerCase().slice(0, 40) || 'case';
+  try { await downloadsFn.save({ filename: `mrad-${safeTitle}.txt`, data: doc }); } catch(e) {}
+}
+
+async function sendMessageViaServer(text) {
+  if (!text) { appendAdBubble(t('imagesUnavailable'), true); return; }
+  const input = document.getElementById('input');
+  input.value = '';
+  autosize();
+  document.getElementById('sendBtn').disabled = true;
+  const hadImages = pendingImages.length > 0;
+  appendUserBubble(text, 0);
+  if (hadImages) clearPendingImages();
+  appendThinking();
+
+  let caseId = await ensureServerCase();
+  let r = caseId ? await apiFetch('/chat', { method: 'POST', body: JSON.stringify({ case_id: caseId, message: text, has_image: false }) }) : { status: 0 };
+  removeThinking();
+
+  if (r.status === 200 && r.data && r.data.text) {
+    history.push({ role: 'user', content: text });
+    history.push({ role: 'assistant', content: r.data.text });
+    const src = r.data.sources || { toolAvailable: false, hits: [] };
+    appendAdBubble(r.data.text, false, undefined, false, { toolAvailable: !!src.toolAvailable, hits: src.hits || [] });
+    await refreshServerWallet();
+  } else if (r.status === 402) {
+    await refreshServerWallet();
+    openPaywall();
+  } else if (r.status === 401) {
+    openSignup('expired');
+  } else {
+    appendAdBubble(t(r.status === 0 ? 'errNetwork' : 'connectFail'), true);
+  }
+  document.getElementById('sendBtn').disabled = false;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('input');
+  const text = input.value.trim();
+  if (!text && pendingImages.length === 0) return;
+
+  // Hosted version: the question goes to our own server, which checks the
+  // free quota / credits and charges only after a successful answer.
+  if (!sampleFn) {
+    if (!hasServerSession()) { openSignup('need'); return; }
+    return sendMessageViaServer(text);
+  }
+
+  const cost = creditsForQuestion(responseMode, pendingImages.length);
+  const usingFreeQuestion = freeQuestionsLeft() > 0;
+  if (!usingFreeQuestion && walletBalance() < cost) {
+    if (isSignedUp()) openPaywall(); else openSignup();
+    return;
+  }
+
+  input.value = '';
+  autosize();
+  document.getElementById('sendBtn').disabled = true;
+
+  appendUserBubble(text, pendingImages.length);
+
+  if (history.length === 0) {
+    history.push({ role: 'user', content: buildSystemPrompt(lang, responseMode) });
+    history.push({ role: 'assistant', content: 'Understood. I will follow this structure for every reply.' });
+  }
+  history.push({ role: 'user', content: text || (lang === 'bn' ? '(ছবি সংযুক্ত — অনুগ্রহ করে দেখে বুঝিয়ে বলুন)' : '(image attached — please review and explain)') });
+
+  appendThinking();
+
+  if (!sampleFn) {
+    removeThinking();
+    appendAdBubble(t('connectFail'), true);
+    document.getElementById('sendBtn').disabled = false;
+    return;
+  }
+
+  const imagesToSend = pendingImages.map(p => p.blob);
+  clearPendingImages();
+
+  // What the search tool returns during THIS turn — shown as the answer's
+  // source badge. Reset every turn so badges never leak between answers.
+  const retrievedThisTurn = [];
+
+  try {
+    const sampleOpts = { modelTier: 'default' };
+    if (toolsAvailable) {
+      sampleOpts.tools = [{
+        name: 'search_bangladesh_law',
+        description: 'Search a small library of verified, verbatim Bangladeshi statute text covering: contract formation/capacity/breach (Contract Act 1872), security deposits and advance rent (Premises Rent Control Act 1991), equality/protection of law/right to life (Constitution), filing an FIR/bailable vs non-bailable offences/bail (Code of Criminal Procedure 1898), civil court jurisdiction/notice before suing the Government (Code of Civil Procedure 1908), and criminal breach of trust/cheating/theft (Penal Code 1860), and core definitions/burden of proof (Evidence Act 1872), and dismissal of time-barred suits/the six-year residuary limitation period (Limitation Act 1908), and recovery of possession/declaratory decrees (Specific Relief Act 1877). Call this before answering any question that might touch these topics.',
+        inputSchema: {
+          type: 'object',
+          properties: { query: { type: 'string', description: 'Keywords describing the legal topic or situation' } },
+          required: ['query']
+        },
+        execute: async (input) => {
+          const r = searchLawCorpus(input.query);
+          if (r.found) {
+            r.results.forEach(e => {
+              if (!retrievedThisTurn.some(x => x.act === e.act && x.section === e.section)) {
+                retrievedThisTurn.push({ act: e.act, section: e.section, verified: e.verified, volatile: !!e.volatile });
+              }
+            });
+          }
+          return r;
+        }
+      }];
+    }
+    if (imagesToSend.length > 0) sampleOpts.images = imagesToSend;
+    const result = await sampleFn(history, sampleOpts);
+    removeThinking();
+    history.push({ role: 'assistant', content: result.text });
+
+    if (usingFreeQuestion) {
+      useFreeQuestion();
+    } else {
+      deductWallet(cost);
+    }
+    updateCreditPill();
+    appendAdBubble(result.text, false, undefined, false, { toolAvailable: toolsAvailable, hits: retrievedThisTurn });
+  } catch (e) {
+    removeThinking();
+    let msg = t('connectFail');
+    if (e && e.code === 'image_rejected') msg = t('imageRejected');
+    else if (e && e.code === 'images_unavailable') msg = t('imagesUnavailable');
+    appendAdBubble(msg, true);
+  }
+  document.getElementById('sendBtn').disabled = false;
+}
+
+function autosize() {
+  const el = document.getElementById('input');
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+document.getElementById('input').addEventListener('input', autosize);
+document.getElementById('input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+applyI18n();
+setMode(responseMode);
+updateCreditPill();
+if (loadCases()) { rebuildThreadFromSaved(); } else { createNewCase(true); }
+(function showWelcomeIfFirstTime() {
+  let shown = false;
+  try { shown = localStorage.getItem('mrad_welcome_shown') === '1'; } catch(e) {}
+  if (!shown) {
+    document.getElementById('welcomeBanner').style.display = 'flex';
+    try { localStorage.setItem('mrad_welcome_shown', '1'); } catch(e) {}
+  }
+})();
+maybeShowWalkthrough();
+showLock();
+refreshServerWallet();
+</script>
+</body>
+</html>

@@ -507,6 +507,7 @@
       &nbsp;<a href="#" onclick="openFeedbackLog(); return false;" style="color:var(--text-soft); text-decoration:underline; opacity:.6;" data-i18n="feedbackLogLink">Feedback log (internal)</a>
       &nbsp;<a href="#" onclick="openPrivacy(); return false;" style="color:var(--text-soft); text-decoration:underline;" data-i18n="privacyDataLink">Privacy &amp; data</a>
       &nbsp;<a href="#" onclick="openRetrievalTest(); return false;" style="color:var(--text-soft); text-decoration:underline; opacity:.6;" data-i18n="retrievalTestLink">Retrieval self-test (internal)</a>
+      &nbsp;<a href="#" onclick="logoutNow(); return false;" style="color:var(--stamp); text-decoration:underline; opacity:.8;" data-i18n="logoutLink">Log out</a>
       &nbsp;<a href="#" onclick="resetDemoData(); return false;" style="color:var(--stamp); text-decoration:underline; opacity:.6;" data-i18n="resetDemoLink">Reset demo data (testing)</a>
     </div>
   </div>
@@ -792,6 +793,7 @@ const STR = {
     referralCodePh: "Referral code (optional)",
     feedbackLogLink: "Feedback log (internal)", feedbackLogTitle: "Feedback log (internal)",
     resetDemoLink: "Reset demo data (testing)",
+    logoutLink: "Log out",
     guidedBtn: "Guided intake", guidedTitle: "Guided intake",
     guidedPick: "Pick the closest match and answer a few short questions — Mr.AD will use your answers to give a more precise reply.",
     guidedOptional: "All fields are optional — skip anything you don't know.", guidedBack: "Back", guidedSend: "Ask Mr.AD",
@@ -913,6 +915,7 @@ const STR = {
     referralCodePh: "রেফারেল কোড (ঐচ্ছিক)",
     feedbackLogLink: "মতামত লগ (অভ্যন্তরীণ)", feedbackLogTitle: "মতামত লগ (অভ্যন্তরীণ)",
     resetDemoLink: "ডেমো ডেটা রিসেট করুন (টেস্টিং)",
+    logoutLink: "লগ আউট",
     guidedBtn: "ধাপে ধাপে তথ্য দিন", guidedTitle: "ধাপে ধাপে তথ্য দিন",
     guidedPick: "সবচেয়ে কাছের বিষয়টি বেছে নিন এবং কয়েকটি ছোট প্রশ্নের উত্তর দিন — আপনার উত্তর কাজে লাগিয়ে মিস্টার এডি আরও নির্দিষ্ট জবাব দেবে।",
     guidedOptional: "সব ঘর ঐচ্ছিক — যা জানেন না তা বাদ দিন।", guidedBack: "পেছনে", guidedSend: "মিস্টার এডিকে জিজ্ঞাসা করুন",
@@ -1387,9 +1390,14 @@ async function exportRetrievalTests() {
 
 const ALL_LOCAL_KEYS = ['mrad_lang','mrad_mode','mrad_cases','mrad_wallet','mrad_free_quota','mrad_signed_up',
   'mrad_welcome_shown','mrad_walkthrough_shown','mrad_feedback','mrad_lawyer_requests',
-  'mrad_referral_code','mrad_referral_applied','mrad_pin','mrad_pin_salt'];
+  'mrad_referral_code','mrad_referral_applied','mrad_pin','mrad_pin_salt','mrad_token','mrad_user_id'];
 function wipeAllLocalData() {
   ALL_LOCAL_KEYS.forEach(k => { try { localStorage.removeItem(k); } catch(e) {} });
+  location.reload();
+}
+function logoutNow() {
+  clearSession();
+  try { localStorage.removeItem('mrad_referral_code'); } catch(e) {}
   location.reload();
 }
 function resetDemoData() {

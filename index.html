@@ -757,6 +757,9 @@ const STR = {
     errCreds: "Wrong mobile number or password.",
     errNetwork: "Could not reach the server. It may be waking up - please wait about a minute and try again.",
     errGeneric: "Something went wrong. Please try again.", busy: "Please wait...",
+    signupNeed: "Sign up (it's free) to start asking questions. You get 10 free questions every month.",
+    sessionExpired: "Your session has ended. Please log in again.",
+    payComingSoon: "Online payment (bKash, Nagad, card) is being set up and will be available very soon. Your free questions keep working until then.",
     errSoon: "Google and Facebook sign-in are coming very soon. Please sign up with your mobile number for now.",
     signupSubmit: "Sign up", signupOr: "Or continue with",
     signupNote: "Your account is created on our server. Mobile OTP verification and Google/Facebook sign-in are coming soon.",
@@ -875,6 +878,9 @@ const STR = {
     errCreds: "মোবাইল নম্বর বা পাসওয়ার্ড ভুল।",
     errNetwork: "সার্ভারের সাথে যোগাযোগ করা যায়নি। সার্ভার হয়তো জেগে উঠছে - প্রায় এক মিনিট অপেক্ষা করে আবার চেষ্টা করুন।",
     errGeneric: "কিছু একটা সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।", busy: "অপেক্ষা করুন...",
+    signupNeed: "প্রশ্ন করতে সাইন আপ করুন (সম্পূর্ণ ফ্রি)। প্রতি মাসে ১০টি প্রশ্ন বিনামূল্যে পাবেন।",
+    sessionExpired: "আপনার সেশন শেষ হয়েছে। অনুগ্রহ করে আবার লগইন করুন।",
+    payComingSoon: "অনলাইন পেমেন্ট (বিকাশ, নগদ, কার্ড) চালুর কাজ চলছে, খুব শীঘ্রই পাওয়া যাবে। ততদিন আপনার ফ্রি প্রশ্নগুলো চালু থাকবে।",
     errSoon: "Google ও Facebook দিয়ে সাইন-ইন খুব শীঘ্রই আসছে। এখন মোবাইল নম্বর দিয়ে সাইন আপ করুন।",
     signupSubmit: "সাইন আপ", signupOr: "অথবা চালিয়ে যান",
     signupNote: "আপনার অ্যাকাউন্ট আমাদের সার্ভারে তৈরি হয়। মোবাইল OTP যাচাই এবং Google/Facebook সাইন-ইন শীঘ্রই আসছে।",
@@ -1221,7 +1227,10 @@ function useFreeQuestion() {
   s.used += 1;
   try { localStorage.setItem('mrad_free_quota', JSON.stringify(s)); } catch(e) {}
 }
-function freeQuestionsLeft() { return Math.max(0, MONTHLY_FREE_QUESTIONS - freeQuotaState().used); }
+function freeQuestionsLeft() {
+  if (hasServerSession() && serverWallet) return serverWallet.freeLeft;
+  return Math.max(0, MONTHLY_FREE_QUESTIONS - freeQuotaState().used);
+}
 
 function isSignedUp() {
   try { return localStorage.getItem('mrad_signed_up') === '1'; } catch(e) { return false; }
@@ -1270,6 +1279,7 @@ function sweepExpiredBatches(s) {
 function saveWallet(s) { try { localStorage.setItem('mrad_wallet', JSON.stringify(s)); } catch(e) {} }
 
 function walletBalance() {
+  if (hasServerSession() && serverWallet) return serverWallet.credits;
   const s = walletState();
   return (s.batches || []).reduce((sum, b) => sum + b.credits, 0);
 }
@@ -1579,7 +1589,7 @@ function completeSignup(method) {
   try { localStorage.setItem('mrad_signed_up', '1'); } catch(e) {}
   myReferralCode(); // ensure this account has its own code to share
   const enteredCode = (document.getElementById('referralCodeInput').value || '').trim();
-  if (/^MRAD-[A-Z0-9]{4,8}$/i.test(enteredCode) && !localStorage.getItem('mrad_referral_applied')) {
+  if (!hasServerSession() && /^MRAD-[A-Z0-9]{4,8}$/i.test(enteredCode) && !localStorage.getItem('mrad_referral_applied')) {
     grantBonusCredits(REFERRAL_BONUS_CREDITS);
     try { localStorage.setItem('mrad_referral_applied', '1'); } catch(e) {}
   }
@@ -1600,7 +1610,12 @@ function copyReferralCode() {
   setTimeout(() => btn.textContent = t('copyCode'), 1800);
 }
 
-function openSignup() { setSignupMode('signup'); document.getElementById('signupOverlay').classList.add('open'); }
+function openSignup(reason) {
+  setSignupMode(reason === 'expired' ? 'login' : 'signup');
+  const sub = document.querySelector('#signupOverlay .paywall-sub');
+  if (sub) sub.textContent = reason === 'need' ? t('signupNeed') : reason === 'expired' ? t('sessionExpired') : t('signupSub');
+  document.getElementById('signupOverlay').classList.add('open');
+}
 function closeSignup() { document.getElementById('signupOverlay').classList.remove('open'); }
 
 function openLawyer() { document.getElementById('lawyerOverlay').classList.add('open'); }
@@ -1628,6 +1643,46 @@ function submitLawyerRequest() {
 /* ---------- Live backend connection ---------- */
 const API_BASE = 'https://mrad-backend.onrender.com';
 let signupMode = 'signup';
+let serverWallet = null; // {credits, freeLeft} from the server, when logged in
+
+function authToken() { try { return localStorage.getItem('mrad_token'); } catch(e) { return null; } }
+function hasServerSession() { return !!authToken(); }
+function clearSession() {
+  try { ['mrad_token','mrad_user_id','mrad_signed_up'].forEach(k => localStorage.removeItem(k)); } catch(e) {}
+  serverWallet = null;
+}
+async function apiFetch(path, opts) {
+  const o = Object.assign({ method: 'GET' }, opts || {});
+  o.headers = Object.assign({ 'Content-Type': 'application/json' }, o.headers || {});
+  const tok = authToken();
+  if (tok) o.headers['Authorization'] = 'Bearer ' + tok;
+  let res;
+  try { res = await fetch(API_BASE + path, o); } catch (e) { return { status: 0, data: null }; }
+  let data = null;
+  try { data = await res.json(); } catch (e) {}
+  if (res.status === 401 && tok) { clearSession(); updateCreditPill(); }
+  return { status: res.status, data };
+}
+async function refreshServerWallet() {
+  if (!hasServerSession()) return;
+  const r = await apiFetch('/wallet/balance');
+  if (r.status === 200 && r.data) {
+    serverWallet = { credits: r.data.credit_balance, freeLeft: r.data.free_questions_left };
+    updateCreditPill();
+  }
+}
+async function ensureServerCase() {
+  const c = getActiveCase();
+  if (!c) return null;
+  if (c.serverId && c.serverMode === responseMode && c.serverLang === lang) return c.serverId;
+  const r = await apiFetch('/cases', { method: 'POST', body: JSON.stringify({ mode: responseMode, lang: lang }) });
+  if (r.status === 200 && r.data && r.data.case_id) {
+    c.serverId = r.data.case_id; c.serverMode = responseMode; c.serverLang = lang;
+    saveCases();
+    return c.serverId;
+  }
+  return null;
+}
 
 function setSignupMode(mode) {
   signupMode = mode;
@@ -1694,6 +1749,7 @@ async function submitTraditionalSignup() {
   saveSession(r.data);
   document.getElementById('signupPassword').value = '';
   completeSignup('mobile');
+  refreshServerWallet();
 }
 async function submitLogin() {
   const mobile = document.getElementById('signupMobile').value.trim();
@@ -1707,6 +1763,7 @@ async function submitLogin() {
   saveSession(r.data);
   document.getElementById('signupPassword').value = '';
   completeSignup('mobile');
+  refreshServerWallet();
 }
 
 function deductWallet(amountBdt) {
@@ -1757,6 +1814,11 @@ function openPaywall() { document.getElementById('paywallOverlay').classList.add
 function closePaywall() { document.getElementById('paywallOverlay').classList.remove('open'); }
 
 function mockPay(method) {
+  if (hasServerSession()) {
+    const n = document.querySelector('#paywallOverlay .paywall-note');
+    if (n) n.textContent = t('payComingSoon');
+    return;
+  }
   const overlay = document.getElementById('paywallOverlay');
   const btns = overlay.querySelectorAll('.pay-btn');
   btns.forEach(b => b.disabled = true);
@@ -2413,10 +2475,49 @@ async function exportCase(caseId, evt) {
   try { await downloadsFn.save({ filename: `mrad-${safeTitle}.txt`, data: doc }); } catch(e) {}
 }
 
+async function sendMessageViaServer(text) {
+  if (!text) { appendAdBubble(t('imagesUnavailable'), true); return; }
+  const input = document.getElementById('input');
+  input.value = '';
+  autosize();
+  document.getElementById('sendBtn').disabled = true;
+  const hadImages = pendingImages.length > 0;
+  appendUserBubble(text, 0);
+  if (hadImages) clearPendingImages();
+  appendThinking();
+
+  let caseId = await ensureServerCase();
+  let r = caseId ? await apiFetch('/chat', { method: 'POST', body: JSON.stringify({ case_id: caseId, message: text, has_image: false }) }) : { status: 0 };
+  removeThinking();
+
+  if (r.status === 200 && r.data && r.data.text) {
+    history.push({ role: 'user', content: text });
+    history.push({ role: 'assistant', content: r.data.text });
+    const src = r.data.sources || { toolAvailable: false, hits: [] };
+    appendAdBubble(r.data.text, false, undefined, false, { toolAvailable: !!src.toolAvailable, hits: src.hits || [] });
+    await refreshServerWallet();
+  } else if (r.status === 402) {
+    await refreshServerWallet();
+    openPaywall();
+  } else if (r.status === 401) {
+    openSignup('expired');
+  } else {
+    appendAdBubble(t(r.status === 0 ? 'errNetwork' : 'connectFail'), true);
+  }
+  document.getElementById('sendBtn').disabled = false;
+}
+
 async function sendMessage() {
   const input = document.getElementById('input');
   const text = input.value.trim();
   if (!text && pendingImages.length === 0) return;
+
+  // Hosted version: the question goes to our own server, which checks the
+  // free quota / credits and charges only after a successful answer.
+  if (!sampleFn) {
+    if (!hasServerSession()) { openSignup('need'); return; }
+    return sendMessageViaServer(text);
+  }
 
   const cost = creditsForQuestion(responseMode, pendingImages.length);
   const usingFreeQuestion = freeQuestionsLeft() > 0;
@@ -2524,6 +2625,7 @@ if (loadCases()) { rebuildThreadFromSaved(); } else { createNewCase(true); }
 })();
 maybeShowWalkthrough();
 showLock();
+refreshServerWallet();
 </script>
 </body>
 </html>

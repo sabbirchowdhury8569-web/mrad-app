@@ -670,10 +670,8 @@
     </div>
 
     <div class="pay-label" data-i18n="signupOr">Or continue with</div>
-    <div class="pay-grid" style="grid-template-columns: 1fr 1fr;">
-      <button class="pay-btn" onclick="showSignupError('errSoon')">Google</button>
-      <button class="pay-btn" onclick="showSignupError('errSoon')">Facebook</button>
-    </div>
+    <div id="googleBtnHolder" style="display:flex; justify-content:center; min-height:44px; margin-bottom:8px;"></div>
+    <button class="pay-btn" style="width:100%; margin-bottom:6px;" onclick="showSignupError('errSoon')">Facebook</button>
     <div class="paywall-note" data-i18n="signupNote">This is a design preview — no real account is created here. In the published app this hands off to real mobile OTP verification and Google/Facebook sign-in.</div>
   </div>
 </div>
@@ -707,6 +705,7 @@
   </div>
 </div>
 
+<script src="https://accounts.google.com/gsi/client" async defer onload="initGoogleButton()"></script>
 <script>
 /* ---------------- i18n ---------------- */
 const STR = {
@@ -761,9 +760,11 @@ const STR = {
     signupNeed: "Sign up (it's free) to start asking questions. You get 10 free questions every month.",
     sessionExpired: "Your session has ended. Please log in again.",
     payComingSoon: "Online payment (bKash, Nagad, card) is being set up and will be available very soon. Your free questions keep working until then.",
-    errSoon: "Google and Facebook sign-in are coming very soon. Please sign up with your mobile number for now.",
+    errSoon: "Facebook sign-in is coming soon. Please use Google or your mobile number for now.",
+    errGoogleOff: "Google sign-in is not switched on yet on our server. Please use your mobile number for now.",
+    errGoogleFail: "Google sign-in could not be verified. Please try again.",
     signupSubmit: "Sign up", signupOr: "Or continue with",
-    signupNote: "Your account is created on our server. Mobile OTP verification and Google/Facebook sign-in are coming soon.",
+    signupNote: "Your account is created on our server. Mobile OTP verification and Facebook sign-in are coming soon.",
     attachHint: "You can attach photos of documents (agreements, notices, cheques). PDFs and audio aren't supported yet — a photo or screenshot works instead.",
     attachImage: "Image", attachDocs: "Docs", attachAudio: "Audio", attachVideo: "Video", attachSoon: "Soon",
     attachNotYet: "Document and audio uploads are coming soon — for now, please attach a photo or screenshot of the file instead.",
@@ -883,9 +884,11 @@ const STR = {
     signupNeed: "প্রশ্ন করতে সাইন আপ করুন (সম্পূর্ণ ফ্রি)। প্রতি মাসে ১০টি প্রশ্ন বিনামূল্যে পাবেন।",
     sessionExpired: "আপনার সেশন শেষ হয়েছে। অনুগ্রহ করে আবার লগইন করুন।",
     payComingSoon: "অনলাইন পেমেন্ট (বিকাশ, নগদ, কার্ড) চালুর কাজ চলছে, খুব শীঘ্রই পাওয়া যাবে। ততদিন আপনার ফ্রি প্রশ্নগুলো চালু থাকবে।",
-    errSoon: "Google ও Facebook দিয়ে সাইন-ইন খুব শীঘ্রই আসছে। এখন মোবাইল নম্বর দিয়ে সাইন আপ করুন।",
+    errSoon: "Facebook দিয়ে সাইন-ইন শীঘ্রই আসছে। এখন Google বা মোবাইল নম্বর ব্যবহার করুন।",
+    errGoogleOff: "আমাদের সার্ভারে Google সাইন-ইন এখনো চালু হয়নি। এখন মোবাইল নম্বর ব্যবহার করুন।",
+    errGoogleFail: "Google সাইন-ইন যাচাই করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।",
     signupSubmit: "সাইন আপ", signupOr: "অথবা চালিয়ে যান",
-    signupNote: "আপনার অ্যাকাউন্ট আমাদের সার্ভারে তৈরি হয়। মোবাইল OTP যাচাই এবং Google/Facebook সাইন-ইন শীঘ্রই আসছে।",
+    signupNote: "আপনার অ্যাকাউন্ট আমাদের সার্ভারে তৈরি হয়। মোবাইল OTP যাচাই এবং Facebook সাইন-ইন শীঘ্রই আসছে।",
     attachHint: "আপনি কাগজপত্রের ছবি সংযুক্ত করতে পারেন (চুক্তি, নোটিশ, চেক)। PDF ও অডিও এখনো সমর্থিত নয় — এর বদলে ছবি বা স্ক্রিনশট ব্যবহার করুন।",
     attachImage: "ছবি", attachDocs: "ডকুমেন্ট", attachAudio: "অডিও", attachVideo: "ভিডিও", attachSoon: "শীঘ্রই",
     attachNotYet: "ডকুমেন্ট ও অডিও আপলোড শীঘ্রই আসছে — আপাতত অনুগ্রহ করে ফাইলের বদলে একটি ছবি বা স্ক্রিনশট সংযুক্ত করুন।",
@@ -1623,6 +1626,7 @@ function openSignup(reason) {
   const sub = document.querySelector('#signupOverlay .paywall-sub');
   if (sub) sub.textContent = reason === 'need' ? t('signupNeed') : reason === 'expired' ? t('sessionExpired') : t('signupSub');
   document.getElementById('signupOverlay').classList.add('open');
+  initGoogleButton();
 }
 function closeSignup() { document.getElementById('signupOverlay').classList.remove('open'); }
 
@@ -1652,6 +1656,42 @@ function submitLawyerRequest() {
 const API_BASE = 'https://mrad-backend.onrender.com';
 let signupMode = 'signup';
 let serverWallet = null; // {credits, freeLeft} from the server, when logged in
+const GOOGLE_CLIENT_ID = '564904541050-g719anbjm6af1s2qeunok1hq564vce0i.apps.googleusercontent.com';
+let googleReady = false;
+function initGoogleButton() {
+  try {
+    if (googleReady || !(window.google && google.accounts && google.accounts.id)) return;
+    google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleGoogleCredential });
+    const holder = document.getElementById('googleBtnHolder');
+    if (holder) {
+      holder.innerHTML = '';
+      google.accounts.id.renderButton(holder, { theme: 'outline', size: 'large', width: 280, text: 'continue_with', locale: (lang === 'bn' ? 'bn' : 'en') });
+    }
+    googleReady = true;
+  } catch (e) {}
+}
+async function handleGoogleCredential(resp) {
+  if (!resp || !resp.credential) { showSignupError('errGeneric'); return; }
+  showSignupError('');
+  const referral = (document.getElementById('referralCodeInput').value || '').trim();
+  let res;
+  try {
+    res = await fetch(API_BASE + '/auth/google', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential: resp.credential, referral_code: referral || null })
+    });
+  } catch (e) { showSignupError('errNetwork'); return; }
+  let data = null;
+  try { data = await res.json(); } catch (e) {}
+  if (res.ok && data && data.token) {
+    saveSession(data);
+    completeSignup('google');
+    refreshServerWallet();
+  } else if (res.status === 503) { showSignupError('errGoogleOff'); }
+  else if (res.status === 401) { showSignupError('errGoogleFail'); }
+  else { showSignupError('errGeneric'); }
+}
 
 function authToken() { try { return localStorage.getItem('mrad_token'); } catch(e) { return null; } }
 function hasServerSession() { return !!authToken(); }
